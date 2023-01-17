@@ -1,0 +1,67 @@
+body {
+    font-size:16px;
+    margin:0px;
+    padding:0px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    /* background-color:#48db1b; */
+    /* font-family: font; */
+    background-image: url('/pictures/apocalypse6.jpg');
+    background-size: cover;
+    /* background-size: 150px; */
+    /* width: 300px;
+    height: 300px; */
+
+}
+
+
+/* @font-face {
+    font-family: font;
+    src: url(good-times-rg.otf);
+}
+  
+html {
+    font-family: font;
+}
+
+h1{
+    font-size:120px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    color: bisque;
+}
+
+button {
+    border:none;
+    appearance:none;
+    outline:none;
+    display:inline-block;
+    font-size:1.5em;
+    cursor:pointer;
+    text-decoration:none;
+    padding:12px 48px 12px 48px;
+    border-radius:4px;
+    color:#932ea7;
+    background-color:#1bafdb;
+    border: 2px solid #ffffff;
+    margin-bottom: 60px;
+}
+
+button {   transition-duration: 0.4s; }
+button:hover {
+    font-size:1.6em;
+    background-color:#1e8fd6;
+}
+.screen {
+    padding: 20px;     
+    position: fixed;     
+    top:50%;     
+    left:50%;     
+    margin-top: -100px;     
+    margin-left: -100px;     
+    height:200px;     
+    width:250px;     
+    text-align: center;
+} */
