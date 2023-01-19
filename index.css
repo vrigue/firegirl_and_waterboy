@@ -34,13 +34,21 @@ button {
     text-decoration:none;
     padding:12px 48px 12px 48px;
     border-radius:4px;
-    color:#932ea7;
-    background-color:#1bafdb;
+    color:#7be08e;
+    background-color:#d966af;
     border: 2px solid #ffffff;
     margin-bottom: 60px;
 }
 
-button {   transition-duration: 0.4s; }
+.blue {
+    color: #5783d4;
+}
+
+.red {
+    color: #d45781;
+}
+
+/* button {   transition-duration: 0.4s; }
 button:hover {
     font-size:1.6em;
     background-color:#1e8fd6;
