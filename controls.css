@@ -1,0 +1,39 @@
+body {
+    background-color: black;
+}
+
+h1 {
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 70px;
+    text-align: center;
+}
+
+table {
+    color: white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 70px;
+    text-align: center;
+}
+
+#player1 {
+    margin: 0;
+    position: absolute;
+    bottom: 75%;
+    left: 25%;
+    color: aqua;
+}
+
+#player2 {
+    margin: 0;
+    position: absolute;
+    bottom: 75%;
+    right: 25%;
+    color: hotpink;
+}
+
+td {
+    margin: 0;
+    position: absolute;
+    color: white;
+}
