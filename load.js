@@ -13,7 +13,7 @@ var config = { // allows us to config the game
 var game = new Phaser.Game(config);
 
 function preload() {
-    this.load.image('back', 'apocalypse2.jpg');
+    this.load.image('back', 'pictures/apocalypse2.jpg');
 }
 
 function create() {
