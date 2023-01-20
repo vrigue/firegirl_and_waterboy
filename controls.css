@@ -16,20 +16,20 @@ table {
     text-align: center;
 }
 
-#player1 {
+#fireboy {
     margin: 0;
     position: absolute;
     bottom: 75%;
     left: 25%;
-    color: aqua;
+    color: orangered;
 }
 
-#player2 {
+#watergirl {
     margin: 0;
     position: absolute;
     bottom: 75%;
     right: 25%;
-    color: hotpink;
+    color: blue;
 }
 
 td {
