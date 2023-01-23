@@ -32,8 +32,8 @@ function preload() {
     this.load.image('back', 'pictures/apocalypse1.jpg');
     this.load.image('ground', 'pictures/platform.jpg');
 
-    // should be loading in sprite for one of the players (not working) - aj - replaced it - KN
-    this.load.spritesheet('wg', 'sprites/watergirl/Sprites/Idle.png', { frameWidth: 32, frameHeight: 48 });
+    // should be loading in sprite for one of the players (not working) - aj
+    this.load.spritesheet('wg', '.sprites/watergirl/Sprites/Idle.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
