@@ -33,7 +33,7 @@ function preload() {
     this.load.image('ground', 'pictures/platform.jpg');
 
     // should be loading in sprite for one of the players (not working) - aj
-    this.load.spritesheet('wg', '.sprites/watergirl/Sprites/Idle.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('water', 'dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
@@ -48,30 +48,27 @@ function create() {
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
-    watergirl = this.physics.add.sprite(400, 568, 'wg');
-    
-    game.physics.enable(watergirl, Phaser.Physics.Arcade);
+    watergirl = this.physics.add.sprite(400, 568, 'water');
 
     watergirl.setBounce(0.2);
     watergirl.setCollideWorldBounds(true);
 
-    // should animate stuff
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('wg', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers('water', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
         key: 'turn',
-        frames: [{ key: 'wg', frame: 4 }],
+        frames: [{ key: 'water', frame: 4 }],
         frameRate: 20
     });
 
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('wg', { start: 5, end: 8 }),
+        frames: this.anims.generateFrameNumbers('water', { start: 5, end: 8 }),
         frameRate: 10,
         repeat: -1
     });
