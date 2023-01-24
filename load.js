@@ -35,35 +35,41 @@ function preload() {
 
     // should be loading in sprite for one of the players (not working) - aj
     this.load.spritesheet('water', 'sprites/watergirl/Idle.png', { frameWidth: 100, frameHeight: 100 });
+    // for when we get movement to work
+    this.load.spritesheet('water_run', 'sprites/watergirl/Run.png', { frameWidth: 100, frameHeight: 100 });
 }
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.2).setOrigin(.5, .5);
 
     // code to add platforms
-    let platform = this.add.sprite(400, 540, 'ground').setScale(2);
-    // platforms = this.physics.add.staticGroup();
-    let bottom = this.add.sprite(400, 700, 'ground').setScale(4);
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
-    this.physics.add.existing(platform);
-    platform.body.allowGravity = false;
-    platform.body.immovable = true;
-    this.physics.add.existing(left);
-    left.body.allowGravity = false;
-    left.body.immovable = true;
-    this.physics.add.existing(right);
-    right.body.allowGravity = false;
-    right.body.immovable = true;
-    this.physics.add.existing(top);
-    top.body.allowGravity = false;
-    top.body.immovable = true;
-    this.physics.add.existing(bottom);
-    bottom.body.allowGravity = false;
-    bottom.body.immovable = true;
-
+    let platforms = this.physics.add.staticGroup();
     
+    platforms.create(400, 540, 'ground').setScale(2).refreshBody();
+    // platforms = this.physics.add.staticGroup();
+    platforms.create(400, 700, 'ground').setScale(4);
+
+    // here for now - i don't think we need all of this for now? - K
+    // let left = this.add.sprite(-40, 700, 'sides').setScale(4);
+    // let right = this.add.sprite(1238, 700, 'sides').setScale(4);
+    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    // this.physics.add.existing(platform);
+    // platform.body.allowGravity = false;
+    // platform.body.immovable = true;
+    // this.physics.add.existing(left);
+    // left.body.allowGravity = false;
+    // left.body.immovable = true;
+    // this.physics.add.existing(right);
+    // right.body.allowGravity = false;
+    // right.body.immovable = true;
+    // this.physics.add.existing(top);
+    // top.body.allowGravity = false;
+    // top.body.immovable = true;
+    // this.physics.add.existing(bottom);
+    // bottom.body.allowGravity = false;
+    // bottom.body.immovable = true;
+
+
 
     // physics, fps, gravity
     // game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -72,7 +78,7 @@ function create() {
     // should place sprites on screen (not working) also sould enable physics for player - aj
     watergirl = this.physics.add.sprite(400, 568, 'water');
 
-    watergirl.setBounce(0.2);
+    watergirl.setBounce(0.1);
     watergirl.setCollideWorldBounds(true)
 
     this.anims.create({
@@ -95,33 +101,42 @@ function create() {
         repeat: -1
     });
 
-    watergirl.body.setSize(20, 32, 5, 16);
+    // don't think this will used
+    // watergirl.body.setSize(40, 128, 10, 32); // careful with this, may alter how it interacts??
 
     // potentially use to make camera follow player around - aj
     // game.camera.follow(player);
 
-    cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
+    cursors = this.input.keyboard.createCursorKeys();
+    jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.physics.add.collider(watergirl, platforms);
 }
 
 function update() {
     // should be covering basic left right movement + jumping - aj
-    game.physics.arcade.collide(player, platforms);
+    this.physics.arcade.collide(player, platforms);
     this.physics.add.collider(player, platforms);
     watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
+        player.setVelocityX(-160);
         watergirl.body.velocity.x = -150;
+        player.anims.play('left', true);
     }
-
     else if (cursors.right.isDown) {
         watergirl.body.velocity.x = 150;
+        player.setVelocityX(160);
+        player.anims.play('right', true);
     }
-
+    else {
+        player.setVelocityX(0);
+        player.anims.play('turn');
+    }
     if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
         watergirl.body.velocity.y = -250;
         jumpTimer = game.time.now + 750;
+    }
+    if (cursors.up.isDown && player.body.touching.down) {
+        player.setVelocityY(-330);
     }
 }
