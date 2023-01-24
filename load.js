@@ -34,7 +34,7 @@ function preload() {
     this.load.image('sides', 'pictures/platformVertical.png');
 
     // should be loading in sprite for one of the players (not working) - aj
-    this.load.spritesheet('water', 'dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('water', 'sprites/watergirl/Idle.png', { frameWidth: 100, frameHeight: 100 });
 }
 
 function create() {
