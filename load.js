@@ -19,7 +19,6 @@ var config = { // allows us to config the game
 };
 
 // variables for players + platforms + game itself + controls
-var player;
 var fireboy;
 var watergirl;
 var platforms;
@@ -69,17 +68,16 @@ function create() {
     // bottom.body.allowGravity = false;
     // bottom.body.immovable = true;
 
-
-
     // physics, fps, gravity
-    // game.physics.startSystem(Phaser.Physics.ARCADE);
+    
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
     watergirl = this.physics.add.sprite(400, 568, 'water');
 
     watergirl.setBounce(0.1);
-    watergirl.setCollideWorldBounds(true)
+    watergirl.body.setGravityY(300);
+    watergirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
 
     this.anims.create({
         key: 'left',
@@ -105,38 +103,40 @@ function create() {
     // watergirl.body.setSize(40, 128, 10, 32); // careful with this, may alter how it interacts??
 
     // potentially use to make camera follow player around - aj
-    // game.camera.follow(player);
+    // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
 
+    this.physics.startSystem(Phaser.Physics.ARCADE);
     cursors = this.input.keyboard.createCursorKeys();
-    jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    // jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     this.physics.add.collider(watergirl, platforms);
+    // this.physics.add.collider(fireboy, platforms);
 }
 
 function update() {
     // should be covering basic left right movement + jumping - aj
-    this.physics.arcade.collide(player, platforms);
-    this.physics.add.collider(player, platforms);
-    watergirl.body.velocity.x = 0;
+    this.physics.arcade.collide(watergirl, platforms);
+    // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
-        player.setVelocityX(-160);
-        watergirl.body.velocity.x = -150;
-        player.anims.play('left', true);
+        watergirl.setVelocityX(-160);
+        // watergirl.body.velocity.x = -150;
+        watergirl.anims.play('left', true);
     }
     else if (cursors.right.isDown) {
-        watergirl.body.velocity.x = 150;
-        player.setVelocityX(160);
-        player.anims.play('right', true);
+        // watergirl.body.velocity.x = 150;
+        watergirl.setVelocityX(160);
+        watergirl.anims.play('right', true);
     }
     else {
-        player.setVelocityX(0);
-        player.anims.play('turn');
+        watergirl.setVelocityX(0);
+        watergirl.anims.play('turn');
     }
-    if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
-        watergirl.body.velocity.y = -250;
-        jumpTimer = game.time.now + 750;
+
+    if (cursors.up.isDown && watergirl.body.touching.down) {
+        watergirl.setVelocityY(-330);
     }
-    if (cursors.up.isDown && player.body.touching.down) {
-        player.setVelocityY(-330);
-    }
+    // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
+    //     watergirl.body.velocity.y = -250;
+    //     jumpTimer = game.time.now + 750;
+    // }
 }
