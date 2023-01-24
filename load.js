@@ -70,7 +70,7 @@ function create() {
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
-    watergirl = this.physics.add.sprite(400, 568, 'water');
+    watergirl = this.physics.add.sprite(400, 400, 'water');
 
     watergirl.setBounce(0.2);
     watergirl.setCollideWorldBounds(true)
