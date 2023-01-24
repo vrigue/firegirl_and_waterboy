@@ -47,9 +47,10 @@ function create() {
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
-    watergirl = this.physics.add.sprite(400, 568, 'wg');
+    watergirl = this.physics.add.sprite(300, 500, 'wg');
     
-    game.physics.enable(watergirl, Phaser.Physics.Arcade);
+    // I commented this out so the sprite wouldn't fall off the screen. Now it stops at the bottom of the screen.
+    // game.physics.enable(watergirl, Phaser.Physics.Arcade);
 
     watergirl.setBounce(0.2);
     watergirl.setCollideWorldBounds(true);
@@ -83,7 +84,7 @@ function create() {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
-    this.physics.add.collider(player, platforms);
+    this.physics.add.collider(watergirl, platforms);
 }
 
 function update() {
