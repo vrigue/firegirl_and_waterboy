@@ -31,9 +31,8 @@ function preload() {
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
 
-    // should be loading in sprite for one of the players (not working) - aj
     this.load.spritesheet('water', 'sprites/watergirl/Idle.png', { frameWidth: 100, frameHeight: 100 });
-    // for when we get movement to work
+    // spritesheet for when we get movement to work
     this.load.spritesheet('water_run', 'sprites/watergirl/Run.png', { frameWidth: 100, frameHeight: 100 });
 }
 
@@ -42,15 +41,14 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    
     platforms.create(400, 540, 'ground').setScale(2).refreshBody();
-    // platforms = this.physics.add.staticGroup();
     platforms.create(400, 700, 'ground').setScale(4);
 
+    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
+    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
+    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
     // here for now - i don't think we need all of this for now? - K
-    // let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    // let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
     // this.physics.add.existing(platform);
     // platform.body.allowGravity = false;
     // platform.body.immovable = true;
@@ -72,11 +70,16 @@ function create() {
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
-    watergirl = this.physics.add.sprite(400, 400, 'water');
+
+    watergirl = this.physics.add.sprite(400, 200, 'water');
+    watergirl.body.setSize(20, 32, 5, 16);
 
     watergirl.setBounce(0.1);
     watergirl.body.setGravityY(300);
+
     watergirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
+    this.physics.add.collider(watergirl, platforms);
+    // this.physics.add.collider(fireboy, platforms);
 
     this.anims.create({
         key: 'left',
@@ -98,16 +101,13 @@ function create() {
         repeat: -1
     });
 
-    watergirl.body.setSize(20, 32, 5, 16);
-
     // potentially use to make camera follow player around - aj
     // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
+
     cursors = this.input.keyboard.createCursorKeys();
     // jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    this.physics.add.collider(watergirl, platforms);
-    // this.physics.add.collider(fireboy, platforms);
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 }
@@ -135,6 +135,7 @@ function update() {
     if (cursors.up.isDown && watergirl.body.touching.down) {
         watergirl.setVelocityY(-330);
     }
+
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
     //     jumpTimer = game.time.now + 750;
