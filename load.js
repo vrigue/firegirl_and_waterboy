@@ -1,6 +1,6 @@
 // when game initially loads, run the following?
-var config = { // allows us to config the game
-    type: Phaser.AUTO, // falls back to canvas otherwise
+var config = { // defines the config for the game 
+    type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
     physics: {
@@ -15,7 +15,6 @@ var config = { // allows us to config the game
         create: create,
         update: update
     }
-
 };
 
 // variables for players + platforms + game itself + controls
@@ -31,9 +30,7 @@ var game = new Phaser.Game(config);
 function preload() {
     this.load.image('back', 'pictures/apocalypse1.jpg');
     this.load.image('ground', 'pictures/platform.jpg');
-
-    // should be loading in sprite for one of the players (not working) - aj
-    this.load.spritesheet('wg', '.sprites/watergirl/Sprites/Idle.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.spritesheet('wg', '.sprites/watergirl/Idle.png', { frameWidth: 32, frameHeight: 48 });
 }
 
 function create() {
@@ -49,11 +46,13 @@ function create() {
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
     watergirl = this.physics.add.sprite(400, 568, 'wg');
-    
     game.physics.enable(watergirl, Phaser.Physics.Arcade);
-
     watergirl.setBounce(0.2);
+
+    this.physics.add.collider(player, 'ground');
     watergirl.setCollideWorldBounds(true);
+
+    watergirl.body.setSize(20, 32, 5, 16);
 
     // should animate stuff
     this.anims.create({
@@ -76,15 +75,11 @@ function create() {
         repeat: -1
     });
 
-    watergirl.body.setSize(20, 32, 5, 16);
-
     // potentially use to make camera follow player around - aj
     // game.camera.follow(player);
 
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    this.physics.add.collider(player, platforms);
 }
 
 function update() {
