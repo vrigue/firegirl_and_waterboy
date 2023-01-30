@@ -1,27 +1,47 @@
-.center {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+body {
+    font-size:16px;
+    margin: 75px;
+    padding:0px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    font-family: font;
+    background-image: url("/pictures/apocalypse3.jpg");
+    /* background-position: center; */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* h1{
+    font-size:120px;
+    align-content: center;
+    align-items: center;
     text-align: center;
+    color: bisque;
+} */
+
+button {
+    border:none;
+    appearance:none;
+    outline:none;
+    display:inline-block;
+    padding:12px 48px 12px 48px;
+    border-radius:4px;
+    margin-bottom: 60px;
 }
 
-
+/* .screen {
+    padding: 20px;     
+    position: fixed;     
+    top:50%;     
+    left:50%;     
+    margin-top: -100px;     
+    margin-left: -100px;     
+    height:200px;     
+    width:250px;     
+    text-align: center;
+} */
 img {
-    width: 100px;
-    height: 100px;
-}
-#one {
-    display:block;
-}
-#two {
-    display:block;
-}
-#three {
-    display:block;
-}
-#four {
-    display:block;
-}
-#five {
-    display:block;
+    height:85px;     
+    width:85px;  
 }
