@@ -1,6 +1,6 @@
 // when game initially loads, run the following?
-var config = { // allows us to config the game
-    type: Phaser.AUTO, // falls back to canvas otherwise
+var config = { // defines the config for the game 
+    type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
     physics: {
@@ -15,7 +15,6 @@ var config = { // allows us to config the game
         create: create,
         update: update
     }
-
 };
 
 // variables for players + platforms + game itself + controls
@@ -32,9 +31,8 @@ function preload() {
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
 
-    // should be loading in sprite for one of the players (not working) - aj
     this.load.spritesheet('water', 'sprites/watergirl/Idle.png', { frameWidth: 100, frameHeight: 100 });
-    // for when we get movement to work
+    // spritesheet for when we get movement to work
     this.load.spritesheet('water_run', 'sprites/watergirl/Run.png', { frameWidth: 100, frameHeight: 100 });
 }
 
@@ -43,15 +41,14 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    
     platforms.create(400, 540, 'ground').setScale(2).refreshBody();
-    // platforms = this.physics.add.staticGroup();
     platforms.create(400, 700, 'ground').setScale(4);
 
+    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
+    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
+    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
     // here for now - i don't think we need all of this for now? - K
-    // let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    // let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
     // this.physics.add.existing(platform);
     // platform.body.allowGravity = false;
     // platform.body.immovable = true;
@@ -73,11 +70,16 @@ function create() {
     // game.time.desiredFps = 30;
     // game.physics.arcade.gravity.y = 250;
     // should place sprites on screen (not working) also sould enable physics for player - aj
-    watergirl = this.physics.add.sprite(400, 400, 'water');
+
+    watergirl = this.physics.add.sprite(400, 200, 'water');
+    watergirl.body.setSize(watergirl.height, watergirl.width, true);
 
     watergirl.setBounce(0.1);
     watergirl.body.setGravityY(300);
+
     watergirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
+    this.physics.add.collider(watergirl, platforms);
+    // this.physics.add.collider(fireboy, platforms);
 
     this.anims.create({
         key: 'left',
@@ -99,22 +101,23 @@ function create() {
         repeat: -1
     });
 
-    // don't think this will used
-    // watergirl.body.setSize(40, 128, 10, 32); // careful with this, may alter how it interacts??
-
     // potentially use to make camera follow player around - aj
     // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
+    
     cursors = this.input.keyboard.createCursorKeys();
     // jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-    this.physics.add.collider(watergirl, platforms);
-    // this.physics.add.collider(fireboy, platforms);
+    cursors = game.input.keyboard.createCursorKeys();
+    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 }
 
 function update() {
     // should be covering basic left right movement + jumping - aj
-    this.physics.arcade.collide(watergirl, platforms);
+
+    // not sure if this is doing anything (?) - vri
+    // this.physics.arcade.collide(watergirl, platforms); 
+
     // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
