@@ -114,7 +114,10 @@ function create() {
 
 function update() {
     // should be covering basic left right movement + jumping - aj
-    this.physics.arcade.collide(watergirl, platforms);
+
+    // not sure if this is doing anything (?) - vri
+    // this.physics.arcade.collide(watergirl, platforms); 
+
     // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
