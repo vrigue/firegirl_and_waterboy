@@ -72,7 +72,7 @@ function create() {
     // should place sprites on screen (not working) also sould enable physics for player - aj
 
     watergirl = this.physics.add.sprite(400, 200, 'water');
-    watergirl.body.setSize(20, 32, 5, 16);
+    watergirl.body.setSize(watergirl.height, watergirl.width, true);
 
     watergirl.setBounce(0.1);
     watergirl.body.setGravityY(300);
@@ -105,7 +105,7 @@ function create() {
     // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
 
     this.physics.startSystem(Phaser.Physics.ARCADE);
-
+    
     cursors = this.input.keyboard.createCursorKeys();
     // jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     cursors = game.input.keyboard.createCursorKeys();
@@ -138,7 +138,6 @@ function update() {
     if (cursors.up.isDown && watergirl.body.touching.down) {
         watergirl.setVelocityY(-330);
     }
-
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
     //     jumpTimer = game.time.now + 750;
