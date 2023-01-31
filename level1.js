@@ -62,7 +62,7 @@ function preload() {
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
     this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
-    this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
+    this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
@@ -75,7 +75,7 @@ function create() {
     platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
     platforms.create(1000, 200, 'ground').setScale(1).refreshBody();
     platforms.create(950, 200, 'ground').setScale(1).refreshBody();
-    platforms.create(100, 150, 'ground').setScale(1).refreshBody();
+    platforms.create(100, 180, 'ground').setScale(1).refreshBody();
 
 
 
