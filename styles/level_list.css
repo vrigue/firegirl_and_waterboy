@@ -1,3 +1,8 @@
+h1 {
+    text-align: center;
+    margin: 10px 0;
+}
+
 body {
     font-size:16px;
     margin: 75px;
