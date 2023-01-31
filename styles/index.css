@@ -5,7 +5,7 @@ body {
     display:flex;
     flex-direction:column;
     align-items:center;
-    background-image: url('/pictures/apocalypse1.jpg');
+    background-image: url('/pictures/sky.webp');
     height: 650px;
     background-position: center;
     background-repeat: no-repeat;
