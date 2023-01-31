@@ -6,7 +6,7 @@ var config = { // defines the config for the game
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: .1 },
+            gravity: { y: 15 },
             debug: false
         }
     },
@@ -68,7 +68,7 @@ function create() {
     let platforms = this.physics.add.staticGroup();
     platforms.create(600, 500, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    platforms.create(550, 300, 'ground').setScale(.5).refreshBody();
+    platforms.create(550, 250, 'ground').setScale(.5).refreshBody();
     platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
     platforms.create(200, 500, 'ground').setScale(1).refreshBody();
     platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
