@@ -190,7 +190,7 @@ function update() {
     else if (cursors.right.isDown) {
         firegirl.body.setVelocityX(200);
     }
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown && firegirl.body.onFloor()) {
         firegirl.body.setVelocityY(-200);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
