@@ -66,59 +66,39 @@ function create() {
     let platforms = this.physics.add.staticGroup();
     platforms.create(400, 540, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(500, 300, 'ground').setScale(.5).refreshBody();
+    platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
+
+
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
-    // here for now - i don't think we need all of this for now? - K
-    // this.physics.add.existing(platform);
-    // platform.body.allowGravity = false;
-    // platform.body.immovable = true;
-    // this.physics.add.existing(left);
-    // left.body.allowGravity = false;
-    // left.body.immovable = true;
-    // this.physics.add.existing(right);
-    // right.body.allowGravity = false;
-    // right.body.immovable = true;
-    // this.physics.add.existing(top);
-    // top.body.allowGravity = false;
-    // top.body.immovable = true;
-    // this.physics.add.existing(bottom);
-    // bottom.body.allowGravity = false;
-    // bottom.body.immovable = true;
-
-    // physics, fps, gravity
-    
-    // game.time.desiredFps = 30;
-    // game.physics.arcade.gravity.y = 250;
-    // should place sprites on screen (not working) also sould enable physics for player - aj
-
-
     /* create animations for firegirl */
 
     this.anims.create({
-        key: 'f_left',
+        key: 'firegirl_left',
         frames: this.anims.generateFrameNumbers('firegirl_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'f_right',
+        key: 'firegirl_right',
         frames: this.anims.generateFrameNumbers('firegirl_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'f_idle',
+        key: 'firegirl_idle',
         frames: this.anims.generateFrameNumbers('firegirl_idle', { start: 0, end: 3 }),
         frameRate: 20
     });
 
     this.anims.create({
-        key: 'f_jump',
+        key: 'firegirl_jump',
         frames: this.anims.generateFrameNumbers('firegirl_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
@@ -127,50 +107,40 @@ function create() {
 
     /* create animations for waterboy */
     this.anims.create({
-        key: 'w_left',
+        key: 'waterboy_left',
         frames: this.anims.generateFrameNumbers('waterboy_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'w_right',
+        key: 'waterboy_right',
         frames: this.anims.generateFrameNumbers('waterboy_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'w_idle',
+        key: 'waterboy_idle',
         frames: this.anims.generateFrameNumbers('waterboy_idle', { start: 0, end: 3 }),
         frameRate: 20
     });
 
     this.anims.create({
-        key: 'w_jump',
+        key: 'waterboy_jump',
         frames: this.anims.generateFrameNumbers('waterboy_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
     });
 
-
-
-    firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    firegirl = this.physics.add.sprite(100, 0, 'firegirl');
     firegirl.body.setSize(firegirl.height, firegirl.width, true);
-    
 
     firegirl.setBounce(0.1);
     firegirl.body.setGravityY(300);
 
-    firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
+    firegirl.setCollideWorldBounds(true);
     this.physics.add.collider(firegirl, platforms);
-    firegirl.anims.play('firegirl_idle', true);
-    // this.physics.add.collider(fireboy, platforms);
-
-    // potentially use to make camera follow player around - aj
-    // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
 
     waterboy = this.physics.add.sprite(150, 0, 'waterboy');
     waterboy.body.setSize(waterboy.height, waterboy.width, true);
@@ -182,33 +152,20 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
-
-    // cursors = game.input.keyboard.createCursorKeys();
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 }
 
 function update() {
 
-    // this.physics.arcade.collide(watergirl, platforms); 
-
     if (cursors.left.isDown) {
         firegirl.body.setVelocityX(-200);
-        this.firegirl.anims.play('f_left', true);
     }
     else if (cursors.right.isDown) {
         firegirl.body.setVelocityX(200);
-        this.firegirl.anims.play('f_right', true);
     }
     if (cursors.up.isDown && firegirl.body.onFloor()) {
         firegirl.body.setVelocityY(-250);
-        this.firegirl.anims.play('f_idle', true);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         firegirl.body.setVelocityX(0);
-        //firegirl.body.setVelocityY(0);
     }
-    // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
-    //     watergirl.body.velocity.y = -250;
-    //     jumpTimer = game.time.now + 750;
-    // }
 }
