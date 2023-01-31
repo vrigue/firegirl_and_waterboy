@@ -98,27 +98,27 @@ function create() {
     /* create animations for firegirl */
 
     this.anims.create({
-        key: 'firegirl_left',
+        key: 'f_left',
         frames: this.anims.generateFrameNumbers('firegirl_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'firegirl_right',
+        key: 'f_right',
         frames: this.anims.generateFrameNumbers('firegirl_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'firegirl_idle',
+        key: 'f_idle',
         frames: this.anims.generateFrameNumbers('firegirl_idle', { start: 0, end: 3 }),
         frameRate: 20
     });
 
     this.anims.create({
-        key: 'firegirl_jump',
+        key: 'f_jump',
         frames: this.anims.generateFrameNumbers('firegirl_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
@@ -127,27 +127,27 @@ function create() {
 
     /* create animations for waterboy */
     this.anims.create({
-        key: 'waterboy_left',
+        key: 'w_left',
         frames: this.anims.generateFrameNumbers('waterboy_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'waterboy_right',
+        key: 'w_right',
         frames: this.anims.generateFrameNumbers('waterboy_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'waterboy_idle',
+        key: 'w_idle',
         frames: this.anims.generateFrameNumbers('waterboy_idle', { start: 0, end: 3 }),
         frameRate: 20
     });
 
     this.anims.create({
-        key: 'waterboy_jump',
+        key: 'w_jump',
         frames: this.anims.generateFrameNumbers('waterboy_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
@@ -157,12 +157,14 @@ function create() {
 
     firegirl = this.physics.add.sprite(400, 200, 'firegirl');
     firegirl.body.setSize(firegirl.height, firegirl.width, true);
+    
 
     firegirl.setBounce(0.1);
     firegirl.body.setGravityY(300);
 
     firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(firegirl, platforms);
+    firegirl.anims.play('firegirl_idle', true);
     // this.physics.add.collider(fireboy, platforms);
 
     // potentially use to make camera follow player around - aj
@@ -177,48 +179,26 @@ function create() {
 }
 
 function update() {
-    // should be covering basic left right movement + jumping - aj
 
-    // not sure if this is doing anything (?) - vri
     // this.physics.arcade.collide(watergirl, platforms); 
-
-    // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
         firegirl.body.setVelocityX(-200);
+        this.firegirl.anims.play('f_left', true);
     }
     else if (cursors.right.isDown) {
         firegirl.body.setVelocityX(200);
+        this.firegirl.anims.play('f_right', true);
     }
     if (cursors.up.isDown && firegirl.body.onFloor()) {
         firegirl.body.setVelocityY(-250);
+        this.firegirl.anims.play('f_idle', true);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         firegirl.body.setVelocityX(0);
+        // firegirl.anims.play('f_idle', true);
         //firegirl.body.setVelocityY(0);
     }
-
-
-
-    //if (cursors.left.isDown) {
-        //firegirl.setVelocityX(-160);
-        // firegirl.body.velocity.x = -150;
-        //firegirl.anims.play('firegirl_left', true);
-    //}
-    //else if (cursors.right.isDown) {
-        // firegirl.body.velocity.x = 150;
-        //firegirl.setVelocityX(160);
-        //firegirl.anims.play('firegirl_right', true);
-    //}
-    //else {
-        //firegirl.setVelocityX(0);
-        //firegirl.anims.play('firegirl_idle');
-    //}
-
-    //if (cursors.up.isDown && firegirl.body.touching.down) {
-        //firegirl.setVelocityY(-330);
-        //firegirl.anims.play('firegirl_jump', true)
-    //}
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
     //     jumpTimer = game.time.now + 750;
