@@ -66,34 +66,14 @@ function create() {
     let platforms = this.physics.add.staticGroup();
     platforms.create(400, 540, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(500, 300, 'ground').setScale(.5).refreshBody();
+    platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
+
+
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
-
-    // here for now - i don't think we need all of this for now? - K
-    // this.physics.add.existing(platform);
-    // platform.body.allowGravity = false;
-    // platform.body.immovable = true;
-    // this.physics.add.existing(left);
-    // left.body.allowGravity = false;
-    // left.body.immovable = true;
-    // this.physics.add.existing(right);
-    // right.body.allowGravity = false;
-    // right.body.immovable = true;
-    // this.physics.add.existing(top);
-    // top.body.allowGravity = false;
-    // top.body.immovable = true;
-    // this.physics.add.existing(bottom);
-    // bottom.body.allowGravity = false;
-    // bottom.body.immovable = true;
-
-    // physics, fps, gravity
-    
-    // game.time.desiredFps = 30;
-    // game.physics.arcade.gravity.y = 250;
-    // should place sprites on screen (not working) also sould enable physics for player - aj
-
 
     /* create animations for firegirl */
 
@@ -153,22 +133,14 @@ function create() {
         repeat: -1
     });
 
-
-
-    firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    firegirl = this.physics.add.sprite(100, 0, 'firegirl');
     firegirl.body.setSize(firegirl.height, firegirl.width, true);
 
     firegirl.setBounce(0.1);
     firegirl.body.setGravityY(300);
 
-    firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
+    firegirl.setCollideWorldBounds(true);
     this.physics.add.collider(firegirl, platforms);
-    // this.physics.add.collider(fireboy, platforms);
-
-    // potentially use to make camera follow player around - aj
-    // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
 
     waterboy = this.physics.add.sprite(150, 0, 'waterboy');
     waterboy.body.setSize(waterboy.height, waterboy.width, true);
@@ -180,18 +152,9 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
-
-    // cursors = game.input.keyboard.createCursorKeys();
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 }
 
 function update() {
-    // should be covering basic left right movement + jumping - aj
-
-    // not sure if this is doing anything (?) - vri
-    // this.physics.arcade.collide(watergirl, platforms); 
-
-    // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
         firegirl.body.setVelocityX(-200);
@@ -204,32 +167,5 @@ function update() {
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         firegirl.body.setVelocityX(0);
-        // firegirl.body.setVelocityY(0);
     }
-
-
-
-    //if (cursors.left.isDown) {
-        //firegirl.setVelocityX(-160);
-        // firegirl.body.velocity.x = -150;
-        //firegirl.anims.play('firegirl_left', true);
-    //}
-    //else if (cursors.right.isDown) {
-        // firegirl.body.velocity.x = 150;
-        //firegirl.setVelocityX(160);
-        //firegirl.anims.play('firegirl_right', true);
-    //}
-    //else {
-        //firegirl.setVelocityX(0);
-        //firegirl.anims.play('firegirl_idle');
-    //}
-
-    //if (cursors.up.isDown && firegirl.body.touching.down) {
-        //firegirl.setVelocityY(-330);
-        //firegirl.anims.play('firegirl_jump', true)
-    //}
-    // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
-    //     watergirl.body.velocity.y = -250;
-    //     jumpTimer = game.time.now + 750;
-    // }
 }
