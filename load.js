@@ -168,10 +168,9 @@ function create() {
     // potentially use to make camera follow player around - aj
     // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
 
-    this.physics.startSystem(Phaser.Physics.ARCADE);
+    // this.physics.startSystem(Phaser.Physics.ARCADE);
     
     cursors = this.input.keyboard.createCursorKeys();
-    jumpButton = this.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     // cursors = game.input.keyboard.createCursorKeys();
     // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -186,24 +185,40 @@ function update() {
     // watergirl.body.velocity.x = 0;
 
     if (cursors.left.isDown) {
-        firegirl.setVelocityX(-160);
-        // firegirl.body.velocity.x = -150;
-        firegirl.anims.play('firegirl_left', true);
+        firegirl.body.setVelocityX(-200);
     }
     else if (cursors.right.isDown) {
-        // firegirl.body.velocity.x = 150;
-        firegirl.setVelocityX(160);
-        firegirl.anims.play('firegirl_right', true);
+        firegirl.body.setVelocityX(200);
     }
-    else {
-        firegirl.setVelocityX(0);
-        firegirl.anims.play('firegirl_idle');
+    if (cursors.up.isDown) {
+        firegirl.body.setVelocityY(-200);
+    }
+    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
+        firegirl.body.setVelocityX(0);
+        //firegirl.body.setVelocityY(0);
     }
 
-    if (cursors.up.isDown && firegirl.body.touching.down) {
-        firegirl.setVelocityY(-330);
-        firegirl.anims.play('firegirl_jump', true)
-    }
+
+
+    //if (cursors.left.isDown) {
+        //firegirl.setVelocityX(-160);
+        // firegirl.body.velocity.x = -150;
+        //firegirl.anims.play('firegirl_left', true);
+    //}
+    //else if (cursors.right.isDown) {
+        // firegirl.body.velocity.x = 150;
+        //firegirl.setVelocityX(160);
+        //firegirl.anims.play('firegirl_right', true);
+    //}
+    //else {
+        //firegirl.setVelocityX(0);
+        //firegirl.anims.play('firegirl_idle');
+    //}
+
+    //if (cursors.up.isDown && firegirl.body.touching.down) {
+        //firegirl.setVelocityY(-330);
+        //firegirl.anims.play('firegirl_jump', true)
+    //}
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
     //     jumpTimer = game.time.now + 750;
