@@ -6,7 +6,7 @@ var config = { // defines the config for the game
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 15 },
             debug: false
         }
     },
@@ -61,13 +61,21 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
+    this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
+    this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(400, 540, 'ground').setScale(1).refreshBody();
+    platforms.create(600, 500, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    platforms.create(500, 300, 'ground').setScale(.5).refreshBody();
+    platforms.create(550, 250, 'ground').setScale(.5).refreshBody();
     platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
+    platforms.create(200, 500, 'ground').setScale(1).refreshBody();
+    platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
+    platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
+    platforms.create(1000, 200, 'ground').setScale(1).refreshBody();
+    platforms.create(950, 200, 'ground').setScale(1).refreshBody();
+    platforms.create(100, 180, 'ground').setScale(1).refreshBody();
 
 
 
@@ -133,7 +141,7 @@ function create() {
         repeat: -1
     });
 
-    firegirl = this.physics.add.sprite(100, 0, 'firegirl');
+    firegirl = this.physics.add.sprite(100, 500, 'firegirl');
     firegirl.body.setSize(firegirl.height, firegirl.width, true);
 
     firegirl.setBounce(0.1);
@@ -142,7 +150,7 @@ function create() {
     firegirl.setCollideWorldBounds(true);
     this.physics.add.collider(firegirl, platforms);
 
-    waterboy = this.physics.add.sprite(150, 0, 'waterboy');
+    waterboy = this.physics.add.sprite(150, 500, 'waterboy');
     waterboy.body.setSize(waterboy.height, waterboy.width, true);
 
     waterboy.setBounce(0.1);
