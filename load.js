@@ -41,7 +41,7 @@ function preload() {
     this.load.spritesheet('purple_fire', 'sprites/obstacles/purple_fire.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('blue_fire', 'sprites/obstacles/blue_fire.png', { frameWidth: 100, frameHeight: 100 });
 
-    /* loaded spritesheets for firegirl */
+    /* loaded spritesheets for this.firegirl */
     this.load.spritesheet('firegirl', 'sprites/firegirl/pink.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_idle', 'sprites/firegirl/pink_idle.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_right', 'sprites/firegirl/pink_right.png', { frameWidth: 100, frameHeight: 100 });
@@ -52,7 +52,7 @@ function preload() {
 
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/waterboy/blue.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('waterboy_idle', 'sprites/firegirl/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('waterboy_idle', 'sprites/this.firegirl/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_right', 'sprites/waterboy/blue_right.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_left', 'sprites/waterboy/blue_left.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_jump', 'sprites/waterboy/blue_jump.png', { frameWidth: 100, frameHeight: 100 });
@@ -95,7 +95,7 @@ function create() {
     // should place sprites on screen (not working) also sould enable physics for player - aj
 
 
-    /* create animations for firegirl */
+    /* create animations for this.firegirl */
 
     this.anims.create({
         key: 'f_left',
@@ -155,16 +155,16 @@ function create() {
 
 
 
-    firegirl = this.physics.add.sprite(400, 200, 'firegirl');
-    firegirl.body.setSize(firegirl.height, firegirl.width, true);
+    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
     
 
-    firegirl.setBounce(0.1);
-    firegirl.body.setGravityY(300);
+    this.firegirl.setBounce(0.1);
+    this.firegirl.body.setGravityY(300);
 
-    firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
-    this.physics.add.collider(firegirl, platforms);
-    firegirl.anims.play('firegirl_idle', true);
+    this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
+    this.physics.add.collider(this.firegirl, platforms);
+    this.firegirl.anims.play('firegirl_idle');
     // this.physics.add.collider(fireboy, platforms);
 
     // potentially use to make camera follow player around - aj
@@ -192,20 +192,20 @@ function update() {
     // this.physics.arcade.collide(watergirl, platforms); 
 
     if (cursors.left.isDown) {
-        firegirl.body.setVelocityX(-200);
-        this.firegirl.anims.play('f_left', true);
+        this.firegirl.body.setVelocityX(-200);
+        // this.firegirl.anims.play('f_left', true);
     }
     else if (cursors.right.isDown) {
-        firegirl.body.setVelocityX(200);
-        this.firegirl.anims.play('f_right', true);
+        this.firegirl.body.setVelocityX(200);
+        // this.firegirl.anims.play('f_right', true);
     }
-    if (cursors.up.isDown && firegirl.body.onFloor()) {
-        firegirl.body.setVelocityY(-250);
-        this.firegirl.anims.play('f_idle', true);
+    if (cursors.up.isDown && this.firegirl.body.onFloor()) {
+        this.firegirl.body.setVelocityY(-250);
+        // this.firegirl.anims.play('f_idle', true);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
-        firegirl.body.setVelocityX(0);
-        //firegirl.body.setVelocityY(0);
+        this.firegirl.body.setVelocityX(0);
+        //this.firegirl.body.setVelocityY(0);
     }
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
