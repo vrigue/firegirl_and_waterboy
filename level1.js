@@ -160,6 +160,11 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
+
+    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 }
 
 function update() {
@@ -175,5 +180,18 @@ function update() {
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         firegirl.body.setVelocityX(0);
+    }
+
+    if(keyA.isDown) {
+        waterboy.body.setVelocityX(-200);
+    }
+    else if (keyD.isDown) {
+        waterboy.body.setVelocityX(200);
+    }
+    if (keyW.isDown && waterboy.body.onFloor()) {
+        waterboy.body.setVelocityY(-250);
+    }
+    if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
+        waterboy.body.setVelocityX(0);
     }
 }
