@@ -180,8 +180,9 @@ function update() {
         if (!(this.firegirl.body.onFloor())) this.firegirl.anims.play('f_jump', true);
         else this.firegirl.anims.play('f_run', true);
     }
-    if (cursors.up.isDown && this.firegirl.body.onFloor()) {
-        this.firegirl.body.setVelocityY(-250);
+    if (cursors.up.isDown) {
+        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-250);
+        this.firegirl.anims.play('f_jump', true);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
