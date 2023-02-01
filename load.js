@@ -3,6 +3,7 @@ var config = { // defines the config for the game
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
+    parent: 'canvas',
     physics: {
         default: 'arcade',
         arcade: {
@@ -42,8 +43,8 @@ function preload() {
     this.load.spritesheet('blue_fire', 'sprites/obstacles/blue_fire.png', { frameWidth: 100, frameHeight: 100 });
 
     /* loaded spritesheets for this.firegirl */
-    this.load.spritesheet('firegirl', 'sprites/firegirl/pink.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('firegirl_idle', 'sprites/firegirl/pink_idle.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('firegirl', './sprites/firegirl/pink.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('firegirl_idle', 'sprites/firegirl/pink_idle.png', { frameWidth: 55, frameHeight: 55 });
     this.load.spritesheet('firegirl_right', 'sprites/firegirl/pink_right.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_left', 'sprites/firegirl/pink_left.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_jump', 'sprites/firegirl/pink_jump.png', { frameWidth: 100, frameHeight: 100 });
@@ -52,11 +53,13 @@ function preload() {
 
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/waterboy/blue.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('waterboy_idle', 'sprites/this.firegirl/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('waterboy_idle', 'sprites/waterboy/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_right', 'sprites/waterboy/blue_right.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_left', 'sprites/waterboy/blue_left.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_jump', 'sprites/waterboy/blue_jump.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_death', 'sprites/waterboy/blue_death.png', { frameWidth: 100, frameHeight: 100 });
+
+    // this.load.audio('music', 'audio/music.mp3')
 }
 
 function create() {
@@ -114,7 +117,7 @@ function create() {
     this.anims.create({
         key: 'f_idle',
         frames: this.anims.generateFrameNumbers('firegirl_idle', { start: 0, end: 3 }),
-        frameRate: 20
+        frameRate: 10
     });
 
     this.anims.create({
@@ -143,7 +146,7 @@ function create() {
     this.anims.create({
         key: 'w_idle',
         frames: this.anims.generateFrameNumbers('waterboy_idle', { start: 0, end: 3 }),
-        frameRate: 20
+        frameRate: 30
     });
 
     this.anims.create({
@@ -155,7 +158,8 @@ function create() {
 
 
 
-    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl_idle');
+    this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
     
 
@@ -164,7 +168,6 @@ function create() {
 
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
-    this.firegirl.anims.play('firegirl_idle');
     // this.physics.add.collider(fireboy, platforms);
 
     // potentially use to make camera follow player around - aj
@@ -182,18 +185,20 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
+    this.input.keyboard.addKeys('W,S,A,D');
 
-    // cursors = game.input.keyboard.createCursorKeys();
     // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    // let music = this.sounds.add('music');
+    // music.setLoop(true);
+    // music.play();
 }
 
 function update() {
 
-    // this.physics.arcade.collide(watergirl, platforms); 
-
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
-        // this.firegirl.anims.play('f_left', true);
+        this.firegirl.anims.play('f_left', true);
     }
     else if (cursors.right.isDown) {
         this.firegirl.body.setVelocityX(200);
@@ -201,12 +206,31 @@ function update() {
     }
     if (cursors.up.isDown && this.firegirl.body.onFloor()) {
         this.firegirl.body.setVelocityY(-250);
-        // this.firegirl.anims.play('f_idle', true);
+        
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         this.firegirl.body.setVelocityX(0);
+        this.firegirl.anims.play('f_idle', true);
         //this.firegirl.body.setVelocityY(0);
     }
+
+    // if (Phaser.Keybaord.W.isDown) {
+    //     this.waterboy.body.setVelocityX(-200);
+    //     // this.firegirl.anims.play('f_left', true);
+    // }
+    // else if (cursors.D.isDown) {
+    //     this.waterboy.body.setVelocityX(200);
+    //     // this.firegirl.anims.play('f_right', true);
+    // }
+    // if (cursors.up.W && this.firegirl.body.onFloor()) {
+    //     this.waterboy.body.setVelocityY(-250);
+    //     // this.firegirl.anims.play('f_idle', true);
+    // }
+    // if(!cursors.A.isDown && !cursors.D.isDown && !cursors.W.isDown) {
+    //     this.waterboy.body.setVelocityX(0);
+    //     //this.firegirl.body.setVelocityY(0);
+    // }
+
     // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
     //     watergirl.body.velocity.y = -250;
     //     jumpTimer = game.time.now + 750;
