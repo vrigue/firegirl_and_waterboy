@@ -24,6 +24,10 @@ var firegirl;
 var platforms;
 var cursors;
 var jumpButton;
+let keyA;
+let keyS;
+let keyD;
+let keyW;
 
 var game = new Phaser.Game(config);
 
@@ -185,20 +189,23 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
-    this.input.keyboard.addKeys('W,S,A,D');
 
     // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     // let music = this.sounds.add('music');
     // music.setLoop(true);
     // music.play();
+    keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
 }
 
 function update() {
 
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
-        this.firegirl.anims.play('f_left', true);
+        //this.firegirl.anims.play('f_left', true);
     }
     else if (cursors.right.isDown) {
         this.firegirl.body.setVelocityX(200);
@@ -213,6 +220,20 @@ function update() {
         this.firegirl.anims.play('f_idle', true);
         //this.firegirl.body.setVelocityY(0);
     }
+
+    if(keyA.isDown) {
+        waterboy.body.setVelocityX(-200);
+    }
+    else if (keyD.isDown) {
+        waterboy.body.setVelocityX(200);
+    }
+    if (keyW.isDown && waterboy.body.onFloor()) {
+        waterboy.body.setVelocityY(-250);
+    }
+    if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
+        waterboy.body.setVelocityX(0);
+    }
+
 
     // if (Phaser.Keybaord.W.isDown) {
     //     this.waterboy.body.setVelocityX(-200);
