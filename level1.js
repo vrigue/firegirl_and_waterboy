@@ -3,11 +3,10 @@ var config = { // defines the config for the game
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
-    parent: 'canvas',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 15 },
             debug: false
         }
     },
@@ -42,9 +41,9 @@ function preload() {
     this.load.spritesheet('purple_fire', 'sprites/obstacles/purple_fire.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('blue_fire', 'sprites/obstacles/blue_fire.png', { frameWidth: 100, frameHeight: 100 });
 
-    /* loaded spritesheets for this.firegirl */
-    this.load.spritesheet('firegirl', './sprites/firegirl/pink.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('firegirl_idle', 'sprites/firegirl/pink_idle.png', { frameWidth: 55, frameHeight: 55 });
+    /* loaded spritesheets for firegirl */
+    this.load.spritesheet('firegirl', 'sprites/firegirl/pink.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('firegirl_idle', 'sprites/firegirl/pink_idle.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_right', 'sprites/firegirl/pink_right.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_left', 'sprites/firegirl/pink_left.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('firegirl_jump', 'sprites/firegirl/pink_jump.png', { frameWidth: 100, frameHeight: 100 });
@@ -53,75 +52,61 @@ function preload() {
 
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/waterboy/blue.png', { frameWidth: 100, frameHeight: 100 });
-    this.load.spritesheet('waterboy_idle', 'sprites/waterboy/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
+    this.load.spritesheet('waterboy_idle', 'sprites/firegirl/blue_idle.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_right', 'sprites/waterboy/blue_right.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_left', 'sprites/waterboy/blue_left.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_jump', 'sprites/waterboy/blue_jump.png', { frameWidth: 100, frameHeight: 100 });
     this.load.spritesheet('waterboy_death', 'sprites/waterboy/blue_death.png', { frameWidth: 100, frameHeight: 100 });
-
-    // this.load.audio('music', 'audio/music.mp3')
 }
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
+    this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
+    this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(400, 540, 'ground').setScale(1).refreshBody();
+    platforms.create(600, 500, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(550, 250, 'ground').setScale(.5).refreshBody();
+    platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
+    platforms.create(200, 500, 'ground').setScale(1).refreshBody();
+    platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
+    platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
+    platforms.create(1000, 200, 'ground').setScale(1).refreshBody();
+    platforms.create(950, 200, 'ground').setScale(1).refreshBody();
+    platforms.create(100, 180, 'ground').setScale(1).refreshBody();
+
+
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
-    // here for now - i don't think we need all of this for now? - K
-    // this.physics.add.existing(platform);
-    // platform.body.allowGravity = false;
-    // platform.body.immovable = true;
-    // this.physics.add.existing(left);
-    // left.body.allowGravity = false;
-    // left.body.immovable = true;
-    // this.physics.add.existing(right);
-    // right.body.allowGravity = false;
-    // right.body.immovable = true;
-    // this.physics.add.existing(top);
-    // top.body.allowGravity = false;
-    // top.body.immovable = true;
-    // this.physics.add.existing(bottom);
-    // bottom.body.allowGravity = false;
-    // bottom.body.immovable = true;
-
-    // physics, fps, gravity
-    
-    // game.time.desiredFps = 30;
-    // game.physics.arcade.gravity.y = 250;
-    // should place sprites on screen (not working) also sould enable physics for player - aj
-
-
-    /* create animations for this.firegirl */
+    /* create animations for firegirl */
 
     this.anims.create({
-        key: 'f_left',
+        key: 'firegirl_left',
         frames: this.anims.generateFrameNumbers('firegirl_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'f_right',
+        key: 'firegirl_right',
         frames: this.anims.generateFrameNumbers('firegirl_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'f_idle',
+        key: 'firegirl_idle',
         frames: this.anims.generateFrameNumbers('firegirl_idle', { start: 0, end: 3 }),
-        frameRate: 10
+        frameRate: 20
     });
 
     this.anims.create({
-        key: 'f_jump',
+        key: 'firegirl_jump',
         frames: this.anims.generateFrameNumbers('firegirl_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
@@ -130,52 +115,42 @@ function create() {
 
     /* create animations for waterboy */
     this.anims.create({
-        key: 'w_left',
+        key: 'waterboy_left',
         frames: this.anims.generateFrameNumbers('waterboy_left', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'w_right',
+        key: 'waterboy_right',
         frames: this.anims.generateFrameNumbers('waterboy_right', { start: 0, end: 5 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
-        key: 'w_idle',
+        key: 'waterboy_idle',
         frames: this.anims.generateFrameNumbers('waterboy_idle', { start: 0, end: 3 }),
-        frameRate: 30
+        frameRate: 20
     });
 
     this.anims.create({
-        key: 'w_jump',
+        key: 'waterboy_jump',
         frames: this.anims.generateFrameNumbers('waterboy_jump', { start: 0, end: 7 }),
         frameRate: 10,
         repeat: -1
     });
 
+    firegirl = this.physics.add.sprite(100, 500, 'firegirl');
+    firegirl.body.setSize(firegirl.height, firegirl.width, true);
 
+    firegirl.setBounce(0.1);
+    firegirl.body.setGravityY(300);
 
-    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl_idle');
-    this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
-    
+    firegirl.setCollideWorldBounds(true);
+    this.physics.add.collider(firegirl, platforms);
 
-    this.firegirl.setBounce(0.1);
-    this.firegirl.body.setGravityY(300);
-
-    this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
-    this.physics.add.collider(this.firegirl, platforms);
-    // this.physics.add.collider(fireboy, platforms);
-
-    // potentially use to make camera follow player around - aj
-    // game.camera.follow(player); // to respond to aj, prob not needed fora long time - k
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
-
-    waterboy = this.physics.add.sprite(150, 0, 'waterboy');
+    waterboy = this.physics.add.sprite(150, 500, 'waterboy');
     waterboy.body.setSize(waterboy.height, waterboy.width, true);
 
     waterboy.setBounce(0.1);
@@ -185,54 +160,20 @@ function create() {
     this.physics.add.collider(waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
-    this.input.keyboard.addKeys('W,S,A,D');
-
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // let music = this.sounds.add('music');
-    // music.setLoop(true);
-    // music.play();
 }
 
 function update() {
 
     if (cursors.left.isDown) {
-        this.firegirl.body.setVelocityX(-200);
-        this.firegirl.anims.play('f_left', true);
+        firegirl.body.setVelocityX(-200);
     }
     else if (cursors.right.isDown) {
-        this.firegirl.body.setVelocityX(200);
-        // this.firegirl.anims.play('f_right', true);
+        firegirl.body.setVelocityX(200);
     }
-    if (cursors.up.isDown && this.firegirl.body.onFloor()) {
-        this.firegirl.body.setVelocityY(-250);
-        
+    if (cursors.up.isDown && firegirl.body.onFloor()) {
+        firegirl.body.setVelocityY(-250);
     }
-    if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
-        this.firegirl.body.setVelocityX(0);
-        this.firegirl.anims.play('f_idle', true);
-        //this.firegirl.body.setVelocityY(0);
+    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
+        firegirl.body.setVelocityX(0);
     }
-
-    // if (Phaser.Keybaord.W.isDown) {
-    //     this.waterboy.body.setVelocityX(-200);
-    //     // this.firegirl.anims.play('f_left', true);
-    // }
-    // else if (cursors.D.isDown) {
-    //     this.waterboy.body.setVelocityX(200);
-    //     // this.firegirl.anims.play('f_right', true);
-    // }
-    // if (cursors.up.W && this.firegirl.body.onFloor()) {
-    //     this.waterboy.body.setVelocityY(-250);
-    //     // this.firegirl.anims.play('f_idle', true);
-    // }
-    // if(!cursors.A.isDown && !cursors.D.isDown && !cursors.W.isDown) {
-    //     this.waterboy.body.setVelocityX(0);
-    //     //this.firegirl.body.setVelocityY(0);
-    // }
-
-    // if (jumpButton.isDown && watergirl.body.onFloor() && game.time.now > jumpTimer) {
-    //     watergirl.body.velocity.y = -250;
-    //     jumpTimer = game.time.now + 750;
-    // }
 }
