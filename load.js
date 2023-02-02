@@ -3,7 +3,7 @@ var config = { // defines the config for the game
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
-    parent: 'canvas',
+    parent: 'game',
     physics: {
         default: 'arcade',
         arcade: {
@@ -11,12 +11,18 @@ var config = { // defines the config for the game
             debug: false
         }
     },
+    scale: {
+        // mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: {
         preload: preload,
         create: create,
         update: update
     }
 };
+
+// game.scale.pageAlignHorizontally = true;
 
 // variables for players + platforms + game itself + controls
 var waterboy;
