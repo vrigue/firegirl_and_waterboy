@@ -106,28 +106,28 @@ function create() {
 
     /* create animations for waterboy */
     this.anims.create({
-        key: 'w_left',
-        frames: this.anims.generateFrameNumbers('waterboy', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
-        key: 'w_right',
-        frames: this.anims.generateFrameNumbers('waterboy', { start: 0, end: 5 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
         key: 'w_idle',
         frames: this.anims.generateFrameNumbers('waterboy', { start: 0, end: 3 }),
-        frameRate: 30
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'w_death',
+        frames: this.anims.generateFrameNumbers('waterboy', { start: 4, end: 11 }),
+        frameRate: 10,
+        repeat: -1
     });
 
     this.anims.create({
         key: 'w_jump',
-        frames: this.anims.generateFrameNumbers('waterboy', { start: 0, end: 7 }),
+        frames: this.anims.generateFrameNumbers('waterboy', { start: 12, end: 19 }),
+        frameRate: 5
+    });
+
+    this.anims.create({
+        key: 'w_run',
+        frames: this.anims.generateFrameNumbers('waterboy', { start: 20, end: 25 }),
         frameRate: 10,
         repeat: -1
     });
@@ -149,14 +149,15 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    waterboy = this.physics.add.sprite(150, 550, 'waterboy');
-    waterboy.body.setSize(waterboy.height, waterboy.width, true);
+    this.waterboy = this.physics.add.sprite(150, 550, 'waterboy');
+    this.waterboy.getBounds();
+    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
-    waterboy.setBounce(0.1);
-    waterboy.body.setGravityY(300);
+    this.waterboy.setBounce(0.1);
+    this.waterboy.body.setGravityY(300);
 
-    waterboy.setCollideWorldBounds(true);
-    this.physics.add.collider(waterboy, platforms);
+    this.waterboy.setCollideWorldBounds(true);
+    this.physics.add.collider(this.waterboy, platforms);
     
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -203,15 +204,24 @@ function update() {
     }
 
     if(keyA.isDown) {
-        waterboy.body.setVelocityX(-200);
+        this.waterboy.body.setVelocityX(-200);
+        this.waterboy.flipX = true;
+        if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+        else this.waterboy.anims.play('w_run', true);
     }
     else if (keyD.isDown) {
-        waterboy.body.setVelocityX(200);
+        this.waterboy.body.setVelocityX(200);
+        this.waterboy.flipX = false;
+        if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+        else this.waterboy.anims.play('w_run', true);
     }
-    if (keyW.isDown && waterboy.body.onFloor()) {
-        waterboy.body.setVelocityY(-250);
+    if (keyW.isDown) {
+        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-250);
+        this.waterboy.anims.play('w_jump', true);
     }
     if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
-        waterboy.body.setVelocityX(0);
+        if (this.waterboy.body.velocityX < 0) this.waterboy.anims.play('w_idle', true);
+        else this.waterboy.anims.play('w_idle', true);
+        this.waterboy.body.setVelocityX(0);
     }
 }
