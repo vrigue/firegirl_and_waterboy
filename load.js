@@ -83,44 +83,6 @@ function create() {
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
-    /* create animation for firegirl's collectible */
-    // this.anims.create({
-    //     key: 'firegirl_crystal',
-    //     frames: this.anims.generateFrameNumbers('purple_crystal', { start: 0, end: 3 }),
-    //     frameRate: 10
-    // });
-
-    // /* create collectibles for firegirl */
-    // f_diamonds = this.physics.add.group({
-    //     key: 'purple_crystal',
-    //     repeat: 11,
-    //     setXY: { x: 12, y: 0, stepX: 70 }
-    // });
-
-    // f_diamonds.children.iterate(function (child) {
-    //     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    //     child.anims.play('firegirl_crystal');
-    // });
-
-    // /* create animation for waterboy's collectible */
-    // this.anims.create({
-    //     key: 'waterboy_crystal',
-    //     frames: this.anims.generateFrameNumbers('blue_crystal', { start: 0, end: 3 }),
-    //     frameRate: 10
-    // });
-
-    /* create collectibles for waterboy */
-    // w_diamonds = this.physics.add.group({
-    //     key: 'blue_crystal',
-    //     repeat: 11,
-    //     setXY: { x: 12, y: 0, stepX: 70 }
-    // });
-
-    // w_diamonds.children.iterate(function (child) {
-    //     child.anims.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    //     child.anims.play('w_diamond');
-    // });
-
 
     // game.time.desiredFps = 30;
     
@@ -276,7 +238,3 @@ function update() {
     }
 
 }
-
-// function collectStar (player, diamond) {
-//     diamond.disableBody(true, true);
-// }
