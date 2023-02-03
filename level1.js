@@ -37,6 +37,8 @@ function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
+    this.load.image('tile', 'pictures/tile.png');
+    this.load.image('block', 'pictures/block.png');
     this.load.image('sides', 'pictures/platformVertical.png');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
@@ -65,14 +67,31 @@ function create() {
     let platforms = this.physics.add.staticGroup();
     platforms.create(600, 500, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    platforms.create(550, 250, 'ground').setScale(.5).refreshBody();
-    platforms.create(1600, 600, 'ground').setScale(3).refreshBody();
     platforms.create(200, 500, 'ground').setScale(1).refreshBody();
     platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
     platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
-    platforms.create(1000, 200, 'ground').setScale(1).refreshBody();
-    platforms.create(950, 200, 'ground').setScale(1).refreshBody();
-    platforms.create(100, 180, 'ground').setScale(1).refreshBody();
+    
+
+
+    // smol platform
+    for (let i = 450; i < 650; i+=64) {
+        platforms.create(i, 260, 'tile').setScale(.25).refreshBody();
+    }
+
+    // chunky block thingy
+    for (let i = 1021; i < 2000; i+=102) {
+        platforms.create(i, 600, 'block').setScale(.4).refreshBody();
+    }
+
+    // leads to first portal
+    for (let i = 0; i < 275; i+=89) {
+        platforms.create(i, 200, 'tile').setScale(.35).refreshBody();
+    }
+
+    // leads to second portal
+    for (let i = 800; i < 1200; i+=89) {
+        platforms.create(i, 200, 'tile').setScale(.35).refreshBody();
+    }
 
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
