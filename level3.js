@@ -3,17 +3,13 @@ var config = { // defines the config for the game
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
-    parent: 'game',
+    parent: 'canvas',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 15 },
             debug: false
         }
-    },
-    scale: {
-        // mode: Phaser.Scale.RESIZE,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
         preload: preload,
@@ -22,19 +18,12 @@ var config = { // defines the config for the game
     }
 };
 
-// game.scale.pageAlignHorizontally = true;
-
 // variables for players + platforms + game itself + controls
 var waterboy;
 var waterboy_obstacles;
 var firegirl;
 var firegirl_obstacles;
-
-var f_diamonds;
-var w_diamonds;
-
 var platforms;
-
 var cursors;
 var jumpButton;
 let keyA;
@@ -45,28 +34,22 @@ let keyW;
 var game = new Phaser.Game(config);
 
 function preload() {
-    /* loaded images for the background, platforms, portals, and obstacles */
+    /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
-    this.load.image('title', 'pictures/menu/title.png');
-    this.load.image('play_button', 'pictures/menu/play.svg');
+
+    this.load.image('purple_crystal', 'pictures/purple_crystal.png');
+    this.load.image('blue_crystal', 'pictures/blue_crystal.png');
 
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
-    this.load.spritesheet('purple_fire', 'sprites/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
-    this.load.spritesheet('blue_fire', 'sprites/blue_fire.png', { frameWidth: 10, frameHeight: 35 });
-
-    /* loaded spritesheets for firegirl's collectibles */
-    this.load.spritesheet('purple_crystal', 'sprites/purple_crystal.png', { frameWidth: 55, frameHeight: 55 });
-
-    /* loaded spritesheets for waterboy's collectibles */
-    this.load.spritesheet('blue_crystal', 'sprites/blue_crystal.png', { frameWidth: 10, frameHeight: 35 });
+    this.load.spritesheet('purple_fire', 'sprites/obstacles/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
+    this.load.spritesheet('blue_fire', 'sprites/obstacles/blue_fire.png', { frameWidth: 10, frameHeight: 35 });
 
     /* loaded spritesheets for this.firegirl */
     this.load.spritesheet('firegirl', 'sprites/pink.png', { frameWidth: 55, frameHeight: 55 });
-
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/blue.png', { frameWidth: 55, frameHeight: 55 });
 
@@ -75,68 +58,23 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
+    // this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
+    // this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
-    /* create platforms */
+    // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(400, 540, 'ground').setScale(1).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+
+    platforms.create(1050,450, 'sides').setScale(1).refreshBody();
+    platforms.create(140,450, 'sides').setScale(1).refreshBody();
+
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
-
-    this.title = this.add.image(600, 200, 'title');
-    this.title.setScale(0.5);
-
-    let play = this.add.image(600, 400, 'play_button');
-    play.setScale(8);
-    play.setInteractive();
-    play.on('pointerdown', () => this.scene.start('GameScene'));
-    play.on('pointerover', () => play.setTint(0xcccccc));
-    play.on('pointerout', () => play.setTint(0xffffff));
     
-    /* create animation for firegirl's collectible */
-    // this.anims.create({
-    //     key: 'firegirl_crystal',
-    //     frames: this.anims.generateFrameNumbers('purple_crystal', { start: 0, end: 3 }),
-    //     frameRate: 10
-    // });
-
-    // /* create collectibles for firegirl */
-    // f_diamonds = this.physics.add.group({
-    //     key: 'purple_crystal',
-    //     repeat: 11,
-    //     setXY: { x: 12, y: 0, stepX: 70 }
-    // });
-
-    // f_diamonds.children.iterate(function (child) {
-    //     child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    //     child.anims.play('firegirl_crystal');
-    // });
-
-    // /* create animation for waterboy's collectible */
-    // this.anims.create({
-    //     key: 'waterboy_crystal',
-    //     frames: this.anims.generateFrameNumbers('blue_crystal', { start: 0, end: 3 }),
-    //     frameRate: 10
-    // });
-
-    /* create collectibles for waterboy */
-    // w_diamonds = this.physics.add.group({
-    //     key: 'blue_crystal',
-    //     repeat: 11,
-    //     setXY: { x: 12, y: 0, stepX: 70 }
-    // });
-
-    // w_diamonds.children.iterate(function (child) {
-    //     child.anims.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-    //     child.anims.play('w_diamond');
-    // });
-
-
     // game.time.desiredFps = 30;
     
-
     /* create animations for this.firegirl */
     this.anims.create({
         key: 'f_idle',
@@ -190,7 +128,7 @@ function create() {
 
     /* obstacle animations here */
 
-    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    this.firegirl = this.physics.add.sprite(75, 550, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
     
@@ -205,7 +143,7 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(150, 50, 'waterboy');
+    this.waterboy = this.physics.add.sprite(1125, 550, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
@@ -215,13 +153,8 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
     
-    // this.physics.add.collider(f_diamonds, platforms);
-    // this.physics.add.overlap(firegirl, f_diamonds, collectDiamond, null, this);
-
-    // this.physics.add.collider(w_diamonds, platforms);
-    // this.physics.add.overlap(waterboy, w_diamonds, collectDiamond, null, this);
-
     cursors = this.input.keyboard.createCursorKeys();
+
 
     // let firegirl_obstacles = this.physics.add.staticGroup();
     // firegirl_obstacles.create(400, 580, 'blue_fire');
@@ -262,7 +195,6 @@ function update() {
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
         //this.firegirl.body.setVelocityY(0);
-        // jumpTimer = game.time.now + 750; dk if we need this - took from some comment below
     }
 
     if(keyA.isDown) {
@@ -286,9 +218,4 @@ function update() {
         else this.waterboy.anims.play('w_idle', true);
         this.waterboy.body.setVelocityX(0);
     }
-
 }
-
-// function collectStar (player, diamond) {
-//     diamond.disableBody(true, true);
-// }
