@@ -49,6 +49,8 @@ function preload() {
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('title', 'pictures/menu/title.png');
+    this.load.image('play_button', 'pictures/menu/play.svg');
 
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
@@ -83,6 +85,16 @@ function create() {
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
+    this.title = this.add.image(600, 200, 'title');
+    this.title.setScale(0.5);
+
+    let play = this.add.image(600, 400, 'play_button');
+    play.setScale(8);
+    play.setInteractive();
+    play.on('pointerdown', () => this.scene.start('GameScene'));
+    play.on('pointerover', () => play.setTint(0xcccccc));
+    play.on('pointerout', () => play.setTint(0xffffff));
+    
     /* create animation for firegirl's collectible */
     // this.anims.create({
     //     key: 'firegirl_crystal',
