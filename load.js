@@ -44,6 +44,8 @@ function preload() {
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('title', 'pictures/menu/title.png');
+    this.load.image('play_button', 'pictures/menu/play.svg');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -73,6 +75,16 @@ function create() {
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
+    this.title = this.add.image(600, 200, 'title');
+    this.title.setScale(0.5);
+
+    let play = this.add.image(600, 400, 'play_button');
+    play.setScale(8);
+    play.setInteractive();
+    play.on('pointerdown', () => this.scene.start('GameScene'));
+    play.on('pointerover', () => play.setTint(0xcccccc));
+    play.on('pointerout', () => play.setTint(0xffffff));
     
     // game.time.desiredFps = 30;
     
