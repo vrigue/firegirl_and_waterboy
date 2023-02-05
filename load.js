@@ -288,7 +288,3 @@ function update() {
     }
 
 }
-
-// function collectStar (player, diamond) {
-//     diamond.disableBody(true, true);
-// }
