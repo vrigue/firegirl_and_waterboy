@@ -21,8 +21,12 @@ var config = { // defines the config for the game
 // variables for players + platforms + game itself + controls
 var waterboy;
 var waterboy_obstacles;
+var waterboy_crystals;
+
 var firegirl;
 var firegirl_obstacles;
+var firegirl_crystals;
+
 var platforms;
 var cursors;
 var jumpButton;
@@ -36,9 +40,10 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('sides', 'pictures/platformVertical.png');
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('tile', 'pictures/tile.png');
+    this.load.image('block', 'pictures/block.png');
+    this.load.image('sides', 'pictures/platformVertical.png');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -59,38 +64,31 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
-    // this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
-    // this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
+    this.add.image(100, 575, 'purple_portal').setScale(.25).setOrigin(.5,.5);
+    this.add.image(175, 575, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    // platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    platforms.create(100, 100, 'tile').setScale(.25).refreshBody();
-
-    // platform
-    platforms.create(275, 150, 'tile').setScale(.25).refreshBody();
-    platforms.create(339, 150, 'tile').setScale(.25).refreshBody();
-
-    //middle platform
-    for (let i = 475; i < 800; i+=60) {
-        platforms.create(i, 250, 'tile').setScale(.25).refreshBody();
-    }
-
-    platforms.create(900, 150, 'tile').setScale(.25).refreshBody();
-    platforms.create(964, 150, 'tile').setScale(.25).refreshBody();
-
-
-    platforms.create(1050,450, 'sides').setScale(1).refreshBody();
-    platforms.create(140,450, 'sides').setScale(1).refreshBody();
-
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
+    // first platform
+    for (let i = 0; i < 1000; i+=89) {
+        platforms.create(i, 150, 'tile').setScale(.35).refreshBody();
+    }
+
+    // second platform
+    for (let i = 250; i < 1250; i+=89) {
+        platforms.create(i, 315, 'tile').setScale(.35).refreshBody();
+    }
+
+    // third platform
+    for (let i = 0; i < 1000; i+=89) {
+        platforms.create(i, 465, 'tile').setScale(.35).refreshBody();
+    }
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
-    
-    // game.time.desiredFps = 30;
+    let top = this.add.sprite(400, -37, 'ground').setScale(4);
     
     /* create animations for this.firegirl */
     this.anims.create({
@@ -145,7 +143,7 @@ function create() {
 
     /* obstacle animations here */
 
-    this.firegirl = this.physics.add.sprite(75, 550, 'firegirl');
+    this.firegirl = this.physics.add.sprite(100, 50, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
     
@@ -160,7 +158,7 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(1125, 550, 'waterboy');
+    this.waterboy = this.physics.add.sprite(150, 50, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
@@ -173,16 +171,6 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys();
 
 
-    // let firegirl_obstacles = this.physics.add.staticGroup();
-    // firegirl_obstacles.create(400, 580, 'blue_fire');
-    // let waterboy_obstacle = this.physics.add.staticGroup();
-    // waterboy_obstacles.create(4500, 580, 'purple_fire');
-
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // let music = this.sounds.add('music');
-    // music.setLoop(true);
-    // music.play();
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -190,6 +178,7 @@ function create() {
 }
 
 function update() {
+
 
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
@@ -236,3 +225,7 @@ function update() {
         this.waterboy.body.setVelocityX(0);
     }
 }
+
+// function collectCrystal (player, crystal) {
+//     crystal.disableBody(true, true);
+// }
