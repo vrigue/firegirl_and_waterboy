@@ -42,8 +42,8 @@ function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile.png');
-    this.load.image('block', 'pictures/block.png');
+    this.load.image('tile', 'pictures/tile_go_brr.png');
+    this.load.image('block', 'pictures/block_go_brr.png');
     this.load.image('sides', 'pictures/platformVertical.png');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
@@ -72,35 +72,37 @@ function create() {
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
     platforms.create(600, 500, 'ground').setScale(1).refreshBody();
-    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
     platforms.create(200, 500, 'ground').setScale(1).refreshBody();
     platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
     platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
     
 
     // smol platform
-    for (let i = 450; i < 650; i+=64) {
-        platforms.create(i, 260, 'tile').setScale(.25).refreshBody();
+    for (let i = 450; i < 750; i+=90) {
+        platforms.create(i, 260, 'tile').setScale(2).refreshBody();
     }
 
     // chunky block thingy
     for (let i = 1021; i < 2000; i+=102) {
-        platforms.create(i, 600, 'block').setScale(.4).refreshBody();
+        platforms.create(i, 595, 'block').setScale(2.5).refreshBody();
     }
 
     // leads to first portal
     for (let i = 0; i < 275; i+=89) {
-        platforms.create(i, 200, 'tile').setScale(.35).refreshBody();
+        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
     }
 
     // leads to second portal
-    for (let i = 800; i < 1200; i+=89) {
-        platforms.create(i, 200, 'tile').setScale(.35).refreshBody();
+    for (let i = 900; i < 1200; i+=50) {
+        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
     }
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
+    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+
     
     // game.time.desiredFps = 30;
     
