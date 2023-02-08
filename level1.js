@@ -71,11 +71,14 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(600, 500, 'ground').setScale(1).refreshBody();
     platforms.create(200, 500, 'ground').setScale(1).refreshBody();
     platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
     platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
     
+    for (let i = 557; i < 800; i+=90) {
+        platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
+    }
+
 
     // smol platform
     for (let i = 450; i < 750; i+=90) {
