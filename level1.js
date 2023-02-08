@@ -159,6 +159,7 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+    
 
     /* create collectible gems for firegirl */
     let firegirl_gems = this.physics.add.group({
@@ -169,6 +170,14 @@ function create() {
 
     firegirl_gems.children.iterate(function (child) {
         child.body.setSize(-15, 85);
+    });
+
+    firegirl_gems.create(865, 55, 'purple_crystal').body.setSize(-15, 160);
+    firegirl_gems.create(970, 55, 'purple_crystal').body.setSize(-15, 160);
+
+    firegirl_gems.create(657, 300, 'purple_crystal').body.setSize(-15, 250);
+
+    firegirl_gems.children.iterate(function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
     });
 
@@ -182,10 +191,16 @@ function create() {
 
     waterboy_gems.children.iterate(function (child) {
         child.body.setSize(-15, 85);
+    });
+
+    waterboy_gems.create(230, 55, 'blue_crystal').body.setSize(-15, 160);
+
+    waterboy_gems.create(550, 55, 'blue_crystal').body.setSize(-15, 750);
+
+    waterboy_gems.children.iterate(function (child) {
         child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
     });
 
-    
     /* obstacle animations here */
 
     this.firegirl = this.physics.add.sprite(100, 550, 'firegirl');
@@ -280,6 +295,6 @@ function update() {
     }
 }
 
-function collectGem (player, crystal) {
-    crystal.disableBody(true, true);
+function collectGem (player, gem) {
+    gem.disableBody(true, true);
 }
