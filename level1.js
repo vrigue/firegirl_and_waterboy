@@ -42,7 +42,7 @@ function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile_go_brr.png');
+    this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
     this.load.image('sides', 'pictures/platformVertical.png');
 
@@ -71,22 +71,25 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(200, 500, 'ground').setScale(1).refreshBody();
-    platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
 
-
-    for (let i = 75; i < 450; i+=60) {
-        platforms.create(i, 450, 'block').setScale(3).refreshBody();
-    }
-    for (let i = 562; i < 800; i+=90) {
+    for (let i = 0; i < 800; i+=90) {
         platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
     }
+
+    for (let i = 0; i < 500; i+=90) {
+        platforms.create(i, 460, 'block').setScale(2.5).refreshBody();
+    }
+
+    for (let i = 75; i < 350; i+=60) {
+        platforms.create(i, 415, 'block').setScale(3).refreshBody();
+    }
+
     
 
 
     // smol platform
-    for (let i = 450; i < 750; i+=90) {
-        platforms.create(i, 260, 'tile').setScale(2).refreshBody();
+    for (let i = 550; i < 700; i+=90) {
+        platforms.create(i, 265, 'tile').setScale(2).refreshBody();
     }
 
     // chunky block thingy
