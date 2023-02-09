@@ -47,7 +47,7 @@ function preload() {
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
     this.load.image('title', 'pictures/menu/title.png');
-    this.load.image('play_button', 'pictures/menu/play.svg');
+    this.load.image('play_button', 'pictures/menu/play1.png');
 
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
@@ -80,9 +80,8 @@ function create() {
     this.title.setScale(0.5);
 
     let play = this.add.image(600, 400, 'play_button');
-    play.setScale(8);
     play.setInteractive();
-    play.on('pointerdown', () => this.scene.start('GameScene'));
+    play.on('pointerdown', () => location.assign('level1.html'));
     play.on('pointerover', () => play.setTint(0xcccccc));
     play.on('pointerout', () => play.setTint(0xffffff));
     

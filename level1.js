@@ -1,15 +1,18 @@
-// when game initially loads, run the following?
 var config = { // defines the config for the game 
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
-    parent: 'canvas',
+    parent: 'game',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 15 },
+            gravity: { y: 300 },
             debug: false
         }
+    },
+    scale: {
+        // mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
         preload: preload,
