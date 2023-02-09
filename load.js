@@ -50,6 +50,7 @@ function preload() {
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
     this.load.image('title', 'pictures/menu/title.png');
+    this.load.image('block', 'pictures/tile_go_brr.png');
 
     this.load.image('play_button', 'pictures/menu/play1.png');
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
@@ -77,7 +78,9 @@ function create() {
 
     /* create platforms */
     let platforms = this.physics.add.staticGroup();
-    platforms.create(400, 540, 'ground').setScale(1).refreshBody();
+    // landing platforms for firegirl and waterboy
+    platforms.create(300, 540, 'block').setScale(2.5).refreshBody();
+    platforms.create(900, 540, 'block').setScale(2.5).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
@@ -96,7 +99,7 @@ function create() {
     let menu_button = this.add.image(1100, 50, 'menu');
     menu_button.setScale(2.5);
     menu_button.setInteractive();
-    menu_button.on('pointerdown', () => location.assign('controls.html'));
+    menu_button.on('pointerdown', () => location.assign('level_list.html'));
     menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
     
@@ -168,7 +171,7 @@ function create() {
 
     /* obstacle animations here */
 
-    this.firegirl = this.physics.add.sprite(400, 200, 'firegirl');
+    this.firegirl = this.physics.add.sprite(300, 200, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
 
@@ -182,7 +185,7 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(150, 50, 'waterboy');
+    this.waterboy = this.physics.add.sprite(900, 50, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
@@ -191,6 +194,7 @@ function create() {
 
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
+    this.waterboy.flipX = true;
     
     cursors = this.input.keyboard.createCursorKeys();
 
