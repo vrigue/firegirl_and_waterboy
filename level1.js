@@ -44,11 +44,12 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('ground', 'pictures/platform.jpg');
+    // this.load.image('ground', 'pictures/platform.jpg');
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
-    this.load.image('sides', 'pictures/platformVertical.png');
-
+    // this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
 
@@ -75,20 +76,16 @@ function create() {
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
 
+    // giant chunk of platform
     for (let i = 0; i < 800; i+=90) {
         platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
     }
-
     for (let i = 0; i < 500; i+=90) {
         platforms.create(i, 460, 'block').setScale(2.5).refreshBody();
     }
-
     for (let i = 75; i < 350; i+=60) {
         platforms.create(i, 415, 'block').setScale(3).refreshBody();
     }
-
-    
-
 
     // smol platform
     for (let i = 550; i < 700; i+=90) {
@@ -114,7 +111,8 @@ function create() {
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
-    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(1238, 100, 'sides').setScale(4);
+    platforms.create(600, 700, 'ground').setScale(4).refreshBody();
 
     
     // game.time.desiredFps = 30;
@@ -211,6 +209,7 @@ function create() {
         child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
     });
 
+
     /* obstacle animations here */
 
     this.firegirl = this.physics.add.sprite(100, 550, 'firegirl');
@@ -272,7 +271,7 @@ function update() {
         else this.firegirl.anims.play('f_run', true);
     }
     if (cursors.up.isDown) {
-        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-250);
+        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-375);
         this.firegirl.anims.play('f_jump', true);
     }
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
@@ -295,7 +294,7 @@ function update() {
         else this.waterboy.anims.play('w_run', true);
     }
     if (keyW.isDown) {
-        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-250);
+        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-375);
         this.waterboy.anims.play('w_jump', true);
     }
     if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
