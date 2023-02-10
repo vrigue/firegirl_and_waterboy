@@ -12,7 +12,8 @@ var config = { // defines the config for the game
         }
     },
     scale: {
-        // mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
@@ -47,8 +48,8 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, portals, and obstacles */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('title', 'pictures/menu/title.png');
     this.load.image('block', 'pictures/tile_go_brr.png');
 
@@ -82,21 +83,34 @@ function create() {
     platforms.create(300, 540, 'block').setScale(2.5).refreshBody();
     platforms.create(900, 540, 'block').setScale(2.5).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(800, 700, 'ground').setScale(4).refreshBody();
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    let left = this.add.sprite(-40, 200, 'sides').setScale(4);
+    let left2 = this.add.sprite(-40, 700, 'sides').setScale(4);
+    let right = this.add.sprite(1238, 200, 'sides').setScale(4);
+    let right2 = this.add.sprite(1238, 700, 'sides').setScale(4);
+    let top = this.add.sprite(500, -37, 'ground').setScale(4);
+    let top2 = this.add.sprite(900, -37, 'ground').setScale(4);
 
     this.title = this.add.image(600, 200, 'title');
     this.title.setScale(0.5);
 
+    this.add.text(270, 360, 'W: Jump', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(270, 380, 'A: Left', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(270, 400, 'D: Right', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+
+    this.add.text(865, 360, '⬆: Jump', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(865, 380, '⬅: Left', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(865, 400, '➡: Right', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    
     let play = this.add.image(600, 400, 'play_button');
     play.setInteractive();
     play.on('pointerdown', () => location.assign('level1.html'));
     play.on('pointerover', () => play.setTint(0xcccccc));
     play.on('pointerout', () => play.setTint(0xffffff));
 
-    let menu_button = this.add.image(1100, 50, 'menu');
+    let menu_button = this.add.image(1125, 50, 'menu');
+    this.add.text(1110, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     menu_button.setScale(2.5);
     menu_button.setInteractive();
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
@@ -104,6 +118,7 @@ function create() {
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
     
     let vol = this.add.image(1050, 50, 'sound_on');
+    this.add.text(1025, 70, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     vol.setScale(2.5);
     vol.setInteractive();
     vol.on('pointerdown', () => {
@@ -171,7 +186,7 @@ function create() {
 
     /* obstacle animations here */
 
-    this.firegirl = this.physics.add.sprite(300, 200, 'firegirl');
+    this.firegirl = this.physics.add.sprite(900, 50, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
 
@@ -181,11 +196,9 @@ function create() {
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
 
-    // game.camera.follow(player);
-
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(900, 50, 'waterboy');
+    this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
