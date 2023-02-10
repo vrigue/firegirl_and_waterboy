@@ -182,7 +182,7 @@ function create() {
 
     this.firegirl = this.physics.add.sprite(100, 50, 'firegirl');
     this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
+    this.firegirl.body.setSize(this.firegirl.height - 19, this.firegirl.width, true);
     
 
     this.firegirl.setBounce(0.1);
@@ -197,7 +197,7 @@ function create() {
 
     this.waterboy = this.physics.add.sprite(150, 50, 'waterboy');
     this.waterboy.getBounds();
-    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
+    this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
