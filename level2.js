@@ -11,6 +11,11 @@ var config = { // defines the config for the game
             debug: false
         }
     },
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: {
         preload: preload,
         create: create,
@@ -38,6 +43,11 @@ function preload() {
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
     this.load.image('sides', 'pictures/platformVertical.png');
+
+    // menu images
+    this.load.image('sound_on', 'pictures/menu/vol_on.png');
+    this.load.image('menu', 'pictures/menu/xmenu.png');
+    this.load.image('reload', 'pictures/menu/reload.png');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -75,7 +85,34 @@ function create() {
     let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
+    let menu_button = this.add.image(650, 50, 'menu');
+    menu_button.setScale(2.5);
+    menu_button.setInteractive();
+    menu_button.on('pointerdown', () => location.assign('level_list.html'));
+    menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
+    menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
     
+    let vol = this.add.image(550, 50, 'sound_on');
+    vol.setScale(2.5);
+    vol.setInteractive();
+    vol.on('pointerdown', () => {
+        if(music.isPlaying) {
+            music.pause(); 
+        } else {
+            music.resume();
+        }
+    });
+    vol.on('pointerover', () => vol.setTint(0xcccccc));
+    vol.on('pointerout', () => vol.setTint(0xffffff));
+
+    let reload = this.add.image(600, 52, 'reload');
+    reload.setScale(2.75);
+    reload.setInteractive();
+    reload.on('pointerdown', () => location.assign('level2.html'));
+    reload.on('pointerover', () => reload.setTint(0xcccccc));
+    reload.on('pointerout', () => reload.setTint(0xffffff));
+
     // game.time.desiredFps = 30;
     
     /* create animations for this.firegirl */

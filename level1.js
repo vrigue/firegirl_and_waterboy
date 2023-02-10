@@ -11,7 +11,8 @@ var config = { // defines the config for the game
         }
     },
     scale: {
-        // mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
@@ -51,7 +52,6 @@ function preload() {
     this.load.image('back', 'pictures/sky.webp');
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
-    this.load.image('sound_off', 'pictures/menu/mute.png');
     this.load.image('menu', 'pictures/menu/xmenu.png');
     this.load.image('reload', 'pictures/menu/reload.png');
 
@@ -93,13 +93,20 @@ function create() {
     vol.setInteractive();
     vol.on('pointerdown', () => {
         if(music.isPlaying) {
-            music.pause();
+            music.pause(); 
         } else {
             music.resume();
         }
     });
     vol.on('pointerover', () => vol.setTint(0xcccccc));
     vol.on('pointerout', () => vol.setTint(0xffffff));
+
+    let reload = this.add.image(600, 52, 'reload');
+    reload.setScale(2.75);
+    reload.setInteractive();
+    reload.on('pointerdown', () => location.assign('level1.html'));
+    reload.on('pointerover', () => reload.setTint(0xcccccc));
+    reload.on('pointerout', () => reload.setTint(0xffffff));
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
