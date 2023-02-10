@@ -8,7 +8,7 @@ var config = { // defines the config for the game
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -131,6 +131,13 @@ function create() {
     vol.on('pointerover', () => vol.setTint(0xcccccc));
     vol.on('pointerout', () => vol.setTint(0xffffff));
 
+    let purple_portal = this.add.image(200,475, "purple_portal");
+    purple_portal.setScale(0.29);
+    let blue_portal = this.add.image(1000,475, "blue_portal");
+    blue_portal.setScale(0.22);
+
+    this.add.text(490, 225, 'Make them go to their portals!', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setColor("#ffffff");
+
     // game.time.desiredFps = 30;
     
     /* create animations for this.firegirl */
@@ -188,7 +195,7 @@ function create() {
 
     this.firegirl = this.physics.add.sprite(900, 50, 'firegirl');
     this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
+    this.firegirl.body.setSize(this.firegirl.height-19, this.firegirl.width, true);
 
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
@@ -200,7 +207,7 @@ function create() {
 
     this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
-    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
+    this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
