@@ -67,7 +67,7 @@ function preload() {
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
     this.load.spritesheet('purple_obstacle', 'sprites/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
-    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 10, frameHeight: 35 });
+    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 55, frameHeight: 55 });
 
     /* loaded spritesheets for this.firegirl */
     this.load.spritesheet('firegirl', 'sprites/pink.png', { frameWidth: 55, frameHeight: 55 });
@@ -121,8 +121,6 @@ function create() {
     for (let i = 75; i < 350; i+=60) {
         platforms.create(i, 415, 'block').setScale(3).refreshBody();
     }
-
-    
 
     // smol platform
     for (let i = 450; i < 750; i+=90) {
