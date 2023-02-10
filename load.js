@@ -12,7 +12,8 @@ var config = { // defines the config for the game
         }
     },
     scale: {
-        // mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
@@ -90,6 +91,14 @@ function create() {
     this.title = this.add.image(600, 200, 'title');
     this.title.setScale(0.5);
 
+    this.add.text(270, 360, 'W: Jump', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(270, 380, 'A: Left', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(270, 400, 'D: Right', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+
+    this.add.text(865, 360, '⬆: Jump', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(865, 380, '⬅: Left', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    this.add.text(865, 400, '➡: Right', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.2);
+    
     let play = this.add.image(600, 400, 'play_button');
     play.setInteractive();
     play.on('pointerdown', () => location.assign('level1.html'));
@@ -171,7 +180,7 @@ function create() {
 
     /* obstacle animations here */
 
-    this.firegirl = this.physics.add.sprite(300, 200, 'firegirl');
+    this.firegirl = this.physics.add.sprite(900, 50, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
 
@@ -185,7 +194,7 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(900, 50, 'waterboy');
+    this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
 
