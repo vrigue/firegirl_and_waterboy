@@ -306,8 +306,8 @@ function create() {
 
     this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
 
-    this.physics.add.overlap(this.firegirl, purple_portal, null, this);
-    this.physics.add.overlap(this.waterboy, blue_portal, null, this);
+    this.physics.add.overlap(this.firegirl, purple_portal, nextLevel);
+    this.physics.add.overlap(this.waterboy, blue_portal, nextLevel);
 
     
     cursors = this.input.keyboard.createCursorKeys();
@@ -343,9 +343,9 @@ function update() {
         else this.firegirl.anims.play('f_run', true);
     }
     if (cursors.up.isDown) {
-        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-375);
+        // if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-375);
         if (this.firegirl.body.onFloor()) {
-            this.firegirl.body.setVelocityY(-250);
+            this.firegirl.body.setVelocityY(-350);
             this.firegirl.body.setGravityY(275);
         }
         this.firegirl.anims.play('f_jump', true);
@@ -354,7 +354,6 @@ function update() {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
-        //this.firegirl.body.setVelocityY(0);
     }
 
     if(keyA.isDown) {
@@ -370,10 +369,10 @@ function update() {
         else this.waterboy.anims.play('w_run', true);
     }
     if (keyW.isDown) {
-        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-375);
+        // if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-375);
         if (this.waterboy.body.onFloor()) {
-            this.waterboy.body.setVelocityY(-250);
-            this.waterboy.body.setGravity(275);
+            this.waterboy.body.setVelocityY(-350);
+            this.waterboy.body.setGravityY(275);
         }
         this.waterboy.anims.play('w_jump', true);
     }
@@ -386,4 +385,7 @@ function update() {
 
 function collectGem (player, gem) {
     gem.disableBody(true, true);
+}
+function nextLevel () {
+    window.location.href = "level2.html";
 }
