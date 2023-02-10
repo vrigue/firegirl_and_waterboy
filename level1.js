@@ -49,7 +49,12 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    // this.load.image('ground', 'pictures/platform.jpg');
+    // menu images
+    this.load.image('sound_on', 'pictures/menu/vol_on.png');
+    this.load.image('sound_off', 'pictures/menu/mute.png');
+    this.load.image('menu', 'pictures/menu/xmenu.png');
+    this.load.image('reload', 'pictures/menu/reload.png');
+
     this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
@@ -76,6 +81,25 @@ function preload() {
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
 
+    let menu_button = this.add.image(650, 50, 'menu');
+    menu_button.setScale(2.5);
+    menu_button.setInteractive();
+    menu_button.on('pointerdown', () => location.assign('level_list.html'));
+    menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
+    menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
+    
+    let vol = this.add.image(550, 50, 'sound_on');
+    vol.setScale(2.5);
+    vol.setInteractive();
+    vol.on('pointerdown', () => {
+        if(music.isPlaying) {
+            music.pause();
+        } else {
+            music.resume();
+        }
+    });
+    vol.on('pointerover', () => vol.setTint(0xcccccc));
+    vol.on('pointerout', () => vol.setTint(0xffffff));
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();

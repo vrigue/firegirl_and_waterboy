@@ -109,7 +109,8 @@ function create() {
     play.on('pointerover', () => play.setTint(0xcccccc));
     play.on('pointerout', () => play.setTint(0xffffff));
 
-    let menu_button = this.add.image(1100, 50, 'menu');
+    let menu_button = this.add.image(1125, 50, 'menu');
+    this.add.text(1110, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     menu_button.setScale(2.5);
     menu_button.setInteractive();
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
@@ -117,6 +118,7 @@ function create() {
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
     
     let vol = this.add.image(1050, 50, 'sound_on');
+    this.add.text(1025, 70, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     vol.setScale(2.5);
     vol.setInteractive();
     vol.on('pointerdown', () => {
@@ -193,8 +195,6 @@ function create() {
 
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
-
-    // game.camera.follow(player);
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
