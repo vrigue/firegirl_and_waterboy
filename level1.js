@@ -1,15 +1,18 @@
-// when game initially loads, run the following?
 var config = { // defines the config for the game 
     type: Phaser.AUTO, // tries WebGL, falls back to canvas otherwise
     width: 1200, // centering
     height: 660,
-    parent: 'canvas',
+    parent: 'game',
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 15 },
+            gravity: { y: 300 },
             debug: false
         }
+    },
+    scale: {
+        // mode: Phaser.Scale.RESIZE,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
         preload: preload,
@@ -47,7 +50,7 @@ function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
     this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile_go_brr.png');
+    this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
     this.load.image('sides', 'pictures/platformVertical.png');
 
@@ -75,13 +78,22 @@ function create() {
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
-    platforms.create(600, 500, 'ground').setScale(1).refreshBody();
-    platforms.create(200, 500, 'ground').setScale(1).refreshBody();
-    platforms.create(0, 450, 'ground').setScale(2.5).refreshBody();
-    platforms.create(-200, 380, 'ground').setScale(2.5).refreshBody();
+
+    for (let i = 0; i < 800; i+=90) {
+        platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
+    }
+
+    for (let i = 0; i < 500; i+=90) {
+        platforms.create(i, 460, 'block').setScale(2.5).refreshBody();
+    }
+
+    for (let i = 75; i < 350; i+=60) {
+        platforms.create(i, 415, 'block').setScale(3).refreshBody();
+    }
+
     
 
-    /* middle platform */
+    // smol platform
     for (let i = 450; i < 750; i+=90) {
         platforms.create(i, 260, 'tile').setScale(2).refreshBody();
     }
