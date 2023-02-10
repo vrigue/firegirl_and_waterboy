@@ -54,7 +54,7 @@ function preload() {
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/blue.png', { frameWidth: 55, frameHeight: 55 });
 
-    // this.load.audio('music', 'audio/music.mp3')
+    this.load.audio('bg', 'audio/bg.mp3');
 }
 
 function create() {
@@ -187,6 +187,10 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    let music = this.sound.add('bg');
+    music.setLoop(true);
+    music.play();
 }
 
 function update() {

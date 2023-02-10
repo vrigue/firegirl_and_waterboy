@@ -110,7 +110,7 @@ function create() {
     play.on('pointerout', () => play.setTint(0xffffff));
 
     let menu_button = this.add.image(1125, 50, 'menu');
-    this.add.text(1110, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+    this.add.text(1105, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     menu_button.setScale(2.5);
     menu_button.setInteractive();
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
