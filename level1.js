@@ -61,7 +61,7 @@ function preload() {
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
     this.load.spritesheet('purple_obstacle', 'sprites/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
-    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 10, frameHeight: 35 });
+    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 55, frameHeight: 55 });
 
     /* loaded spritesheets for this.firegirl */
     this.load.spritesheet('firegirl', 'sprites/pink.png', { frameWidth: 55, frameHeight: 55 });
@@ -90,8 +90,6 @@ function create() {
     for (let i = 75; i < 350; i+=60) {
         platforms.create(i, 415, 'block').setScale(3).refreshBody();
     }
-
-    
 
     // smol platform
     for (let i = 450; i < 750; i+=90) {
@@ -276,8 +274,8 @@ function create() {
 
     this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
 
-    this.physics.add.overlap(this.firegirl, purple_portal, null, this);
-    this.physics.add.overlap(this.waterboy, blue_portal, null, this);
+    this.physics.add.overlap(this.firegirl, purple_portal, enterPurplePortal, null, this);
+    this.physics.add.overlap(this.waterboy, blue_portal, enterBluePortal, null, this);
 
     
     cursors = this.input.keyboard.createCursorKeys();
@@ -310,8 +308,8 @@ function update() {
     }
     if (cursors.up.isDown) {
         if (this.firegirl.body.onFloor()) {
-            this.firegirl.body.setVelocityY(-250);
-            this.firegirl.body.setGravityY(275);
+            this.firegirl.body.setVelocityY(-300);
+            this.firegirl.body.setGravityY(75);
         }
         this.firegirl.anims.play('f_jump', true);
     }
@@ -336,8 +334,8 @@ function update() {
     }
     if (keyW.isDown) {
         if (this.waterboy.body.onFloor()) {
-            this.waterboy.body.setVelocityY(-250);
-            this.waterboy.body.setGravity(275);
+            this.waterboy.body.setVelocityY(-300);
+            this.waterboy.body.setGravity(75);
         }
         this.waterboy.anims.play('w_jump', true);
     }
