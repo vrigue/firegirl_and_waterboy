@@ -113,11 +113,14 @@ function create() {
         platforms.create(i, 200, 'tile').setScale(2).refreshBody();
     }
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
+    // let left = this.add.sprite(-40, 300, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
-    platforms.create(1238, 100, 'sides').setScale(4);
+    platforms.create(600, -37, 'ground').setScale(4);
+    platforms.create(-40, 100, 'sides').setScale(4);
+    platforms.create(-40, 600, 'sides').setScale(4);
+    platforms.create(1238, 200, 'sides').setScale(4);
     platforms.create(600, 700, 'ground').setScale(4).refreshBody();
 
 
