@@ -48,8 +48,8 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, portals, and obstacles */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('title', 'pictures/menu/title.png');
     this.load.image('block', 'pictures/tile_go_brr.png');
 
@@ -83,10 +83,14 @@ function create() {
     platforms.create(300, 540, 'block').setScale(2.5).refreshBody();
     platforms.create(900, 540, 'block').setScale(2.5).refreshBody();
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
+    platforms.create(800, 700, 'ground').setScale(4).refreshBody();
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    let left = this.add.sprite(-40, 200, 'sides').setScale(4);
+    let left2 = this.add.sprite(-40, 700, 'sides').setScale(4);
+    let right = this.add.sprite(1238, 200, 'sides').setScale(4);
+    let right2 = this.add.sprite(1238, 700, 'sides').setScale(4);
+    let top = this.add.sprite(500, -37, 'ground').setScale(4);
+    let top2 = this.add.sprite(900, -37, 'ground').setScale(4);
 
     this.title = this.add.image(600, 200, 'title');
     this.title.setScale(0.5);
