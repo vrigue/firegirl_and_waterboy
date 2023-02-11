@@ -75,6 +75,10 @@ function preload() {
 }
 
 function create() {
+    let music = this.sound.add('bg');
+    music.setLoop(true);
+    music.play();
+    
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
 
     /* create platforms */
@@ -222,10 +226,6 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-
-    let music = this.sound.add('bg');
-    music.setLoop(true);
-    music.play();
 }
 
 function update() {
