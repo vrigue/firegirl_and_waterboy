@@ -7,7 +7,7 @@ var config = { // defines the config for the game
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -28,13 +28,18 @@ var waterboy_obstacles;
 var m_waterboy_gems;
 var s_waterboy_gems;
 
+const num_gems = 11;
+var gems_collected = 0;
+
 var firegirl;
 var firegirl_obstacles;
 var m_firegirl_gems;
 var s_firegirl_gems;
 
 var purple_portal;
+var firegirl_home = false;
 var blue_portal;
+var waterboy_home = false;
 
 var platforms;
 
@@ -314,26 +319,17 @@ function create() {
 
     this.physics.add.collider(m_firegirl_gems, platforms);
     this.physics.add.overlap(this.firegirl, m_firegirl_gems, collectGem, null, this);
-
     this.physics.add.overlap(this.firegirl, s_firegirl_gems, collectGem, null, this);
 
     this.physics.add.collider(m_waterboy_gems, platforms);
     this.physics.add.overlap(this.waterboy, m_waterboy_gems, collectGem, null, this);
-
     this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
 
+    // for ending
     this.physics.add.overlap(this.firegirl, purple_portal, test, null, this);
     this.physics.add.overlap(this.waterboy, blue_portal, test, null, this);
 
-    
     cursors = this.input.keyboard.createCursorKeys();
-
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // let music = this.sounds.add('music');
-    // music.setLoop(true);
-    // music.play();
-
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -342,6 +338,21 @@ function create() {
     let music = this.sound.add('bg');
     music.setLoop(true);
     music.play();
+
+    function collectGem (player, gem) {
+        gem.destroy(true); // better to get rid of it for clutter sake? -K
+        gems_collected++; // keep track of for ending screen - K
+    }
+
+    function test(player, portal) {
+        if ((this.physics.overlap(this.firegirl, purple_portal)) && (this.physics.overlap(this.waterboy, blue_portal))) {
+            // bottom code will make things run smoothly, i.e. this function will not be called over and over again.
+            // you can set this into a timed function maybe to play an animation first then go to next level.
+            this.firegirl.disableBody(true, false);
+            this.waterboy.disableBody(true, false);
+            location.assign('level2.html');
+        }
+    }
 }
 
 function update() {
@@ -397,18 +408,5 @@ function update() {
         if (this.waterboy.body.velocityX < 0) this.waterboy.anims.play('w_idle', true);
         else this.waterboy.anims.play('w_idle', true);
         this.waterboy.body.setVelocityX(0);
-    }
-}
-
-function collectGem (player, gem) {
-    gem.disableBody(true, true);
-}
-
-function test(player, portal) {
-    if ((this.physics.overlap(this.firegirl, purple_portal, null, this)) && (this.physics.overlap(this.waterboy, blue_portal, null, this))) {
-        nextLevel()
-    }
-}
-function nextLevel () {
-    window.location.href = "level2.html";
+    }    
 }

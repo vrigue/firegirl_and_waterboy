@@ -84,14 +84,12 @@ function create() {
 
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-<<<<<<< HEAD
 
     platforms.create(600, -37, 'ground').setScale(4);
     platforms.create(-40, 100, 'sides').setScale(4);
     platforms.create(-40, 600, 'sides').setScale(4);
     platforms.create(1238, 200, 'sides').setScale(4);
     platforms.create(600, 700, 'ground').setScale(4).refreshBody();
-=======
     let top = this.add.sprite(400, -37, 'ground').setScale(4);
 
     let menu_button = this.add.image(650, 50, 'menu');
@@ -100,7 +98,6 @@ function create() {
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
     menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
->>>>>>> 70a86c8c603036f8dda1fd0d8807949133573ce1
     
     let vol = this.add.image(550, 50, 'sound_on');
     vol.setScale(2.5);
