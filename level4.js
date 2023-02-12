@@ -45,10 +45,10 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile.png');
-    this.load.image('block', 'pictures/block.png');
-    this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
+    this.load.image('tile', 'pictures/tile_go_brr.png');
+    this.load.image('block', 'pictures/block_go_brr.png');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
 
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
@@ -83,22 +83,25 @@ function create() {
 
     // first platform
     for (let i = 0; i < 1000; i+=89) {
-        platforms.create(i, 150, 'tile').setScale(.35).refreshBody();
+        platforms.create(i, 150, 'tile').setScale(2).refreshBody();
     }
 
     // second platform
     for (let i = 250; i < 1250; i+=89) {
-        platforms.create(i, 315, 'tile').setScale(.35).refreshBody();
+        platforms.create(i, 315, 'tile').setScale(2).refreshBody();
     }
 
     // third platform
     for (let i = 0; i < 1000; i+=89) {
-        platforms.create(i, 465, 'tile').setScale(.35).refreshBody();
+        platforms.create(i, 465, 'tile').setScale(2).refreshBody();
     }
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
-    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    platforms.create(600, -37, 'ground').setScale(4);
+    platforms.create(-40, 100, 'sides').setScale(4);
+    platforms.create(-40, 600, 'sides').setScale(4);
+    platforms.create(1238, 100, 'sides').setScale(4);
+    platforms.create(1238, 400, 'sides').setScale(4);
+    platforms.create(600, 700, 'ground').setScale(4).refreshBody();
     
     let menu_button = this.add.image(650, 50, 'menu');
     menu_button.setScale(2.5);

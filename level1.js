@@ -46,6 +46,7 @@ let keyD;
 let keyW;
 
 var game = new Phaser.Game(config);
+var m = 0;
 
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
@@ -154,11 +155,21 @@ function create() {
 
 
     /* PORTALS */
-    let purple_portal = this.add.sprite(1115, 110, 'purple_portal');
+    let purple_portal = this.physics.add.staticGroup();
+    purple_portal.gravity = 0;
+    purple_portal = this.physics.add.sprite(1115, 115, 'purple_portal');
     purple_portal.setScale(0.29);
+    this.physics.add.collider(purple_portal, platforms);
+    purple_portal.getBounds();
+    purple_portal.body.setSize(50, 450);
 
-    let blue_portal = this.add.sprite(75, 110, 'blue_portal');
+    let blue_portal = this.physics.add.staticGroup();
+    blue_portal.gravity = 0;
+    blue_portal = this.physics.add.sprite(75, 115, 'blue_portal');
     blue_portal.setScale(0.22);
+    this.physics.add.collider(blue_portal, platforms);
+    blue_portal.getBounds();
+    blue_portal.body.setSize(50, 600);
 
     
     // game.time.desiredFps = 30;
@@ -311,8 +322,8 @@ function create() {
 
     this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
 
-    this.physics.add.overlap(this.firegirl, purple_portal, nextLevel);
-    this.physics.add.overlap(this.waterboy, blue_portal, nextLevel);
+    this.physics.add.overlap(this.firegirl, purple_portal, test, null, this);
+    this.physics.add.overlap(this.waterboy, blue_portal, test, null, this);
 
     
     cursors = this.input.keyboard.createCursorKeys();
@@ -334,7 +345,8 @@ function create() {
 }
 
 function update() {
-
+    // this.game.physics.arcade.overlap(this.firegirl, purple_portal, nextLeve(), null, this);
+    // this.game.physics.arcade.overlap(this.waterboy, blue_portal, nextLevel(),null, this);
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
         this.firegirl.flipX = true;
@@ -390,6 +402,12 @@ function update() {
 
 function collectGem (player, gem) {
     gem.disableBody(true, true);
+}
+
+function test(player, portal) {
+    if ((this.physics.overlap(this.firegirl, purple_portal, null, this)) && (this.physics.overlap(this.waterboy, blue_portal, null, this))) {
+        nextLevel()
+    }
 }
 function nextLevel () {
     window.location.href = "level2.html";
