@@ -11,7 +11,8 @@ var config = { // defines the config for the game
         }
     },
     scale: {
-        // mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     scene: {
@@ -51,7 +52,6 @@ function preload() {
     this.load.image('back', 'pictures/sky.webp');
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
-    this.load.image('sound_off', 'pictures/menu/mute.png');
     this.load.image('menu', 'pictures/menu/xmenu.png');
     this.load.image('reload', 'pictures/menu/reload.png');
 
@@ -67,7 +67,7 @@ function preload() {
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
     this.load.spritesheet('purple_obstacle', 'sprites/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
-    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 10, frameHeight: 35 });
+    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 55, frameHeight: 55 });
 
     /* loaded spritesheets for this.firegirl */
     this.load.spritesheet('firegirl', 'sprites/pink.png', { frameWidth: 55, frameHeight: 55 });
@@ -75,7 +75,7 @@ function preload() {
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/blue.png', { frameWidth: 55, frameHeight: 55 });
 
-    // this.load.audio('music', 'audio/music.mp3')
+    this.load.audio('bg', 'audio/bg.mp3');
 }
 
 function create() {
@@ -93,13 +93,20 @@ function create() {
     vol.setInteractive();
     vol.on('pointerdown', () => {
         if(music.isPlaying) {
-            music.pause();
+            music.pause(); 
         } else {
             music.resume();
         }
     });
     vol.on('pointerover', () => vol.setTint(0xcccccc));
     vol.on('pointerout', () => vol.setTint(0xffffff));
+
+    let reload = this.add.image(600, 52, 'reload');
+    reload.setScale(2.75);
+    reload.setInteractive();
+    reload.on('pointerdown', () => location.assign('level1.html'));
+    reload.on('pointerover', () => reload.setTint(0xcccccc));
+    reload.on('pointerout', () => reload.setTint(0xffffff));
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
@@ -114,8 +121,6 @@ function create() {
     for (let i = 75; i < 350; i+=60) {
         platforms.create(i, 415, 'block').setScale(3).refreshBody();
     }
-
-    
 
     // smol platform
     for (let i = 450; i < 750; i+=90) {
@@ -272,7 +277,7 @@ function create() {
 
     this.firegirl = this.physics.add.sprite(100, 550, 'firegirl');
     this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
+    this.firegirl.body.setSize(this.firegirl.height - 19, this.firegirl.width, true);
     
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
@@ -286,7 +291,7 @@ function create() {
 
     this.waterboy = this.physics.add.sprite(150, 550, 'waterboy');
     this.waterboy.getBounds();
-    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
+    this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
@@ -322,6 +327,10 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    let music = this.sound.add('bg');
+    music.setLoop(true);
+    music.play();
 }
 
 function update() {

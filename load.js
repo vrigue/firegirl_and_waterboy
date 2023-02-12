@@ -8,7 +8,7 @@ var config = { // defines the config for the game
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -75,6 +75,10 @@ function preload() {
 }
 
 function create() {
+    let music = this.sound.add('bg');
+    music.setLoop(true);
+    music.play();
+    
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
 
     /* create platforms */
@@ -110,7 +114,7 @@ function create() {
     play.on('pointerout', () => play.setTint(0xffffff));
 
     let menu_button = this.add.image(1125, 50, 'menu');
-    this.add.text(1110, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+    this.add.text(1105, 70, 'levels', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     menu_button.setScale(2.5);
     menu_button.setInteractive();
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
@@ -130,6 +134,13 @@ function create() {
     });
     vol.on('pointerover', () => vol.setTint(0xcccccc));
     vol.on('pointerout', () => vol.setTint(0xffffff));
+
+    let purple_portal = this.add.image(200,475, "purple_portal");
+    purple_portal.setScale(0.29);
+    let blue_portal = this.add.image(1000,475, "blue_portal");
+    blue_portal.setScale(0.22);
+
+    this.add.text(490, 225, 'Make them go to their portals!', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setColor("#ffffff");
 
     // game.time.desiredFps = 30;
     
@@ -188,7 +199,7 @@ function create() {
 
     this.firegirl = this.physics.add.sprite(900, 50, 'firegirl');
     this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
+    this.firegirl.body.setSize(this.firegirl.height-19, this.firegirl.width, true);
 
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
@@ -200,7 +211,7 @@ function create() {
 
     this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
-    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
+    this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
@@ -215,10 +226,6 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-
-    let music = this.sound.add('bg');
-    music.setLoop(true);
-    music.play();
 }
 
 function update() {

@@ -11,6 +11,11 @@ var config = { // defines the config for the game
             debug: false
         }
     },
+    scale: {
+        mode: Phaser.Scale.RESIZE,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
     scene: {
         preload: preload,
         create: create,
@@ -45,6 +50,11 @@ function preload() {
     this.load.image('block', 'pictures/block_go_brr.png');
     this.load.image('sides', 'pictures/blue-purple-tall.jpg');
 
+    // menu images
+    this.load.image('sound_on', 'pictures/menu/vol_on.png');
+    this.load.image('menu', 'pictures/menu/xmenu.png');
+    this.load.image('reload', 'pictures/menu/reload.png');
+
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
 
@@ -59,7 +69,7 @@ function preload() {
     /* loaded spritesheets for waterboy */
     this.load.spritesheet('waterboy', 'sprites/blue.png', { frameWidth: 55, frameHeight: 55 });
 
-    // this.load.audio('music', 'audio/music.mp3')
+    this.load.audio('bg', 'audio/bg.mp3');
 }
 
 function create() {
@@ -93,6 +103,33 @@ function create() {
     platforms.create(1238, 400, 'sides').setScale(4);
     platforms.create(600, 700, 'ground').setScale(4).refreshBody();
     
+    let menu_button = this.add.image(650, 50, 'menu');
+    menu_button.setScale(2.5);
+    menu_button.setInteractive();
+    menu_button.on('pointerdown', () => location.assign('level_list.html'));
+    menu_button.on('pointerover', () => reload.setTint(0xcccccc));
+    menu_button.on('pointerout', () => reload.setTint(0xffffff));
+    
+    let vol = this.add.image(550, 50, 'sound_on');
+    vol.setScale(2.5);
+    vol.setInteractive();
+    vol.on('pointerdown', () => {
+        if(music.isPlaying) {
+            music.pause(); 
+        } else {
+            music.resume();
+        }
+    });
+    vol.on('pointerover', () => vol.setTint(0xcccccc));
+    vol.on('pointerout', () => vol.setTint(0xffffff));
+
+    let reload = this.add.image(600, 52, 'reload');
+    reload.setScale(2.75);
+    reload.setInteractive();
+    reload.on('pointerdown', () => location.assign('level4.html'));
+    reload.on('pointerover', () => menu_button.setTint(0xcccccc));
+    reload.on('pointerout', () => menu_button.setTint(0xffffff));
+
     /* create animations for this.firegirl */
     this.anims.create({
         key: 'f_idle',
@@ -148,7 +185,7 @@ function create() {
 
     this.firegirl = this.physics.add.sprite(100, 50, 'firegirl');
     this.firegirl.getBounds();
-    this.firegirl.body.setSize(this.firegirl.height, this.firegirl.width, true);
+    this.firegirl.body.setSize(this.firegirl.height - 19, this.firegirl.width, true);
     
 
     this.firegirl.setBounce(0.1);
@@ -163,7 +200,7 @@ function create() {
 
     this.waterboy = this.physics.add.sprite(150, 50, 'waterboy');
     this.waterboy.getBounds();
-    this.waterboy.body.setSize(this.waterboy.height, this.waterboy.width, true);
+    this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
@@ -178,6 +215,10 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    let music = this.sound.add('bg');
+    music.setLoop(true);
+    music.play();
 }
 
 function update() {
