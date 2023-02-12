@@ -36,9 +36,9 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('sides', 'pictures/platformVertical.png');
-    this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile.png');
+    this.load.image('sides', 'pictures/blue-purple-tall.png');
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
+    this.load.image('tile', 'pictures/tile_go_brr.png');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -86,9 +86,12 @@ function create() {
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
+    // let top = this.add.sprite(400, -37, 'ground').setScale(4);    platforms.create(600, -37, 'ground').setScale(4);
+    platforms.create(-40, 100, 'sides').setScale(4);
+    platforms.create(-40, 600, 'sides').setScale(4);
+    platforms.create(1238, 200, 'sides').setScale(4);
+    platforms.create(600, 700, 'ground').setScale(4).refreshBody();
     
     // game.time.desiredFps = 30;
     

@@ -40,10 +40,12 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('ground', 'pictures/platform.jpg');
-    this.load.image('tile', 'pictures/tile.png');
-    this.load.image('block', 'pictures/block.png');
-    this.load.image('sides', 'pictures/platformVertical.png');
+
+    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
+    this.load.image('tile', 'pictures/new_tiles.png');
+    this.load.image('block', 'pictures/block_go_brr.png');
+    // this.load.image('sides', 'pictures/platformVertical.png');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
 
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -69,14 +71,16 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    
-    platforms.create(199, 560, 'tile').setScale(.25).refreshBody();
-    platforms.create(175, 675, 'sides').setScale(.5).refreshBody();
 
-    let left = this.add.sprite(-40, 700, 'sides').setScale(4);
+
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    let top = this.add.sprite(400, -37, 'ground').setScale(4);
+
+    platforms.create(600, -37, 'ground').setScale(4);
+    platforms.create(-40, 100, 'sides').setScale(4);
+    platforms.create(-40, 600, 'sides').setScale(4);
+    platforms.create(1238, 200, 'sides').setScale(4);
+    platforms.create(600, 700, 'ground').setScale(4).refreshBody();
+
 
     /* create animations for this.firegirl */
     this.anims.create({
