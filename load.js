@@ -122,7 +122,7 @@ function create() {
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
     
     let vol = this.add.image(1050, 50, 'sound_on');
-    this.add.text(1025, 70, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
+    this.add.text(1023, 70, 'volume', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' });
     vol.setScale(2.5);
     vol.setInteractive();
     vol.on('pointerdown', () => {
@@ -200,25 +200,27 @@ function create() {
     this.firegirl = this.physics.add.sprite(900, 50, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height-19, this.firegirl.width, true);
-
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
-
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
+    this.physics.add.overlap(this.firegirl, purple_portal, go_level, null, this);
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
-
     this.waterboy.setBounce(0.1);
     this.waterboy.body.setGravityY(300);
-
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
     this.waterboy.flipX = true;
+    this.physics.add.overlap(this.waterboy, blue_portal, go_level, null, this);
+
+    function go_level () {
+        location.assign('level1.html');
+    }
     
     cursors = this.input.keyboard.createCursorKeys();
 
