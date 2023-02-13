@@ -400,6 +400,7 @@ function create() {
     this.physics.add.overlap(this.waterboy, blue_portal, enterPortal, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
+    refreshButton = game.input.keyboard.addKey(Phaser.Keyboard.R);
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);

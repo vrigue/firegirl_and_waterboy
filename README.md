@@ -1,6 +1,6 @@
 # garçon du pyro et fille de l'eau
 
-Fireboy and Watergirl, but make it apocalyptic! (And genderswapped?)
+Fireboy and Watergirl, but make it pretty, pastel, and midyear! (And genderswapped?)
 
 Thanks to Phaser and Itch for the game engine / sprites!
 

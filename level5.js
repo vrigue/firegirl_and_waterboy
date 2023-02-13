@@ -123,12 +123,14 @@ function create() {
 
 
     /* leads to blue portal */
-    for (let i = 0; i < 275; i+=89) {
+    for (let i = 0; i < 275; i += 89) {
         platforms.create(i, 200, 'tile').setScale(2).refreshBody();
     }
 
     /* leads to purple portal */
-
+    for (let i = 900; i < 1200; i += 50) {
+        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
+    }
 
     // platforms.create(400, 700, 'block').setScale(4);
 
@@ -139,6 +141,8 @@ function create() {
     platforms.create(1238, 200, 'sides').setScale(4);
     platforms.create(600, 700, 'ground').setScale(4).refreshBody();
 
+    // current work in progress message
+    this.add.text(335, 115, 'SUPPORT US FOR MORE LEVELS!', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(2);
 
     let menu_button = this.add.image(650, 50, 'menu');
     menu_button.setScale(2.5);
@@ -146,13 +150,13 @@ function create() {
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
     menu_button.on('pointerover', () => reload.setTint(0xcccccc));
     menu_button.on('pointerout', () => reload.setTint(0xffffff));
-    
+
     let vol = this.add.image(550, 50, 'sound_on');
     vol.setScale(2.5);
     vol.setInteractive();
     vol.on('pointerdown', () => {
-        if(music.isPlaying) {
-            music.pause(); 
+        if (music.isPlaying) {
+            music.pause();
         } else {
             music.resume();
         }
@@ -185,7 +189,7 @@ function create() {
     });
     this.anims.create({
         key: 'f_run',
-        frames: this.anims.generateFrameNumbers('firegirl', { start: 20, end:25 }),
+        frames: this.anims.generateFrameNumbers('firegirl', { start: 20, end: 25 }),
         frameRate: 10,
         repeat: -1
     });
@@ -223,7 +227,7 @@ function create() {
     this.firegirl = this.physics.add.sprite(75, 550, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height - 19, this.firegirl.width, true);
-    
+
 
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
@@ -244,14 +248,14 @@ function create() {
 
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
-    
+
     cursors = this.input.keyboard.createCursorKeys();
 
     // this.firegirl_crystals.children.iterate(function (child) {
     //     child.setCollideWorldBounds(true);
     //     this.physics.add.collider(child, platforms);
     //     this.physics.add.overlap(this.firegirl, child, collectCrystal, null, this);
-        
+
     // });
 
     // this.waterboy_crystals.children.iterate(function (child) {
@@ -306,14 +310,14 @@ function update() {
         if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-250);
         this.firegirl.anims.play('f_jump', true);
     }
-    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
+    if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
         //this.firegirl.body.setVelocityY(0);
     }
 
-    if(keyA.isDown) {
+    if (keyA.isDown) {
         this.waterboy.body.setVelocityX(-200);
         this.waterboy.flipX = true;
         if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
@@ -329,7 +333,7 @@ function update() {
         if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-250);
         this.waterboy.anims.play('w_jump', true);
     }
-    if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
+    if (!keyA.isDown && !keyD.isDown && !keyW.isDown) {
         if (this.waterboy.body.velocityX < 0) this.waterboy.anims.play('w_idle', true);
         else this.waterboy.anims.play('w_idle', true);
         this.waterboy.body.setVelocityX(0);
