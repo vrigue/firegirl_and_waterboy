@@ -64,7 +64,7 @@ function preload() {
     this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
-    // this.load.image('sides', 'pictures/platformVertical.png');
+
     this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
@@ -160,17 +160,13 @@ function create() {
 
 
     /* PORTALS */
-    let purple_portal = this.physics.add.staticGroup();
-    purple_portal.gravity = 0;
-    purple_portal = this.physics.add.sprite(1115, 115, 'purple_portal');
+    let purple_portal = this.physics.add.sprite(1115, 115, 'purple_portal');
     purple_portal.setScale(0.29);
     this.physics.add.collider(purple_portal, platforms);
     purple_portal.getBounds();
     purple_portal.body.setSize(50, 450);
 
-    let blue_portal = this.physics.add.staticGroup();
-    blue_portal.gravity = 0;
-    blue_portal = this.physics.add.sprite(75, 115, 'blue_portal');
+    let blue_portal = this.physics.add.sprite(75, 115, 'blue_portal');
     blue_portal.setScale(0.22);
     this.physics.add.collider(blue_portal, platforms);
     blue_portal.getBounds();

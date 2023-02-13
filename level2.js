@@ -44,6 +44,7 @@ function preload() {
     this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/tile_go_brr.png');
+    this.load.image('block', 'pictures/block_go_brr.png');
 
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
@@ -69,19 +70,38 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
-    this.add.image(1125,575, 'blue_portal').setScale(.2).setOrigin(.5,.5);
-    this.add.image(75, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
     
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
-    platforms.create(966, 250, 'ground').setScale(.5).refreshBody();
-    platforms.create(100, 500, 'ground').setScale(.5).refreshBody();
+
+    // platforms making up the actual level
+    platforms.create(966, 250, 'tile').setScale(2).refreshBody();
+    for (let i = 0; i < 3; i++) {
+        platforms.create(65 + i*90, 500, 'tile').setScale(2).refreshBody();
+    }
+    
 
     platforms.create(1050,450, 'sides').setScale(1).refreshBody();
     platforms.create(140,100, 'sides').setScale(1).refreshBody();
 
+    // PORTALS
+    let purple_portal = this.physics.add.sprite(1125, 575, 'purple_portal');
+    purple_portal.setScale(0.29);
+    purple_portal.body.stop();
+    purple_portal.body.allowGravity = false;
+    this.physics.add.collider(purple_portal, platforms);
+    purple_portal.getBounds();
+    purple_portal.body.setSize(50, 450);
+
+    let blue_portal = this.physics.add.sprite(75, 100, 'blue_portal');
+    blue_portal.setScale(0.22);
+    blue_portal.body.stop();
+    blue_portal.body.allowGravity = false;
+    this.physics.add.collider(blue_portal, platforms);
+    blue_portal.getBounds();
+    blue_portal.body.setSize(50, 600);
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
 
