@@ -95,10 +95,19 @@ function create() {
     //     platforms.create(i, 415, 'block').setScale(3).refreshBody();
     // }
 
+    platforms.create(800, 200, 'sides').setScale(1).refreshBody();
+
     // // smol platform
-    for (let i = 450; i < 750; i += 90) {
-        platforms.create(i, 260, 'tile').setScale(2).refreshBody();
+    for (let i = 570; i < 790; i+=50) {
+        platforms.create(i, 265, 'tile').setScale(2).refreshBody();
     }
+
+    for (let i = 570; i < 790; i+=50) {
+        platforms.create(i, 143, 'tile').setScale(2).refreshBody();
+    }
+
+    platforms.create(840, 220, 'tile').setScale(2).refreshBody();
+
 
     /* chunky platform */
     platforms.create(220, 610, 'block').setScale(2.5).refreshBody();
@@ -106,6 +115,11 @@ function create() {
     platforms.create(420, 525, 'block').setScale(2.5).refreshBody();
 
     platforms.create(620, 475, 'block').setScale(2.5).refreshBody();
+
+    platforms.create(820, 425, 'block').setScale(2.5).refreshBody();
+
+    platforms.create(1020, 350, 'block').setScale(2.5).refreshBody();
+
 
 
     /* leads to blue portal */
@@ -117,7 +131,6 @@ function create() {
     for (let i = 900; i < 1200; i += 50) {
         platforms.create(i, 200, 'tile').setScale(2).refreshBody();
     }
-
 
     // platforms.create(400, 700, 'block').setScale(4);
 
