@@ -8,7 +8,7 @@ var config = { // defines the config for the game
         default: 'arcade',
         arcade: {
             gravity: { y: 15 },
-            debug: false
+            debug: true
         }
     },
     scale: {
@@ -57,6 +57,9 @@ function preload() {
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
+    this.load.image('wind_plat', 'sprites/windBox.png');
+    this.load.spritesheet('wind_effect', 'sprites/wind.png', { frameWidth: 115, frameHeight: 55 });
+
     this.load.spritesheet('purple_fire', 'sprites/obstacles/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
     this.load.spritesheet('blue_fire', 'sprites/obstacles/blue_fire.png', { frameWidth: 10, frameHeight: 35 });
 
@@ -73,18 +76,18 @@ function create() {
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    
+
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
     // platforms making up the actual level
     platforms.create(966, 250, 'tile').setScale(2).refreshBody();
     for (let i = 0; i < 3; i++) {
-        platforms.create(65 + i*90, 500, 'tile').setScale(2).refreshBody();
+        platforms.create(65 + i * 90, 500, 'tile').setScale(2).refreshBody();
     }
-    
 
-    platforms.create(1050,450, 'sides').setScale(1).refreshBody();
-    platforms.create(140,100, 'sides').setScale(1).refreshBody();
+
+    platforms.create(1050, 450, 'sides').setScale(1).refreshBody();
+    platforms.create(140, 100, 'sides').setScale(1).refreshBody();
 
     // PORTALS
     let purple_portal = this.physics.add.sprite(1125, 575, 'purple_portal');
@@ -103,6 +106,18 @@ function create() {
     blue_portal.getBounds();
     blue_portal.body.setSize(50, 600);
 
+    // WIND PLATFORMS
+    this.firegirl_wind = this.physics.add.sprite(75, 475, 'wind_plat');
+    this.firegirl_wind.setScale(0.15);
+    this.firegirl_wind.body.stop();
+    this.firegirl_wind.body.allowGravity = false;
+    // WIND EFFECTS
+    let firegirl_wind_whoosh = this.physics.add.sprite(75, 440, 'wind_effect').setScale(0.75);
+    firegirl_wind_whoosh.body.allowGravity = false;
+    firegirl_wind_whoosh.getBounds();
+    firegirl_wind_whoosh.setSize(firegirl_wind_whoosh.width, firegirl_wind_whoosh.height, true);
+
+
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
 
     platforms.create(600, -37, 'ground').setScale(4);
@@ -118,13 +133,13 @@ function create() {
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
     menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
     menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
-    
+
     let vol = this.add.image(550, 50, 'sound_on');
     vol.setScale(2.5);
     vol.setInteractive();
     vol.on('pointerdown', () => {
-        if(music.isPlaying) {
-            music.pause(); 
+        if (music.isPlaying) {
+            music.pause();
         } else {
             music.resume();
         }
@@ -140,7 +155,7 @@ function create() {
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
     // game.time.desiredFps = 30;
-    
+
     /* create animations for this.firegirl */
     this.anims.create({
         key: 'f_idle',
@@ -159,7 +174,7 @@ function create() {
     });
     this.anims.create({
         key: 'f_run',
-        frames: this.anims.generateFrameNumbers('firegirl', { start: 20, end:25 }),
+        frames: this.anims.generateFrameNumbers('firegirl', { start: 20, end: 25 }),
         frameRate: 10,
         repeat: -1
     });
@@ -192,13 +207,20 @@ function create() {
         repeat: -1
     });
 
+    /* WIND ANIMATIONS */
+    this.anims.create({
+        key: 'whoosh',
+        frames: this.anims.generateFrameNumbers('wind_effect', { start: 0, end: 6 }),
+        frameRate: 8,
+        repeat: -1
+    });
+    firegirl_wind_whoosh.play('whoosh', true);
+
     /* obstacle animations here */
 
     this.firegirl = this.physics.add.sprite(100, 550, 'firegirl');
     this.firegirl.getBounds();
     this.firegirl.body.setSize(this.firegirl.height - 19, this.firegirl.width, true);
-    
-
     this.firegirl.setBounce(0.1);
     this.firegirl.body.setGravityY(300);
 
@@ -218,20 +240,18 @@ function create() {
 
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
-    
-    cursors = this.input.keyboard.createCursorKeys();
 
+    // for ending
+    this.physics.add.overlap(this.firegirl, purple_portal, test, null, this);
+    this.physics.add.overlap(this.waterboy, blue_portal, test, null, this);
 
     // let firegirl_obstacles = this.physics.add.staticGroup();
     // firegirl_obstacles.create(400, 580, 'blue_fire');
     // let waterboy_obstacle = this.physics.add.staticGroup();
     // waterboy_obstacles.create(4500, 580, 'purple_fire');
 
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // let music = this.sounds.add('music');
-    // music.setLoop(true);
-    // music.play();
+    cursors = this.input.keyboard.createCursorKeys();
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R); // reload button if we got time
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -240,10 +260,27 @@ function create() {
     let music = this.sound.add('bg');
     music.setLoop(true);
     music.play();
+
+    function collectGem(player, gem) {
+        gem.destroy(true); // better to get rid of it for clutter sake? -K
+        gems_collected++; // keep track of for ending screen - K
+    }
+
+    function test(player, portal) {
+        if ((this.physics.overlap(this.firegirl, purple_portal)) && (this.physics.overlap(this.waterboy, blue_portal))) {
+            // bottom code will make things run smoothly, i.e. this function will not be called over and over again.
+            // you can set this into a timed function maybe to play an animation first then go to next level.
+            this.firegirl.disableBody(true, false);
+            this.waterboy.disableBody(true, false);
+            location.assign('level3.html');
+        }
+    }
 }
 
 function update() {
-
+    // wind platform works with this:
+    operate_wind(this.firegirl, this.firegirl_wind, 100);
+    operate_wind(this.waterboy, this.firegirl_wind, 100);
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
         this.firegirl.flipX = true;
@@ -257,17 +294,16 @@ function update() {
         else this.firegirl.anims.play('f_run', true);
     }
     if (cursors.up.isDown) {
-        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-250);
+        if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-500);
         this.firegirl.anims.play('f_jump', true);
     }
-    if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
+    if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
-        //this.firegirl.body.setVelocityY(0);
     }
 
-    if(keyA.isDown) {
+    if (keyA.isDown) {
         this.waterboy.body.setVelocityX(-200);
         this.waterboy.flipX = true;
         if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
@@ -280,12 +316,27 @@ function update() {
         else this.waterboy.anims.play('w_run', true);
     }
     if (keyW.isDown) {
-        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-250);
+        if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-500);
         this.waterboy.anims.play('w_jump', true);
     }
-    if(!keyA.isDown && !keyD.isDown && !keyW.isDown) {
+    if (!keyA.isDown && !keyD.isDown && !keyW.isDown) {
         if (this.waterboy.body.velocityX < 0) this.waterboy.anims.play('w_idle', true);
         else this.waterboy.anims.play('w_idle', true);
         this.waterboy.body.setVelocityX(0);
+    }
+
+    function operate_wind(player, plat, y_to_stop_at) {
+        if ((plat.x-25 < player.x && player.x < plat.x+25) && player.y < plat.y) {
+            player.body.allowGravity = false;
+            player.setBounce(0);
+            player.body.setGravityY(0);
+            player.setVelocityY(0);
+            if (!(player.y < y_to_stop_at)) {player.y -= 5;}
+            else {player.body.stop();}
+        } else {
+            player.body.allowGravity = true;
+            player.setBounce(0.1);
+            player.body.setGravityY(300);
+        }
     }
 }
