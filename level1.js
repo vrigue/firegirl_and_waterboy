@@ -64,7 +64,7 @@ function preload() {
     this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/new_tiles.png');
     this.load.image('block', 'pictures/block_go_brr.png');
-    // this.load.image('sides', 'pictures/platformVertical.png');
+
     this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('purple_crystal', 'pictures/purple_crystal.png');
     this.load.image('blue_crystal', 'pictures/blue_crystal.png');
