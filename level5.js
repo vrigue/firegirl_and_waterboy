@@ -80,11 +80,48 @@ function create() {
     // this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
+
     let platforms = this.physics.add.staticGroup();
 
 
-    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
+    // // giant chunk of platform
+    // for (let i = 0; i < 800; i+=90) {
+    //     platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
+    // }
+    // for (let i = 0; i < 500; i+=90) {
+    //     platforms.create(i, 430, 'block').setScale(2.5).refreshBody();
+    // }
+    // for (let i = 75; i < 350; i+=60) {
+    //     platforms.create(i, 415, 'block').setScale(3).refreshBody();
+    // }
 
+    // // smol platform
+    for (let i = 450; i < 750; i+=90) {
+        platforms.create(i, 260, 'tile').setScale(2).refreshBody();
+    }
+
+    /* chunky platform */
+    platforms.create(220, 610, 'block').setScale(2.5).refreshBody();
+
+    platforms.create(420, 525, 'block').setScale(2.5).refreshBody();
+
+    platforms.create(620, 475, 'block').setScale(2.5).refreshBody();
+
+
+    /* leads to blue portal */
+    for (let i = 0; i < 275; i+=89) {
+        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
+    }
+
+    /* leads to purple portal */
+    for (let i = 900; i < 1200; i+=50) {
+        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
+    }
+
+
+    // platforms.create(400, 700, 'block').setScale(4);
+
+    let right = this.add.sprite(1238, 700, 'sides').setScale(4);
     platforms.create(600, -37, 'ground').setScale(4);
     platforms.create(-40, 100, 'sides').setScale(4);
     platforms.create(-40, 600, 'sides').setScale(4);
