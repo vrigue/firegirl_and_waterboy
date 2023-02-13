@@ -329,7 +329,7 @@ function create() {
 
     this.anims.create({
         key: 'obstacle',
-        frames: this.anims.generateFrameNumbers('green_obstacle', { start: 0, end: 8 }),
+        frames: this.anims.generateFrameNumbers('green_obstacle', { start: 0, end: 6 }),
         frameRate: 10,
         repeat: -1
     });
@@ -400,7 +400,7 @@ function create() {
     this.physics.add.overlap(this.waterboy, blue_portal, enterPortal, null, this);
 
     cursors = this.input.keyboard.createCursorKeys();
-    refreshButton = game.input.keyboard.addKey(Phaser.Keyboard.R);
+    refreshButton = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
