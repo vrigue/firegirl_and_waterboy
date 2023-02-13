@@ -41,7 +41,7 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/sky.webp');
-    this.load.image('sides', 'pictures/blue-purple-tall.png');
+    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
     this.load.image('ground', 'pictures/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/tile_go_brr.png');
 
