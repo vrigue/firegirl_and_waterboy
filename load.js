@@ -96,6 +96,23 @@ function create() {
     let top = this.add.sprite(500, -37, 'ground').setScale(4);
     let top2 = this.add.sprite(900, -37, 'ground').setScale(4);
 
+    /* PORTALS */
+    let purple_portal = this.physics.add.sprite(200, 475, 'purple_portal');
+    purple_portal.setScale(0.29);
+    purple_portal.body.stop();
+    purple_portal.body.allowGravity = false;
+    this.physics.add.collider(purple_portal, platforms);
+    purple_portal.getBounds();
+    purple_portal.body.setSize(50, 450);
+
+    let blue_portal = this.physics.add.sprite(1000, 475, 'blue_portal');
+    blue_portal.body.stop();
+    blue_portal.body.allowGravity = false;
+    blue_portal.setScale(0.22);
+    this.physics.add.collider(blue_portal, platforms);
+    blue_portal.getBounds();
+    blue_portal.body.setSize(50, 600);
+
     this.title = this.add.image(600, 200, 'title');
     this.title.setScale(0.5);
 
@@ -134,11 +151,6 @@ function create() {
     });
     vol.on('pointerover', () => vol.setTint(0xcccccc));
     vol.on('pointerout', () => vol.setTint(0xffffff));
-
-    let purple_portal = this.add.image(200,475, "purple_portal");
-    purple_portal.setScale(0.29);
-    let blue_portal = this.add.image(1000,475, "blue_portal");
-    blue_portal.setScale(0.22);
 
     this.add.text(490, 225, 'Make them go to their portals!', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setColor("#ffffff");
 
@@ -204,9 +216,6 @@ function create() {
     this.firegirl.body.setGravityY(300);
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
-    this.physics.add.overlap(this.firegirl, purple_portal, go_level, null, this);
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
 
     this.waterboy = this.physics.add.sprite(300, 200, 'waterboy');
     this.waterboy.getBounds();
@@ -216,11 +225,6 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
     this.waterboy.flipX = true;
-    this.physics.add.overlap(this.waterboy, blue_portal, go_level, null, this);
-
-    function go_level () {
-        location.assign('level1.html');
-    }
     
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -228,6 +232,20 @@ function create() {
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+
+    // for moving to level 1
+    this.physics.add.overlap(this.firegirl, purple_portal, test, null, this);
+    this.physics.add.overlap(this.waterboy, blue_portal, test, null, this);
+
+    function test(player, portal) {
+        if ((this.physics.overlap(this.firegirl, purple_portal)) && (this.physics.overlap(this.waterboy, blue_portal))) {
+            // bottom code will make things run smoothly, i.e. this function will not be called over and over again.
+            // you can set this into a timed function maybe to play an animation first then go to next level.
+            this.firegirl.disableBody(true, false);
+            this.waterboy.disableBody(true, false);
+            location.assign('level1.html');
+        }
+    }
 }
 
 function update() {
