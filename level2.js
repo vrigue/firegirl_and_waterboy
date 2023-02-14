@@ -470,6 +470,7 @@ function update() {
     operate_wind(this.waterboy, this.firegirl_wind, 100);
     operate_wind(this.firegirl, this.fg_wind, 100);
     operate_wind(this.waterboy, this.fg_wind, 100);
+    
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
         this.firegirl.flipX = true;
