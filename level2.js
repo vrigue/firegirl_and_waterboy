@@ -7,7 +7,7 @@ var config = { // defines the config for the game
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 400 },
             debug: false
         }
     },
@@ -339,6 +339,12 @@ function create() {
         frameRate: 10,
         repeat: -1
     });
+    this.anims.create({
+        key: 'f_portal',
+        frames: this.anims.generateFrameNumbers('firegirl', { start: 36, end: 37 }),
+        frameRate: 10,
+        repeat: -1
+    });
 
     /* create animations for waterboy */
     this.anims.create({
@@ -364,6 +370,12 @@ function create() {
     this.anims.create({
         key: 'w_run',
         frames: this.anims.generateFrameNumbers('waterboy', { start: 20, end: 25 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'w_portal',
+        frames: this.anims.generateFrameNumbers('waterboy', { start: 36, end: 37 }),
         frameRate: 10,
         repeat: -1
     });
@@ -484,20 +496,35 @@ function update() {
         this.firegirl.body.setVelocityX(-200);
         this.firegirl.flipX = true;
         if (!(this.firegirl.body.onFloor())) this.firegirl.anims.play('f_jump', true);
+        else if ( (this.physics.overlap(this.firegirl, this.purple_portal)) ) {
+            this.firegirl.body.setVelocityX(0);
+            this.firegirl.anims.play('f_portal', true);
+        } 
         else this.firegirl.anims.play('f_run', true);
     }
     else if (cursors.right.isDown) {
         this.firegirl.body.setVelocityX(200);
         this.firegirl.flipX = false;
         if (!(this.firegirl.body.onFloor())) this.firegirl.anims.play('f_jump', true);
+        else if ( (this.physics.overlap(this.firegirl, this.purple_portal)) ) {
+            this.firegirl.body.setVelocityX(0);
+            this.firegirl.anims.play('f_portal', true);
+        } 
         else this.firegirl.anims.play('f_run', true);
     }
     if (cursors.up.isDown) {
         if (this.firegirl.body.onFloor()) this.firegirl.body.setVelocityY(-500);
+        else if ( (this.physics.overlap(this.firegirl, this.purple_portal)) ) {
+            this.firegirl.body.setVelocityY(0);
+            this.firegirl.anims.play('f_portal', true);
+        } 
         this.firegirl.anims.play('f_jump', true);
     }
     if (!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
+        else if ( (this.physics.overlap(this.firegirl, this.purple_portal)) ) {
+            this.firegirl.anims.play('f_portal', true);
+        } 
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
     }
@@ -506,20 +533,35 @@ function update() {
         this.waterboy.body.setVelocityX(-200);
         this.waterboy.flipX = true;
         if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+        else if ( (this.physics.overlap(this.waterboy, this.blue_portal)) ) {
+            this.waterboy.body.setVelocityX(0);
+            this.waterboy.anims.play('w_portal', true);
+        } 
         else this.waterboy.anims.play('w_run', true);
     }
     else if (keyD.isDown) {
         this.waterboy.body.setVelocityX(200);
         this.waterboy.flipX = false;
         if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+        else if ( (this.physics.overlap(this.waterboy, this.blue_portal)) )  {
+            this.waterboy.body.setVelocityX(0);
+            this.waterboy.anims.play('w_portal', true);
+        } 
         else this.waterboy.anims.play('w_run', true);
     }
     if (keyW.isDown) {
         if (this.waterboy.body.onFloor()) this.waterboy.body.setVelocityY(-500);
+        else if ( (this.physics.overlap(this.waterboy, this.blue_portal)) )  {
+            this.waterboy.body.setVelocityY(0);
+            this.waterboy.anims.play('w_portal', true);
+        } 
         this.waterboy.anims.play('w_jump', true);
     }
     if (!keyA.isDown && !keyD.isDown && !keyW.isDown) {
         if (this.waterboy.body.velocityX < 0) this.waterboy.anims.play('w_idle', true);
+        else if ( (this.physics.overlap(this.waterboy, this.blue_portal)) )  {
+            this.waterboy.anims.play('w_portal', true);
+        } 
         else this.waterboy.anims.play('w_idle', true);
         this.waterboy.body.setVelocityX(0);
     }
