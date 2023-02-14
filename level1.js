@@ -276,8 +276,8 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    this.firegirl_gems.create(920, 85, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(995, 85, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
 
     this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
 
@@ -302,9 +302,9 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    this.waterboy_gems.create(220, 75, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(220, 120, 'blue_crystal').setSize(-25, 45, true);
 
-    this.waterboy_gems.create(657, 340, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(662, 340, 'blue_crystal').setSize(-25, 45, true);
 
     this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
     this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
