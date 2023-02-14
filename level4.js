@@ -290,6 +290,8 @@ function create() {
 
     this.waterboy_gems.create(662, 390, 'blue_crystal').setSize(-25, 45, true);
     this.waterboy_gems.create(130, 250, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(1050, 265, 'blue_crystal').setSize(-25, 45, true);
+
 
     /* OBSTACLES */
 
