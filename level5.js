@@ -290,7 +290,6 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
 
-<<<<<<< HEAD
 
     
     this.physics.add.collider(m_firegirl_gems, platforms);
@@ -301,8 +300,6 @@ function create() {
     this.physics.add.overlap(this.waterboy, m_waterboy_gems, collectGem, null, this);
     this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
 
-=======
->>>>>>> 67ef428ee0d9ed7709433f52c8e732af69a17032
     cursors = this.input.keyboard.createCursorKeys();
 
     // this.firegirl_crystals.children.iterate(function (child) {
