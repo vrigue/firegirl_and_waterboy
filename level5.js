@@ -44,13 +44,12 @@ var game = new Phaser.Game(config);
 
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
-    this.load.image('back', 'pictures/sky.webp');
+    this.load.image('back', 'pictures/backdrops/sky.webp');
 
-    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
-    this.load.image('tile', 'pictures/new_tiles.png');
-    this.load.image('block', 'pictures/block_go_brr.png');
-    // this.load.image('sides', 'pictures/platformVertical.png');
-    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
+    this.load.image('sides', 'pictures/platforms/blue-purple-tall.jpg');
+    this.load.image('ground', 'pictures/platforms/blue-purple-flat.jpg');
+    this.load.image('tile', 'pictures/platforms/tile_go_brr.png');
+    this.load.image('block', 'pictures/platforms/block_go_brr.png');
 
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');

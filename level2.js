@@ -40,11 +40,11 @@ var game = new Phaser.Game(config);
 
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
-    this.load.image('back', 'pictures/sky.webp');
-    this.load.image('sides', 'pictures/blue-purple-tall.jpg');
-    this.load.image('ground', 'pictures/blue-purple-flat.jpg');
-    this.load.image('tile', 'pictures/tile_go_brr.png');
-    this.load.image('block', 'pictures/block_go_brr.png');
+    this.load.image('back', 'pictures/backdrops/sky.webp');
+    this.load.image('sides', 'pictures/platforms/blue-purple-tall.jpg');
+    this.load.image('ground', 'pictures/platforms/blue-purple-flat.jpg');
+    this.load.image('tile', 'pictures/platforms/tile_go_brr.png');
+    this.load.image('block', 'pictures/platforms/block_go_brr.png');
 
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
@@ -57,7 +57,7 @@ function preload() {
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
-    this.load.image('wind_plat', 'sprites/windBox.png');
+    this.load.image('wind_plat', 'pictures/windBox.png');
     this.load.spritesheet('wind_effect', 'sprites/wind.png', { frameWidth: 115, frameHeight: 55 });
 
     this.load.spritesheet('purple_fire', 'sprites/obstacles/purple_fire.png', { frameWidth: 55, frameHeight: 55 });
