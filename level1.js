@@ -7,7 +7,7 @@ var config = { // defines the config for the game
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: true
+            debug: false
         }
     },
     scale: {
@@ -23,16 +23,11 @@ var config = { // defines the config for the game
 };
 
 // variables for players + platforms + game itself + controls
-var waterboy;
 
 const num_gems = 11;
 var gems_collected = 0;
 
-var firegirl;
-
-var purple_portal;
 var firegirl_home = false;
-var blue_portal;
 var waterboy_home = false;
 
 var platforms;
@@ -51,10 +46,13 @@ var m = 0;
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/backdrops/sky.webp');
+
     // menu images
     this.load.image('sound_on', 'pictures/menu/vol_on.png');
     this.load.image('menu', 'pictures/menu/xmenu.png');
     this.load.image('reload', 'pictures/menu/reload.png');
+
+    this.load.image('game_over', 'pictures/small_gameoverscreen.png');
 
     this.load.image('ground', 'pictures/platforms/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/platforms/new_tiles.png');
@@ -115,6 +113,8 @@ function create() {
     reload.on('pointerdown', () => location.assign('level1.html'));
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
+
+    this.add.text(685, 38, 'Score:', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.45);
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
@@ -380,6 +380,13 @@ function create() {
     this.physics.add.collider(this.purple_block, platforms);
 
 
+    /* POP UP */
+
+    this.game_over = this.physics.add.sprite(600, 330, 'game_over').setScale(0.5);
+    this.physics.add.collider(this.game_over, platforms);
+    this.game_over.setVisible(false);
+
+
     /* FG and WB */
 
     this.firegirl = this.physics.add.sprite(100, 550, 'firegirl');
@@ -435,20 +442,21 @@ function create() {
         gems_collected++; // keep track of for ending screen - K
     }
 
-    function disableBodies () {
+    function disableBodies() {
         this.firegirl.disableBody(true, false);
         this.waterboy.disableBody(true, false);
     }
 
-    function nextLevel () {
-        location.assign('level2.html');
-    }
-
     function touchObstacle () {
+        this.game_over.setVisible(true);
         this.time.addEvent({
             delay : 800,
             callback : disableBodies
         });
+    }
+
+    function nextLevel () {
+        location.assign('level2.html');
     }
 
     function enterPortal() {
