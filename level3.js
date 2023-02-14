@@ -69,8 +69,8 @@ function preload() {
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
-    this.load.spritesheet('purple_obstacle', 'sprites/purple_fire2.png', { frameWidth: 43.3, frameHeight: 54 });
-    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 64.4, frameHeight: 73 });
+    // this.load.spritesheet('purple_obstacle', 'sprites/purple_fire2.png', { frameWidth: 43.3, frameHeight: 54 });
+    // this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 64.4, frameHeight: 73 });
     this.load.spritesheet('green_obstacle', 'sprites/green_fire.png', { frameWidth: 52, frameHeight: 52 });
 
     this.load.spritesheet('purple_gem', 'sprites/purple_crystal.png', { frameWidth: 60, frameHeight: 60 });
@@ -307,45 +307,45 @@ function create() {
 
     /* OBSTACLES */
 
-    this.anims.create({
-        key: 'w_obstacle',
-        frames: this.anims.generateFrameNumbers('purple_obstacle', { start: 0, end: 6 }),
-        frameRate: 10,
-        repeat: -1
-    });
+    // this.anims.create({
+    //     key: 'w_obstacle',
+    //     frames: this.anims.generateFrameNumbers('purple_obstacle', { start: 0, end: 6 }),
+    //     frameRate: 10,
+    //     repeat: -1
+    // });
 
-    this.waterboy_obstacles = this.physics.add.staticGroup({
-        key: 'w_obstacle',
-        repeat: 2,
-        // setXY: { x: 640, y: 415, stepX: 20 }
-    });
+    // this.waterboy_obstacles = this.physics.add.staticGroup({
+    //     key: 'w_obstacle',
+    //     repeat: 2,
+    //     // setXY: { x: 640, y: 415, stepX: 20 }
+    // });
 
-    this.waterboy_obstacles.children.iterate(function (child) {
-        child.setScale(1.3);
-        child.width = 25;
-        child.height = 10;
-        child.setSize(child.width, child.height, true);
-    });
+    // this.waterboy_obstacles.children.iterate(function (child) {
+    //     child.setScale(1.3);
+    //     child.width = 25;
+    //     child.height = 10;
+    //     child.setSize(child.width, child.height, true);
+    // });
 
-    this.anims.create({
-        key: 'f_obstacle',
-        frames: this.anims.generateFrameNumbers('blue_obstacle', { start: 0, end: 8 }),
-        frameRate: 10,
-        repeat: -1
-    });
+    // this.anims.create({
+    //     key: 'f_obstacle',
+    //     frames: this.anims.generateFrameNumbers('blue_obstacle', { start: 0, end: 8 }),
+    //     frameRate: 10,
+    //     repeat: -1
+    // });
 
-    this.firegirl_obstacles = this.physics.add.staticGroup({
-        key: 'f_obstacle',
-        repeat: 1,
-        // setXY: { x: 564, y: 212, stepX: 45 }
-    });
+    // this.firegirl_obstacles = this.physics.add.staticGroup({
+    //     key: 'f_obstacle',
+    //     repeat: 1,
+    //     // setXY: { x: 564, y: 212, stepX: 45 }
+    // });
 
-    this.firegirl_obstacles.children.iterate(function (child) {
-        child.setScale(1);
-        child.width = 25;
-        child.height = 10;
-        child.setSize(child.width, child.height, true);
-    });
+    // this.firegirl_obstacles.children.iterate(function (child) {
+    //     child.setScale(1);
+    //     child.width = 25;
+    //     child.height = 10;
+    //     child.setSize(child.width, child.height, true);
+    // });
 
     this.anims.create({
         key: 'obstacle',
@@ -410,8 +410,8 @@ function create() {
     this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
    
     /* checking for obstacle collision */
-    this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
-    this.physics.add.overlap(this.waterboy, this.waterboy_obstacles, touchObstacle, null, this);
+    // this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
+    // this.physics.add.overlap(this.waterboy, this.waterboy_obstacles, touchObstacle, null, this);
     this.physics.add.overlap(this.firegirl, this.obstacles, touchObstacle, null, this);
     this.physics.add.overlap(this.waterboy, this.obstacles, touchObstacle, null, this);
 
@@ -471,13 +471,13 @@ function update() {
         child.anims.play('w_gem', true);
     });
 
-    this.firegirl_obstacles.children.iterate(function (child) {
-        child.anims.play('f_obstacle', true);
-    });
+    // this.firegirl_obstacles.children.iterate(function (child) {
+    //     child.anims.play('f_obstacle', true);
+    // });
 
-    this.waterboy_obstacles.children.iterate(function (child) {
-        child.anims.play('w_obstacle', true);
-    });
+    // this.waterboy_obstacles.children.iterate(function (child) {
+    //     child.anims.play('w_obstacle', true);
+    // });
 
     this.obstacles.children.iterate(function (child) {
         child.anims.play('obstacle', true);
