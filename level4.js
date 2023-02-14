@@ -442,7 +442,7 @@ function create() {
     }
 
     function nextLevel () {
-        location.assign('index.html');
+        location.assign('level5.html');
     }
 
     function enterPortal() {

@@ -108,7 +108,7 @@ function create() {
     let reload = this.add.image(600, 52, 'reload');
     reload.setScale(2.75);
     reload.setInteractive();
-    reload.on('pointerdown', () => location.assign('level3.html'));
+    reload.on('pointerdown', () => location.assign('level5.html'));
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
