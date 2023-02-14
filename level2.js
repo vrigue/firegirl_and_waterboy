@@ -105,7 +105,7 @@ function create() {
     //     platforms.create(i, 260, 'tile').setScale(2).refreshBody();
     // }
 
-    // platforms.create(600, 400, 'tile').setScale(2).refreshBody();
+    platforms.create(600, 400, 'tile').setScale(2).refreshBody();
 
     // platforms making up the actual level
     platforms.create(966, 250, 'tile').setScale(2).refreshBody();
@@ -163,20 +163,21 @@ function create() {
     this.firegirl_gems = this.physics.add.staticGroup({
         key: 'f_gem',
         repeat: 2,
-        setXY: { x: 400, y: 590, stepX: 85 }
+        // setXY: { x: 400, y: 590, stepX: 85 }
     });
 
     this.firegirl_gems.children.iterate(function (child) {
         child.setSize(-25, 45, true);
     });
 
-    this.firegirl_gems.create(920, 85, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(995, 85, 'purple_crystal').setSize(-25, 45, true);
+    // this.firegirl_gems.create(920, 85, 'purple_crystal').setSize(-25, 45, true);
+    // this.firegirl_gems.create(995, 85, 'purple_crystal').setSize(-25, 45, true);
 
-    this.firegirl_gems.create(657, 330, 'purple_crystal').setSize(-25, 45, true);
+    // this.firegirl_gems.create(657, 330, 'purple_crystal').setSize(-25, 45, true);
 
-    this.firegirl_gems.create(85, 260, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(175, 450, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(825, 200, 'purple_crystal').setSize(-25, 45, true);
+
 
     this.anims.create({
         key: 'w_gem',
@@ -189,19 +190,20 @@ function create() {
     this.waterboy_gems = this.physics.add.staticGroup({
         key: 'w_gem',
         repeat: 2,
-        setXY: { x: 675, y: 590, stepX: 85 }
+        // setXY: { x: 675, y: 590, stepX: 85 }
     });
 
     this.waterboy_gems.children.iterate(function (child) {
         child.setSize(-25, 45, true);
     });
 
-    this.waterboy_gems.create(220, 75, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(220, 450, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(600, 350, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(1000, 200, 'blue_crystal').setSize(-25, 45, true);
 
-    this.waterboy_gems.create(587, 105, 'blue_crystal').setSize(-25, 45, true);
 
-    this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
-    this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
+
+    // this.waterboy_gems.create(587, 105, 'blue_crystal').setSize(-25, 45, true);
 
     /* OBSTACLES */
 
@@ -215,7 +217,7 @@ function create() {
     this.waterboy_obstacles = this.physics.add.staticGroup({
         key: 'w_obstacle',
         repeat: 2,
-        setXY: { x: 640, y: 450, stepX: 20 }
+        // setXY: { x: 640, y: 450, stepX: 20 }
     });
 
     this.waterboy_obstacles.children.iterate(function (child) {
@@ -235,7 +237,7 @@ function create() {
     this.firegirl_obstacles = this.physics.add.staticGroup({
         key: 'f_obstacle',
         repeat: 1,
-        setXY: { x: 564, y: 212, stepX: 45 }
+        // setXY: { x: 564, y: 212, stepX: 45 }
     });
 
     this.firegirl_obstacles.children.iterate(function (child) {
@@ -255,7 +257,7 @@ function create() {
     this.obstacles = this.physics.add.staticGroup({
         key: 'obstacle',
         repeat: 2,
-        setXY: { x: 1050, y: 505, stepX: 25 }
+        // setXY: { x: 1050, y: 505, stepX: 25 }
     });
 
     this.obstacles.children.iterate(function (child) {
@@ -267,10 +269,10 @@ function create() {
 
     /* INTERACTABLES */
 
-    this.purple_block = this.physics.add.image(300, 280, 'purple_block');
-    this.purple_block.setScale(1);
-    this.purple_block.setCollideWorldBounds(true);
-    this.physics.add.collider(this.purple_block, platforms);
+    // this.purple_block = this.physics.add.image(300, 280, 'purple_block');
+    // this.purple_block.setScale(1);
+    // this.purple_block.setCollideWorldBounds(true);
+    // this.physics.add.collider(this.purple_block, platforms);
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
 
