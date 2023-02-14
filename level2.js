@@ -314,6 +314,7 @@ function create() {
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
+    let score_text = this.add.text(685, 38, 'Score: 0', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.45);
     // game.time.desiredFps = 30;
 
     /* create animations for this.firegirl */
@@ -414,11 +415,14 @@ function create() {
     music.setLoop(true);
     music.play();
 
+    this.physics.add.overlap(this.firegirl, this.firegirl_gems, collectGem, null, this);
+    this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
+
+    
     /* VARIOUS PHYSICS */
 
     /* checking for gem collision */
-    this.physics.add.overlap(this.firegirl, this.firegirl_gems, collectGem, null, this);
-    this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
+    
    
     /* checking for obstacle collision */
     this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
@@ -440,8 +444,9 @@ function create() {
     function collectGem (player, gem) {
         gem.destroy(true); // better to get rid of it for clutter sake? -K
         gems_collected++; // keep track of for ending screen - K
-    }
 
+        score_text.setText('Score: ' + gems_collected * 70);
+    }
     function disableBodies () {
         this.firegirl.disableBody(true, false);
         this.waterboy.disableBody(true, false);
