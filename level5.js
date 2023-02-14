@@ -221,6 +221,47 @@ function create() {
         repeat: -1
     });
 
+
+     /* GEMS */
+
+    /* create collectible gems for firegirl */
+    let m_firegirl_gems = this.physics.add.group({
+        key: 'purple_crystal',
+        repeat: 2,
+        setXY: { x: 400, y: 550, stepX: 85 }
+    });
+
+    m_firegirl_gems.children.iterate(function (child) {
+        child.body.setSize(-15, 85);
+        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
+    });
+
+    let s_firegirl_gems = this.physics.add.staticGroup();
+
+    s_firegirl_gems.create(920, 85, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
+    s_firegirl_gems.create(995, 85, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
+
+    s_firegirl_gems.create(657, 330, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
+
+    /* create collectible gems for waterboy */
+    let m_waterboy_gems = this.physics.add.group({
+        key: 'blue_crystal',
+        repeat: 2,
+        setXY: { x: 700, y: 550, stepX: 85 }
+    });
+
+    m_waterboy_gems.children.iterate(function (child) {
+        child.body.setSize(-15, 85);
+        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
+    });
+
+    let s_waterboy_gems = this.physics.add.staticGroup();
+
+    s_waterboy_gems.create(220, 75, 'blue_crystal').setSize(s_waterboy_gems.height, s_waterboy_gems.width, true);
+
+    s_waterboy_gems.create(595, 90, 'blue_crystal').setSize(s_waterboy_gems.height, s_waterboy_gems.width, true);
+
+
     /* obstacle animations here */
 
     this.firegirl = this.physics.add.sprite(75, 550, 'firegirl');
@@ -248,6 +289,19 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
 
+<<<<<<< HEAD
+
+    
+    this.physics.add.collider(m_firegirl_gems, platforms);
+    this.physics.add.overlap(this.firegirl, m_firegirl_gems, collectGem, null, this);
+    this.physics.add.overlap(this.firegirl, s_firegirl_gems, collectGem, null, this);
+
+    this.physics.add.collider(m_waterboy_gems, platforms);
+    this.physics.add.overlap(this.waterboy, m_waterboy_gems, collectGem, null, this);
+    this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
+
+=======
+>>>>>>> 67ef428ee0d9ed7709433f52c8e732af69a17032
     cursors = this.input.keyboard.createCursorKeys();
 
     // this.firegirl_crystals.children.iterate(function (child) {
@@ -281,6 +335,11 @@ function create() {
     let music = this.sound.add('bg');
     music.setLoop(true);
     music.play();
+
+    function collectGem (player, gem) {
+        gem.destroy(true); // better to get rid of it for clutter sake? -K
+        gems_collected++; // keep track of for ending screen - K
+    }
 }
 
 function update() {
