@@ -121,7 +121,7 @@ function create() {
 
     platforms.create(840, 220, 'tile').setScale(2).refreshBody();
 
-    platforms.create(800, 200, 'sides').setScale(1).refreshBody();
+    platforms.create(801, 200, 'sides').setScale(1).refreshBody();
 
     for (let i = 570; i < 790; i+=50) {
         platforms.create(i, 265, 'tile').setScale(2).refreshBody();
