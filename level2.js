@@ -7,7 +7,7 @@ var config = { // defines the config for the game
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 15 },
+            gravity: { y: 300 },
             debug: true
         }
     },
@@ -79,15 +79,23 @@ function create() {
 
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
-    // platforms making up the actual level
+    platforms.create(999, 306, 'sides').setScale(1).refreshBody();
+    platforms.create(999, 435, 'sides').setScale(1).refreshBody();
+    platforms.create(999, 575, 'sides').setScale(1).refreshBody();
+
+    platforms.create(140, 100, 'sides').setScale(1).refreshBody();
+
+    // for (let i = 450; i < 750; i+=90) {
+    //     platforms.create(i, 260, 'tile').setScale(2).refreshBody();
+    // }
+
+    // platforms.create(600, 400, 'tile').setScale(2).refreshBody();
+
+        // platforms making up the actual level
     platforms.create(966, 250, 'tile').setScale(2).refreshBody();
     for (let i = 0; i < 3; i++) {
         platforms.create(65 + i * 90, 500, 'tile').setScale(2).refreshBody();
     }
-
-
-    platforms.create(1050, 450, 'sides').setScale(1).refreshBody();
-    platforms.create(140, 100, 'sides').setScale(1).refreshBody();
 
     // PORTALS
     let purple_portal = this.physics.add.sprite(1125, 575, 'purple_portal');
@@ -116,6 +124,17 @@ function create() {
     firegirl_wind_whoosh.body.allowGravity = false;
     firegirl_wind_whoosh.getBounds();
     firegirl_wind_whoosh.setSize(firegirl_wind_whoosh.width, firegirl_wind_whoosh.height, true);
+
+        // WIND PLATFORMS
+        this.fg_wind = this.physics.add.sprite(200, 475, 'wind_plat');
+        this.fg_wind.setScale(0.15);
+        this.fg_wind.body.stop();
+        this.fg_wind.body.allowGravity = false;
+        // WIND EFFECTS
+        let fg_wind_whoosh = this.physics.add.sprite(200, 440, 'wind_effect').setScale(0.75);
+        fg_wind_whoosh.body.allowGravity = false;
+        fg_wind_whoosh.getBounds();
+        fg_wind_whoosh.setSize(fg_wind_whoosh.width, fg_wind_whoosh.height, true);
 
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
@@ -215,6 +234,8 @@ function create() {
         repeat: -1
     });
     firegirl_wind_whoosh.play('whoosh', true);
+    fg_wind_whoosh.play('whoosh', true);
+
 
     /* obstacle animations here */
 
