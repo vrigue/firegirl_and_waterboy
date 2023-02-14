@@ -114,7 +114,7 @@ function create() {
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
-    this.add.text(685, 38, 'Score:', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.45);
+    let score_text = this.add.text(685, 38, 'Score: 0', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.45);
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
@@ -422,6 +422,8 @@ function create() {
     function collectGem (player, gem) {
         gem.destroy(true); // better to get rid of it for clutter sake? -K
         gems_collected++; // keep track of for ending screen - K
+
+        score_text.setText('Score: ' + gems_collected * 70);
     }
 
     function disableBodies() {
