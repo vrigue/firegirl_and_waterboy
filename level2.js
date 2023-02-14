@@ -274,6 +274,10 @@ function create() {
     // this.purple_block.setCollideWorldBounds(true);
     // this.physics.add.collider(this.purple_block, platforms);
 
+    this.game_over = this.physics.add.sprite(600, 330, 'game_over').setScale(0.5);
+    this.physics.add.collider(this.game_over, platforms);
+    this.game_over.setVisible(false);
+
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
 
     platforms.create(600, -37, 'ground').setScale(4);

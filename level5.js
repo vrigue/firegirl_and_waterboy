@@ -26,12 +26,8 @@ var config = { // defines the config for the game
 // variables for players + platforms + game itself + controls
 var waterboy;
 var waterboy_obstacles;
-var waterboy_crystals;
-
 var firegirl;
 var firegirl_obstacles;
-var firegirl_crystals;
-
 var platforms;
 var cursors;
 var jumpButton;
@@ -45,7 +41,6 @@ var game = new Phaser.Game(config);
 function preload() {
     /* loaded images for the background, platforms, obstacles, and portals */
     this.load.image('back', 'pictures/backdrops/sky.webp');
-
     this.load.image('sides', 'pictures/platforms/blue-purple-tall.jpg');
     this.load.image('ground', 'pictures/platforms/blue-purple-flat.jpg');
     this.load.image('tile', 'pictures/platforms/tile_go_brr.png');
@@ -75,66 +70,18 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
-    // this.add.image(1100, 120, 'purple_portal').setScale(.25).setOrigin(.5,.5);
+    // this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
     // this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
-
     let platforms = this.physics.add.staticGroup();
+    // platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
+    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
-    // // giant chunk of platform
-    // for (let i = 0; i < 800; i+=90) {
-    //     platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
-    // }
-    // for (let i = 0; i < 500; i+=90) {
-    //     platforms.create(i, 430, 'block').setScale(2.5).refreshBody();
-    // }
-    // for (let i = 75; i < 350; i+=60) {
-    //     platforms.create(i, 415, 'block').setScale(3).refreshBody();
-    // }
-
-    platforms.create(800, 200, 'sides').setScale(1).refreshBody();
-
-    // // smol platform
-    for (let i = 570; i < 790; i+=50) {
-        platforms.create(i, 265, 'tile').setScale(2).refreshBody();
-    }
-
-    for (let i = 570; i < 790; i+=50) {
-        platforms.create(i, 143, 'tile').setScale(2).refreshBody();
-    }
-
-    platforms.create(840, 220, 'tile').setScale(2).refreshBody();
-
-
-    /* chunky platform */
-    platforms.create(220, 610, 'block').setScale(2.5).refreshBody();
-
-    platforms.create(420, 525, 'block').setScale(2.5).refreshBody();
-
-    platforms.create(620, 475, 'block').setScale(2.5).refreshBody();
-
-    platforms.create(820, 425, 'block').setScale(2.5).refreshBody();
-
-    platforms.create(1020, 350, 'block').setScale(2.5).refreshBody();
-
-
-
-    /* leads to blue portal */
-    for (let i = 0; i < 275; i += 89) {
-        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
-    }
-
-    /* leads to purple portal */
-    for (let i = 900; i < 1200; i += 50) {
-        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
-    }
-
-    // platforms.create(400, 700, 'block').setScale(4);
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    platforms.create(600, -37, 'ground').setScale(4);
+    // let top = this.add.sprite(400, -37, 'ground').setScale(4);    platforms.create(600, -37, 'ground').setScale(4);
     platforms.create(-40, 100, 'sides').setScale(4);
     platforms.create(-40, 600, 'sides').setScale(4);
     platforms.create(1238, 200, 'sides').setScale(4);
@@ -147,8 +94,8 @@ function create() {
     menu_button.setScale(2.5);
     menu_button.setInteractive();
     menu_button.on('pointerdown', () => location.assign('level_list.html'));
-    menu_button.on('pointerover', () => reload.setTint(0xcccccc));
-    menu_button.on('pointerout', () => reload.setTint(0xffffff));
+    menu_button.on('pointerover', () => menu_button.setTint(0xcccccc));
+    menu_button.on('pointerout', () => menu_button.setTint(0xffffff));
 
     let vol = this.add.image(550, 50, 'sound_on');
     vol.setScale(2.5);
@@ -166,9 +113,11 @@ function create() {
     let reload = this.add.image(600, 52, 'reload');
     reload.setScale(2.75);
     reload.setInteractive();
-    reload.on('pointerdown', () => location.assign('level5.html'));
-    reload.on('pointerover', () => menu_button.setTint(0xcccccc));
-    reload.on('pointerout', () => menu_button.setTint(0xffffff));
+    reload.on('pointerdown', () => location.assign('level3.html'));
+    reload.on('pointerover', () => reload.setTint(0xcccccc));
+    reload.on('pointerout', () => reload.setTint(0xffffff));
+
+    // game.time.desiredFps = 30;
 
     /* create animations for this.firegirl */
     this.anims.create({
@@ -221,47 +170,6 @@ function create() {
         repeat: -1
     });
 
-
-     /* GEMS */
-
-    /* create collectible gems for firegirl */
-    let m_firegirl_gems = this.physics.add.group({
-        key: 'purple_crystal',
-        repeat: 2,
-        setXY: { x: 400, y: 550, stepX: 85 }
-    });
-
-    m_firegirl_gems.children.iterate(function (child) {
-        child.body.setSize(-15, 85);
-        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
-    });
-
-    let s_firegirl_gems = this.physics.add.staticGroup();
-
-    s_firegirl_gems.create(920, 85, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
-    s_firegirl_gems.create(995, 85, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
-
-    s_firegirl_gems.create(657, 330, 'purple_crystal').setSize(s_firegirl_gems.height, s_firegirl_gems.width, true);
-
-    /* create collectible gems for waterboy */
-    let m_waterboy_gems = this.physics.add.group({
-        key: 'blue_crystal',
-        repeat: 2,
-        setXY: { x: 700, y: 550, stepX: 85 }
-    });
-
-    m_waterboy_gems.children.iterate(function (child) {
-        child.body.setSize(-15, 85);
-        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1));
-    });
-
-    let s_waterboy_gems = this.physics.add.staticGroup();
-
-    s_waterboy_gems.create(220, 75, 'blue_crystal').setSize(s_waterboy_gems.height, s_waterboy_gems.width, true);
-
-    s_waterboy_gems.create(595, 90, 'blue_crystal').setSize(s_waterboy_gems.height, s_waterboy_gems.width, true);
-
-
     /* obstacle animations here */
 
     this.firegirl = this.physics.add.sprite(75, 550, 'firegirl');
@@ -279,7 +187,7 @@ function create() {
 
     // this.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.waterboy = this.physics.add.sprite(130, 550, 'waterboy');
+    this.waterboy = this.physics.add.sprite(1125, 550, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
 
@@ -289,30 +197,8 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
 
-
-    
-    this.physics.add.collider(m_firegirl_gems, platforms);
-    this.physics.add.overlap(this.firegirl, m_firegirl_gems, collectGem, null, this);
-    this.physics.add.overlap(this.firegirl, s_firegirl_gems, collectGem, null, this);
-
-    this.physics.add.collider(m_waterboy_gems, platforms);
-    this.physics.add.overlap(this.waterboy, m_waterboy_gems, collectGem, null, this);
-    this.physics.add.overlap(this.waterboy, s_waterboy_gems, collectGem, null, this);
-
     cursors = this.input.keyboard.createCursorKeys();
 
-    // this.firegirl_crystals.children.iterate(function (child) {
-    //     child.setCollideWorldBounds(true);
-    //     this.physics.add.collider(child, platforms);
-    //     this.physics.add.overlap(this.firegirl, child, collectCrystal, null, this);
-
-    // });
-
-    // this.waterboy_crystals.children.iterate(function (child) {
-    //     child.setCollideWorldBounds(true);
-    //     this.physics.add.collider(child, platforms);
-    //     this.physics.add.overlap(this.waterboy, child, collectCrystal, null, this);
-    // });
 
     // let firegirl_obstacles = this.physics.add.staticGroup();
     // firegirl_obstacles.create(400, 580, 'blue_fire');
@@ -332,22 +218,9 @@ function create() {
     let music = this.sound.add('bg');
     music.setLoop(true);
     music.play();
-
-    function collectGem (player, gem) {
-        gem.destroy(true); // better to get rid of it for clutter sake? -K
-        gems_collected++; // keep track of for ending screen - K
-    }
 }
 
 function update() {
-
-    // this.firegirl_crystals.children.iterate(function (child) {
-    //     child.anims.play('firegirl_crystal', true);
-    // });
-
-    // this.waterboy_crystals.children.iterate(function (child) {
-    //     child.anims.play('waterboy_crystal', true);
-    // });
 
     if (cursors.left.isDown) {
         this.firegirl.body.setVelocityX(-200);
@@ -394,7 +267,3 @@ function update() {
         this.waterboy.body.setVelocityX(0);
     }
 }
-
-// function collectCrystal (player, crystal) {
-//     crystal.disableBody(true, true);
-// }
