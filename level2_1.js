@@ -69,8 +69,11 @@ function preload() {
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
-    this.load.spritesheet('purple_obstacle', 'sprites/purple_fire2.png', { frameWidth: 43.3, frameHeight: 54 });
-    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 64.4, frameHeight: 73 });
+    this.load.image('wind_plat', 'pictures/windBox.png');
+    this.load.spritesheet('wind_effect', 'sprites/wind.png', { frameWidth: 115, frameHeight: 55 });
+
+    this.load.spritesheet('purple_obstacle', 'sprites/purple_fire2.png', { frameWidth: 44, frameHeight: 54 });
+    this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 65, frameHeight: 73 });
     this.load.spritesheet('green_obstacle', 'sprites/green_fire.png', { frameWidth: 52, frameHeight: 52 });
 
     this.load.spritesheet('purple_gem', 'sprites/purple_crystal.png', { frameWidth: 60, frameHeight: 60 });
@@ -112,42 +115,24 @@ function create() {
     let reload = this.add.image(600, 52, 'reload');
     reload.setScale(2.75);
     reload.setInteractive();
-    reload.on('pointerdown', () => location.assign('level1.html'));
+    reload.on('pointerdown', () => location.assign('level2.html'));
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
     /* PLATFORMS */
     let platforms = this.physics.add.staticGroup();
 
-    // giant chunk of platform
-    for (let i = 0; i < 800; i+=90) {
-        platforms.create(i, 500, 'tile').setScale(2.5).refreshBody();
-    }
-    for (let i = 0; i < 500; i+=90) {
-        platforms.create(i, 460, 'block').setScale(2.5).refreshBody();
-    }
-    for (let i = 75; i < 350; i+=60) {
-        platforms.create(i, 415, 'block').setScale(3).refreshBody();
-    }
+    platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
-    // smol platform
-    for (let i = 450; i < 750; i+=90) {
-        platforms.create(i, 260, 'tile').setScale(2).refreshBody();
-    }
+    platforms.create(999, 306, 'sides').setScale(1).refreshBody();
+    platforms.create(999, 435, 'sides').setScale(1).refreshBody();
+    platforms.create(999, 575, 'sides').setScale(1).refreshBody();
 
-    /* chunky platform */
-    for (let i = 1021; i < 2000; i+=102) {
-        platforms.create(i, 595, 'block').setScale(2.5).refreshBody();
-    }
+    platforms.create(140, 100, 'sides').setScale(1).refreshBody();
 
-    /* leads to blue portal */
-    for (let i = 0; i < 275; i+=89) {
-        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
-    }
-
-    /* leads to purple portal */
-    for (let i = 900; i < 1200; i+=50) {
-        platforms.create(i, 200, 'tile').setScale(2).refreshBody();
+    platforms.create(966, 250, 'tile').setScale(2).refreshBody();
+    for (let i = 0; i < 3; i++) {
+        platforms.create(65 + i * 90, 500, 'tile').setScale(2).refreshBody();
     }
 
     // let left = this.add.sprite(-40, 300, 'sides').setScale(4);
@@ -174,6 +159,16 @@ function create() {
     this.blue_portal.getBounds();
     this.blue_portal.body.setSize(1, 620);
 
+        // WIND PLATFORMS
+    this.firegirl_wind = this.physics.add.sprite(75, 475, 'wind_plat');
+    this.firegirl_wind.setScale(0.15);
+    this.firegirl_wind.body.stop();
+    this.firegirl_wind.body.allowGravity = false;
+        // WIND EFFECTS
+    let firegirl_wind_whoosh = this.physics.add.sprite(75, 440, 'wind_effect').setScale(0.75);
+    firegirl_wind_whoosh.body.allowGravity = false;
+    firegirl_wind_whoosh.getBounds();
+    firegirl_wind_whoosh.setSize(firegirl_wind_whoosh.width, firegirl_wind_whoosh.height, true);
     
     // game.time.desiredFps = 30;
     
@@ -194,12 +189,6 @@ function create() {
     this.anims.create({
         key: 'f_run',
         frames: this.anims.generateFrameNumbers('firegirl', { start: 20, end:25 }),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
-        key: 'f_push',
-        frames: this.anims.generateFrameNumbers('firegirl', { start: 26, end: 31 }),
         frameRate: 10,
         repeat: -1
     });
@@ -243,17 +232,23 @@ function create() {
         repeat: -1
     });
     this.anims.create({
-        key: 'w_push',
-        frames: this.anims.generateFrameNumbers('waterboy', { start: 26, end: 31 }),
-        frameRate: 10,
-        repeat: -1
-    });
-    this.anims.create({
         key: 'w_portal',
         frames: this.anims.generateFrameNumbers('waterboy', { start: 36, end: 37 }),
         frameRate: 10,
         repeat: -1
     });
+
+        /* WIND ANIMATIONS */
+        this.anims.create({
+            key: 'whoosh',
+            frames: this.anims.generateFrameNumbers('wind_effect', { start: 0, end: 6 }),
+            frameRate: 8,
+            repeat: -1
+        });
+        firegirl_wind_whoosh.play('whoosh', true);
+        // fg_wind_whoosh.play('whoosh', true);
+    
+    
 
 
     /* GEMS */
@@ -276,10 +271,10 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(920, 85, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(995, 85, 'purple_crystal').setSize(-25, 45, true);
 
-    this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(657, 330, 'purple_crystal').setSize(-25, 45, true);
 
     this.firegirl_gems.create(85, 260, 'purple_crystal').setSize(-25, 45, true);
     this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
@@ -302,9 +297,9 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    this.waterboy_gems.create(220, 120, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(220, 75, 'blue_crystal').setSize(-25, 45, true);
 
-    this.waterboy_gems.create(662, 340, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(587, 105, 'blue_crystal').setSize(-25, 45, true);
 
     this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
     this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
@@ -321,12 +316,12 @@ function create() {
     this.waterboy_obstacles = this.physics.add.staticGroup({
         key: 'w_obstacle',
         repeat: 2,
-        setXY: { x: 640, y: 450, stepX: 20 }
+        setXY: { x: 570, y: 220, stepX: 20 }
     });
 
     this.waterboy_obstacles.children.iterate(function (child) {
-        child.setScale(1.3);
-        child.width = 25;
+        child.setScale(1);
+        child.width = 15;
         child.height = 10;
         child.setSize(child.width, child.height, true);
     });
@@ -341,7 +336,7 @@ function create() {
     this.firegirl_obstacles = this.physics.add.staticGroup({
         key: 'f_obstacle',
         repeat: 1,
-        setXY: { x: 564, y: 212, stepX: 45 }
+        setXY: { x: 637, y: 450, stepX: 45 }
     });
 
     this.firegirl_obstacles.children.iterate(function (child) {
@@ -361,12 +356,12 @@ function create() {
     this.obstacles = this.physics.add.staticGroup({
         key: 'obstacle',
         repeat: 2,
-        setXY: { x: 1050, y: 505, stepX: 25 }
+        setXY: { x: 1050, y: 511, stepX: 25 }
     });
 
     this.obstacles.children.iterate(function (child) {
-        child.setScale(1.3);
-        child.width = 23;
+        child.setScale(1);
+        child.width = 15;
         child.height = 10;
         child.setSize(child.width, child.height, true);
     });
@@ -374,10 +369,8 @@ function create() {
 
     /* INTERACTABLES */
 
-    this.purple_block = this.physics.add.image(300, 280, 'purple_block');
-    this.purple_block.setScale(1);
-    this.purple_block.setCollideWorldBounds(true);
-    this.physics.add.collider(this.purple_block, platforms);
+    // let purple_block = this.physics.add.sprite(293, 280, 'purple_block');
+    // purple_block.setScale(1.3);
 
 
     /* FG and WB */
@@ -392,6 +385,10 @@ function create() {
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
 
+    // game.camera.follow(player);
+
+    // this.physics.startSystem(Phaser.Physics.ARCADE);
+
     this.waterboy = this.physics.add.sprite(150, 550, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
@@ -402,12 +399,15 @@ function create() {
     this.waterboy.setCollideWorldBounds(true);
     this.physics.add.collider(this.waterboy, platforms);
 
-
     /* VARIOUS PHYSICS */
+
+    this.physics.add.collider(purple_block, platforms);
 
     /* checking for gem collision */
     this.physics.add.overlap(this.firegirl, this.firegirl_gems, collectGem, null, this);
     this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
+
+    /* checking for push block collision */
    
     /* checking for obstacle collision */
     this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
@@ -441,7 +441,7 @@ function create() {
     }
 
     function nextLevel () {
-        location.assign('level2.html');
+        location.assign('level3.html');
     }
 
     function touchObstacle () {
@@ -462,6 +462,9 @@ function create() {
 }
 
 function update() {
+
+    operate_wind(this.firegirl, this.firegirl_wind, 100);
+    operate_wind(this.waterboy, this.firegirl_wind, 100);
 
     this.firegirl_gems.children.iterate(function (child) {
         child.anims.play('f_gem', true);
@@ -497,20 +500,12 @@ function update() {
         else {
             this.firegirl.body.setVelocityX(-200);
             this.firegirl.flipX = true;
-
-            if (this.physics.overlap(this.firegirl, this.purple_block)) {
-                this.firegirl.anims.play('f_push', true);
-                this.purple_block.body.setVelocityX(-200);
-            }
-            else if (!(this.firegirl.body.onFloor())) {
+            if (!(this.firegirl.body.onFloor())) {
                 this.firegirl.anims.play('f_jump', true);
-            } 
-            else { 
-                this.firegirl.anims.play('f_run', true);
-            }  
-        } 
+            } else { this.firegirl.anims.play('f_run', true);
+            }   
+        }
     }
-
     else if (cursors.right.isDown) {
         if (this.physics.overlap(this.firegirl, this.firegirl_obstacles) || this.physics.overlap(this.firegirl, this.obstacles)) { 
             this.firegirl.body.setVelocityX(0);
@@ -521,26 +516,17 @@ function update() {
             this.firegirl.body.setVelocityX(0);
             this.firegirl.anims.play('f_portal', true);
         } 
-
+        
         else {
             this.firegirl.body.setVelocityX(200);
             this.firegirl.flipX = false;
-
-            if (this.physics.overlap(this.firegirl, this.purple_block)) {
-                this.purple_block.body.setVelocityX(0);
-            } 
-
-            else if (!(this.firegirl.body.onFloor())) {
+            if (!(this.firegirl.body.onFloor())) {
                 this.firegirl.anims.play('f_jump', true);
-            }
-
-            else {
+            } else {
                 this.firegirl.anims.play('f_run', true);
-            }   
-        }       
-        
+            }
+        }
     }
-
     if (cursors.up.isDown) {
         if (this.physics.overlap(this.firegirl, this.firegirl_obstacles) || this.physics.overlap(this.firegirl, this.obstacles)) { 
             this.firegirl.body.setVelocityY(0);
@@ -553,12 +539,11 @@ function update() {
         } 
         
         else if (this.firegirl.body.onFloor()) {
-            this.firegirl.body.setVelocityY(-350);
-            this.firegirl.body.setGravityY(275);
+            this.firegirl.body.setVelocityY(-400);
+            this.firegirl.body.setGravityY(250);
             this.firegirl.anims.play('f_jump', true);
         }
     }
-
     if(!cursors.left.isDown && !cursors.right.isDown && !cursors.up.isDown) {
         if (this.firegirl.body.velocityX < 0) {
             this.firegirl.anims.play('f_idle', true);
@@ -571,16 +556,10 @@ function update() {
         else if ( (this.physics.overlap(this.firegirl, this.purple_portal)) ) {
             this.firegirl.anims.play('f_portal', true);
         } 
-
-        else if (this.physics.overlap(this.firegirl, this.purple_block)) {
-            this.firegirl.anims.play('f_idle', true);
-            this.purple_block.body.setVelocityX(0);
-        } 
         
         else {
             this.firegirl.anims.play('f_idle', true);
         }
-
         this.firegirl.body.setVelocityX(0);
     }
 
@@ -598,20 +577,10 @@ function update() {
         else {
             this.waterboy.body.setVelocityX(-200);
             this.waterboy.flipX = true;
-
-            if (this.physics.overlap(this.waterboy, this.purple_block)) {
-                this.waterboy.anims.play('w_push', true);
-                this.purple_block.body.setVelocityX(-200);
-            }
-            else if (!(this.waterboy.body.onFloor())) {
-                this.waterboy.anims.play('w_jump', true);
-            }
-            else {
-                this.waterboy.anims.play('w_run', true);
-            }
+            if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+            else this.waterboy.anims.play('w_run', true);
         }
     }
-
     else if (keyD.isDown) {
         if (this.physics.overlap(this.waterboy, this.waterboy_obstacles) || this.physics.overlap(this.waterboy, this.obstacles)) { 
             this.waterboy.setVelocityX(0);
@@ -626,21 +595,10 @@ function update() {
         else {
             this.waterboy.body.setVelocityX(200);
             this.waterboy.flipX = false;
-
-            if (this.physics.overlap(this.waterboy, this.purple_block)) {
-                this.purple_block.body.setVelocityX(0);
-            } 
-
-            else if (!(this.waterboy.body.onFloor())) {
-                this.waterboy.anims.play('w_jump', true);
-            } 
-            
-            else {
-                this.waterboy.anims.play('w_run', true);
-            }
+            if (!(this.waterboy.body.onFloor())) this.waterboy.anims.play('w_jump', true);
+            else this.waterboy.anims.play('w_run', true);
         }
     }
-
     if (keyW.isDown) {
         if (this.physics.overlap(this.waterboy, this.waterboy_obstacles) || this.physics.overlap(this.waterboy, this.obstacles)) { 
             this.waterboy.body.setVelocityY(0);
