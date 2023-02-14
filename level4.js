@@ -123,7 +123,6 @@ function create() {
 
     platforms.create(800, 200, 'sides').setScale(1).refreshBody();
 
-    // // smol platform
     for (let i = 570; i < 790; i+=50) {
         platforms.create(i, 265, 'tile').setScale(2).refreshBody();
     }
@@ -132,7 +131,6 @@ function create() {
         platforms.create(i, 143, 'tile').setScale(2).refreshBody();
     }
 
-    /* chunky platform */
     platforms.create(220, 610, 'block').setScale(2.5).refreshBody();
 
     platforms.create(420, 525, 'block').setScale(2.5).refreshBody();
@@ -143,17 +141,11 @@ function create() {
 
     platforms.create(1020, 350, 'block').setScale(2.5).refreshBody();
 
-    /* leads to blue portal */
     for (let i = 0; i < 275; i += 89) {
         platforms.create(i, 300, 'tile').setScale(2).refreshBody();
     }
-    // platforms.create(400, 700, 'block').setScale(4);
 
-
-    // let left = this.add.sprite(-40, 300, 'sides').setScale(4);
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);
-
     platforms.create(600, -37, 'ground').setScale(4);
     platforms.create(-40, 100, 'sides').setScale(4);
     platforms.create(-40, 600, 'sides').setScale(4);
@@ -173,10 +165,6 @@ function create() {
     this.physics.add.collider(this.blue_portal, platforms);
     this.blue_portal.getBounds();
     this.blue_portal.body.setSize(1, 620);
-
-    
-    // game.time.desiredFps = 30;
-    
 
     /* FG and WB ANIMATIONS */
 
@@ -277,12 +265,10 @@ function create() {
     });
 
     this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
-    // this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
 
     this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
 
     this.firegirl_gems.create(85, 250, 'purple_crystal').setSize(-25, 45, true);
-    // this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
 
     this.anims.create({
         key: 'w_gem',
@@ -302,12 +288,8 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    // this.waterboy_gems.create(220, 120, 'blue_crystal').setSize(-25, 45, true);
-
     this.waterboy_gems.create(662, 390, 'blue_crystal').setSize(-25, 45, true);
-
     this.waterboy_gems.create(130, 250, 'blue_crystal').setSize(-25, 45, true);
-    // this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
 
     /* OBSTACLES */
 

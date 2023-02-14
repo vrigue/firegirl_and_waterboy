@@ -70,18 +70,13 @@ function preload() {
 
 function create() {
     this.add.image(600, 330, 'back').setScale(1.45).setOrigin(.5, .5);
-    // this.add.image(1100,100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
-    // this.add.image(100, 100, 'blue_portal').setScale(.2).setOrigin(.5,.5);
 
     // code to add platforms
     let platforms = this.physics.add.staticGroup();
-    // platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
     platforms.create(400, 700, 'ground').setScale(4).refreshBody();
 
-
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
-    // let top = this.add.sprite(400, -37, 'ground').setScale(4);    platforms.create(600, -37, 'ground').setScale(4);
     platforms.create(-40, 100, 'sides').setScale(4);
     platforms.create(-40, 600, 'sides').setScale(4);
     platforms.create(1238, 200, 'sides').setScale(4);
@@ -116,8 +111,6 @@ function create() {
     reload.on('pointerdown', () => location.assign('level3.html'));
     reload.on('pointerover', () => reload.setTint(0xcccccc));
     reload.on('pointerout', () => reload.setTint(0xffffff));
-
-    // game.time.desiredFps = 30;
 
     /* create animations for this.firegirl */
     this.anims.create({
@@ -183,10 +176,6 @@ function create() {
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
 
-    // game.camera.follow(player);
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
-
     this.waterboy = this.physics.add.sprite(1125, 550, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
@@ -199,17 +188,6 @@ function create() {
 
     cursors = this.input.keyboard.createCursorKeys();
 
-
-    // let firegirl_obstacles = this.physics.add.staticGroup();
-    // firegirl_obstacles.create(400, 580, 'blue_fire');
-    // let waterboy_obstacle = this.physics.add.staticGroup();
-    // waterboy_obstacles.create(4500, 580, 'purple_fire');
-
-    // jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-
-    // let music = this.sounds.add('music');
-    // music.setLoop(true);
-    // music.play();
     keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -242,7 +220,6 @@ function update() {
         if (this.firegirl.body.velocityX < 0) this.firegirl.anims.play('f_idle', true);
         else this.firegirl.anims.play('f_idle', true);
         this.firegirl.body.setVelocityX(0);
-        //this.firegirl.body.setVelocityY(0);
     }
 
     if (keyA.isDown) {
