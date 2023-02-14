@@ -1,53 +1,46 @@
-h1 {
-    text-align: center;
-    margin: 0px 0;
-    color: pink;
-}
-
-body {
-    font-size:16px;
-    margin: 75px;
-    padding:0px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    font-family: font;
-    background-image: url("/pictures/backdrops/sky3.jpeg");
-    /* background-position: center; */
+html {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url("/pictures/backdrops/sky.webp");
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/* h1{
-    font-size:120px;
+h1 {
+    font-size: 50px;
+    color: #60becf;
+    text-align: center;
+    padding: 20px;
+    padding-top: 0px;
+    margin: 0px;
+}
+
+body {
+    margin: 75px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    font-size: 26px;
     align-content: center;
     align-items: center;
     text-align: center;
-    color: bisque;
-} */
-
-button {
-    border:none;
-    appearance:none;
-    outline:none;
-    display:inline-block;
-    padding:12px 48px 12px 48px;
-    border-radius:4px;
-    margin-bottom: 60px;
+    color: #a1dbe6;
 }
 
-/* .screen {
-    padding: 20px;     
-    position: fixed;     
-    top:50%;     
-    left:50%;     
-    margin-top: -100px;     
-    margin-left: -100px;     
-    height:200px;     
-    width:250px;     
-    text-align: center;
-} */
 img {
-    height:85px;     
-    width:85px;  
+    height: 85px;     
+    width: 85px;  
+}
+
+.vertical_align {
+    display: flex;
+    align-items: center;
+    padding: 22px;
+}
+
+.purple {
+    color: #1e1753;
 }
