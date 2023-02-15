@@ -256,59 +256,6 @@ function create() {
     });
 
 
-    /* GEMS */
-
-    this.anims.create({
-        key: 'f_gem',
-        frames: this.anims.generateFrameNumbers('purple_gem', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    /* create collectible gems for firegirl */
-    this.firegirl_gems = this.physics.add.staticGroup({
-        key: 'f_gem',
-        repeat: 2,
-        setXY: { x: 400, y: 590, stepX: 85 }
-    });
-
-    this.firegirl_gems.children.iterate(function (child) {
-        child.setSize(-25, 45, true);
-    });
-
-    this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
-
-    this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
-
-    this.firegirl_gems.create(85, 260, 'purple_crystal').setSize(-25, 45, true);
-    this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
-
-    this.anims.create({
-        key: 'w_gem',
-        frames: this.anims.generateFrameNumbers('blue_gem', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    /* create collectible gems for waterboy */
-    this.waterboy_gems = this.physics.add.staticGroup({
-        key: 'w_gem',
-        repeat: 2,
-        setXY: { x: 675, y: 590, stepX: 85 }
-    });
-
-    this.waterboy_gems.children.iterate(function (child) {
-        child.setSize(-25, 45, true);
-    });
-
-    this.waterboy_gems.create(220, 120, 'blue_crystal').setSize(-25, 45, true);
-
-    this.waterboy_gems.create(662, 340, 'blue_crystal').setSize(-25, 45, true);
-
-    this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
-    this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
-
     /* OBSTACLES */
 
     this.anims.create({
@@ -370,6 +317,62 @@ function create() {
         child.height = 10;
         child.setSize(child.width, child.height, true);
     });
+
+
+     /* GEMS */
+
+     this.anims.create({
+        key: 'f_gem',
+        frames: this.anims.generateFrameNumbers('purple_gem', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    /* create collectible gems for firegirl */
+    this.firegirl_gems = this.physics.add.staticGroup({
+        key: 'f_gem',
+        repeat: 2,
+        setXY: { x: 400, y: 590, stepX: 85 }
+    });
+
+    this.firegirl_gems.children.iterate(function (child) {
+        child.setSize(-25, 45, true);
+    });
+
+    this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
+
+    this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(664, 440, 'purple_crystal').setSize(-25, 45, true);
+    
+    this.firegirl_gems.create(85, 260, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
+
+    this.anims.create({
+        key: 'w_gem',
+        frames: this.anims.generateFrameNumbers('blue_gem', { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    /* create collectible gems for waterboy */
+    this.waterboy_gems = this.physics.add.staticGroup({
+        key: 'w_gem',
+        repeat: 2,
+        setXY: { x: 675, y: 590, stepX: 85 }
+    });
+
+    this.waterboy_gems.children.iterate(function (child) {
+        child.setSize(-25, 45, true);
+    });
+
+    this.waterboy_gems.create(220, 120, 'blue_crystal').setSize(-25, 45, true);
+
+    this.waterboy_gems.create(662, 340, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(588, 200, 'blue_crystal').setSize(-25, 45, true);
+
+    this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
 
 
     /* INTERACTABLES */
