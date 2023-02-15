@@ -237,7 +237,7 @@ function create() {
     this.physics.add.overlap(this.firegirl, purple_portal, test, null, this);
     this.physics.add.overlap(this.waterboy, blue_portal, test, null, this);
 
-    function test(player, portal) {
+    function test() {
         if ((this.physics.overlap(this.firegirl, purple_portal)) && (this.physics.overlap(this.waterboy, blue_portal))) {
             // bottom code will make things run smoothly, i.e. this function will not be called over and over again.
             // you can set this into a timed function maybe to play an animation first then go to next level.

@@ -69,8 +69,6 @@ function preload() {
     this.load.image('purple_portal', 'pictures/purple_portal.png');
     this.load.image('blue_portal', 'pictures/blue_portal.png');
 
-    // this.load.spritesheet('purple_obstacle', 'sprites/purple_fire2.png', { frameWidth: 43.3, frameHeight: 54 });
-    // this.load.spritesheet('blue_obstacle', 'sprites/blue_water.png', { frameWidth: 64.4, frameHeight: 73 });
     this.load.spritesheet('green_obstacle', 'sprites/green_fire.png', { frameWidth: 52, frameHeight: 52 });
 
     this.load.spritesheet('purple_gem', 'sprites/purple_crystal.png', { frameWidth: 60, frameHeight: 60 });
@@ -253,29 +251,17 @@ function create() {
     /* create collectible gems for firegirl */
     this.firegirl_gems = this.physics.add.staticGroup({
         key: 'f_gem',
-        repeat: 2,
-        // setXY: { x: 400, y: 590, stepX: 85 }
+        repeat: 4,
+        setXY: { x: 300, y: 275, stepX: 150 }
     });
-
-    this.firegirl_gems.children.iterate(function (child) {
-        child.setSize(-25, 45, true);
-    });
-
-    for (let i = 300; i < 1000; i+=150) {
-        this.firegirl_gems.create(i, 275, 'purple_crystal').setSize(-25, 45, true);
-    }
 
     for (let i = 300; i < 1000; i+=150) {
         this.firegirl_gems.create(i, 610, 'purple_crystal').setSize(-25, 45, true);
     }
 
-    // this.firegirl_gems.create(920, 115, 'purple_crystal').setSize(-25, 45, true);
-    // this.firegirl_gems.create(995, 115, 'purple_crystal').setSize(-25, 45, true);
-
-    // this.firegirl_gems.create(588, 105, 'purple_crystal').setSize(-25, 45, true);
-
-    // this.firegirl_gems.create(85, 260, 'purple_crystal').setSize(-25, 45, true);
-    // this.firegirl_gems.create(175, 260, 'purple_crystal').setSize(-25, 45, true);
+    this.firegirl_gems.children.iterate(function (child) {
+        child.setSize(-25, 45, true);
+    });
 
     this.anims.create({
         key: 'w_gem',
@@ -287,67 +273,20 @@ function create() {
     /* create collectible gems for waterboy */
     this.waterboy_gems = this.physics.add.staticGroup({
         key: 'w_gem',
-        repeat: 2,
-        // setXY: { x: 675, y: 590, stepX: 85 }
+        repeat: 5,
+        setXY: { x: 250, y: 110, stepX: 150 }
     });
-
-    this.waterboy_gems.children.iterate(function (child) {
-        child.setSize(-25, 45, true);
-    });
-
-    for (let i = 250; i < 900; i+=150) {
-        this.waterboy_gems.create(i, 110, 'blue_crystal').setSize(-25, 45, true);
-    }
 
     for (let i = 250; i < 900; i+=150) {
         this.waterboy_gems.create(i, 425, 'blue_crystal').setSize(-25, 45, true);
     }
-    // this.waterboy_gems.create(662, 340, 'blue_crystal').setSize(-25, 45, true);
 
-    // this.waterboy_gems.create(130, 260, 'blue_crystal').setSize(-25, 45, true);
-    // this.waterboy_gems.create(220, 260, 'blue_crystal').setSize(-25, 45, true);
+    this.waterboy_gems.children.iterate(function (child) {
+        child.setSize(-25, 45, true);
+    });
+ 
 
     /* OBSTACLES */
-
-    // this.anims.create({
-    //     key: 'w_obstacle',
-    //     frames: this.anims.generateFrameNumbers('purple_obstacle', { start: 0, end: 6 }),
-    //     frameRate: 10,
-    //     repeat: -1
-    // });
-
-    // this.waterboy_obstacles = this.physics.add.staticGroup({
-    //     key: 'w_obstacle',
-    //     repeat: 2,
-    //     // setXY: { x: 640, y: 415, stepX: 20 }
-    // });
-
-    // this.waterboy_obstacles.children.iterate(function (child) {
-    //     child.setScale(1.3);
-    //     child.width = 25;
-    //     child.height = 10;
-    //     child.setSize(child.width, child.height, true);
-    // });
-
-    // this.anims.create({
-    //     key: 'f_obstacle',
-    //     frames: this.anims.generateFrameNumbers('blue_obstacle', { start: 0, end: 8 }),
-    //     frameRate: 10,
-    //     repeat: -1
-    // });
-
-    // this.firegirl_obstacles = this.physics.add.staticGroup({
-    //     key: 'f_obstacle',
-    //     repeat: 1,
-    //     // setXY: { x: 564, y: 212, stepX: 45 }
-    // });
-
-    // this.firegirl_obstacles.children.iterate(function (child) {
-    //     child.setScale(1);
-    //     child.width = 25;
-    //     child.height = 10;
-    //     child.setSize(child.width, child.height, true);
-    // });
 
     this.anims.create({
         key: 'obstacle',
@@ -370,12 +309,7 @@ function create() {
     });
 
 
-    /* INTERACTABLES */
-
-    // this.purple_block = this.physics.add.image(300, 280, 'purple_block');
-    // this.purple_block.setScale(1);
-    // this.purple_block.setCollideWorldBounds(true);
-    // this.physics.add.collider(this.purple_block, platforms);
+    /* POP UP */
 
     this.game_over = this.physics.add.sprite(600, 330, 'game_over').setScale(0.5);
     this.physics.add.collider(this.game_over, platforms);
@@ -412,8 +346,6 @@ function create() {
     this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
    
     /* checking for obstacle collision */
-    // this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
-    // this.physics.add.overlap(this.waterboy, this.waterboy_obstacles, touchObstacle, null, this);
     this.physics.add.overlap(this.firegirl, this.obstacles, touchObstacle, null, this);
     this.physics.add.overlap(this.waterboy, this.obstacles, touchObstacle, null, this);
 
@@ -475,14 +407,6 @@ function update() {
     this.waterboy_gems.children.iterate(function (child) {
         child.anims.play('w_gem', true);
     });
-
-    // this.firegirl_obstacles.children.iterate(function (child) {
-    //     child.anims.play('f_obstacle', true);
-    // });
-
-    // this.waterboy_obstacles.children.iterate(function (child) {
-    //     child.anims.play('w_obstacle', true);
-    // });
 
     this.obstacles.children.iterate(function (child) {
         child.anims.play('obstacle', true);

@@ -101,10 +101,6 @@ function create() {
 
     platforms.create(140, 100, 'sides').setScale(1).refreshBody();
 
-    // for (let i = 450; i < 750; i+=90) {
-    //     platforms.create(i, 260, 'tile').setScale(2).refreshBody();
-    // }
-
     platforms.create(600, 400, 'tile').setScale(2).refreshBody();
 
     // platforms making up the actual level
@@ -135,6 +131,7 @@ function create() {
     this.firegirl_wind.setScale(0.15);
     this.firegirl_wind.body.stop();
     this.firegirl_wind.body.allowGravity = false;
+
     // WIND EFFECTS
     let firegirl_wind_whoosh = this.physics.add.sprite(75, 440, 'wind_effect').setScale(0.75);
     firegirl_wind_whoosh.body.allowGravity = false;
@@ -146,6 +143,7 @@ function create() {
     this.fg_wind.setScale(0.15);
     this.fg_wind.body.stop();
     this.fg_wind.body.allowGravity = false;
+
     // WIND EFFECTS
     let fg_wind_whoosh = this.physics.add.sprite(825, 590, 'wind_effect').setScale(0.75);
     fg_wind_whoosh.body.allowGravity = false;
@@ -170,11 +168,6 @@ function create() {
         child.setSize(-25, 45, true);
     });
 
-    // this.firegirl_gems.create(920, 85, 'purple_crystal').setSize(-25, 45, true);
-    // this.firegirl_gems.create(995, 85, 'purple_crystal').setSize(-25, 45, true);
-
-    // this.firegirl_gems.create(657, 330, 'purple_crystal').setSize(-25, 45, true);
-
     this.firegirl_gems.create(175, 450, 'purple_crystal').setSize(-25, 45, true);
     this.firegirl_gems.create(825, 200, 'purple_crystal').setSize(-25, 45, true);
 
@@ -193,17 +186,14 @@ function create() {
         // setXY: { x: 675, y: 590, stepX: 85 }
     });
 
-    this.waterboy_gems.children.iterate(function (child) {
-        child.setSize(-25, 45, true);
-    });
-
     this.waterboy_gems.create(220, 450, 'blue_crystal').setSize(-25, 45, true);
     this.waterboy_gems.create(600, 350, 'blue_crystal').setSize(-25, 45, true);
     this.waterboy_gems.create(1000, 200, 'blue_crystal').setSize(-25, 45, true);
 
+    this.waterboy_gems.children.iterate(function (child) {
+        child.setSize(-25, 45, true);
+    });
 
-
-    // this.waterboy_gems.create(587, 105, 'blue_crystal').setSize(-25, 45, true);
 
     /* OBSTACLES */
 
@@ -267,16 +257,12 @@ function create() {
         child.setSize(child.width, child.height, true);
     });
 
-    /* INTERACTABLES */
-
-    // this.purple_block = this.physics.add.image(300, 280, 'purple_block');
-    // this.purple_block.setScale(1);
-    // this.purple_block.setCollideWorldBounds(true);
-    // this.physics.add.collider(this.purple_block, platforms);
+    /* POP UP */
 
     this.game_over = this.physics.add.sprite(600, 330, 'game_over').setScale(0.5);
     this.physics.add.collider(this.game_over, platforms);
     this.game_over.setVisible(false);
+
 
     let right = this.add.sprite(1238, 700, 'sides').setScale(4);
 
@@ -315,8 +301,7 @@ function create() {
     reload.on('pointerout', () => reload.setTint(0xffffff));
 
     let score_text = this.add.text(685, 38, 'Score: 0', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif' }).setScale(1.45);
-    // game.time.desiredFps = 30;
-
+   
     /* create animations for this.firegirl */
     this.anims.create({
         key: 'f_idle',
@@ -402,10 +387,6 @@ function create() {
     this.firegirl.setCollideWorldBounds(true); // reason why we don't need platforms lining the top and sides - K
     this.physics.add.collider(this.firegirl, platforms);
 
-    // game.camera.follow(player);
-
-    // this.physics.startSystem(Phaser.Physics.ARCADE);
-
     this.waterboy = this.physics.add.sprite(950, 50, 'waterboy');
     this.waterboy.getBounds();
     this.waterboy.body.setSize(this.waterboy.height - 19, this.waterboy.width, true);
@@ -427,15 +408,13 @@ function create() {
     music.setLoop(true);
     music.play();
 
-    this.physics.add.overlap(this.firegirl, this.firegirl_gems, collectGem, null, this);
-    this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
 
-    
     /* VARIOUS PHYSICS */
 
     /* checking for gem collision */
-    
-   
+    this.physics.add.overlap(this.firegirl, this.firegirl_gems, collectGem, null, this);
+    this.physics.add.overlap(this.waterboy, this.waterboy_gems, collectGem, null, this);
+
     /* checking for obstacle collision */
     this.physics.add.overlap(this.firegirl, this.firegirl_obstacles, touchObstacle, null, this);
     this.physics.add.overlap(this.waterboy, this.waterboy_obstacles, touchObstacle, null, this);
